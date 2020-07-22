@@ -141,3 +141,22 @@
     "status": false
 }
 ```
+
+## /logout
+
+### Request Header
+
+```
+{
+  "auth_token":"dcsfdgfhgfjdfghsdgsdfg"
+}
+```
+
+### Response Body
+
+```
+{
+    "msg": "Logout Successful",
+    "status": true
+}
+```
