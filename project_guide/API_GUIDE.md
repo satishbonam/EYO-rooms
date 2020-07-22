@@ -111,3 +111,33 @@
     "status": false
 }
 ```
+
+## /login/oauth
+
+### Request Body
+
+```
+{
+  "name":"xxxx",
+  "email":"email@gmail.com",
+  "provider":"google",
+  "access_token":"dcsfdgfhgfjdfghsdgsdfg"
+}
+```
+
+### Response Body
+
+```
+{
+    "msg": "Login Successful",
+    "status": true,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+}
+```
+
+```
+{
+    "msg": "Incorrrect Credentials",
+    "status": false
+}
+```
