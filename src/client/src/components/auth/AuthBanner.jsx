@@ -27,11 +27,12 @@ export default class AuthBanner extends Component {
           </nav>
           <div className="container-fluid">
             <div className="row justify-content-center align-items-center ">
-              <div className="col-5">
-                <div>There’s Link smarter way to OYO around</div>
-                <div>Sign up with your phone number and get exclusive access to discounts and savings on OYO stays and with our many travel partners.</div>
+              <div className="col-5" id={styles.headerContainer}>
+                <div id={styles.Heading}>There’s a smarter way to OYO around</div>
+                <div id={styles.subHeading}>Sign up with your phone number and get exclusive access to discounts and savings on OYO stays and with our many travel partners.</div>
               </div>
-              <div className="col-5">
+              <div className="col-5" id={styles.parentHeaderContainer}>
+                <div id={styles.formHeader}>Sign up & Get ₹500 OYO Money</div>
                 <SignUp />
               </div>
             </div>
