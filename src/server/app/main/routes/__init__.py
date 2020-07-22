@@ -1,7 +1,7 @@
 # import resprctive blueprints and flask REstful resources
-from .blueprint_test import bp
+# from .blueprint_test import bp
 from app.main import api
-
+from .Authentication import Register, LoginOtpGenerate, UserLogin, LoginOtpVerify, OauthLogin, UserLogout
 
 
 def add_resources(app):
@@ -11,7 +11,12 @@ def add_resources(app):
     Args:
         app (object): object of Flask representing the app in context
     """
-    
+    api.add_resource(Register, '/register')
+    api.add_resource(UserLogin, '/login')
+    api.add_resource(LoginOtpGenerate, '/login/otp_generate')
+    api.add_resource(LoginOtpVerify, '/login/otp_verify')
+    api.add_resource(OauthLogin, '/login/oauth')
+    api.add_resource(UserLogout, '/logout')
 
 
 def register_blueprints(app):
@@ -21,4 +26,4 @@ def register_blueprints(app):
     Args:
         app (object): object of Flask representing the app in context
     """
-    app.register_blueprint(bp)
+    # app.register_blueprint(bp)
