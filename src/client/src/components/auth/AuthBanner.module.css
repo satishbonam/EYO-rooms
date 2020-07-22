@@ -1,0 +1,14 @@
+#overview {
+  background-image: url(/images/background_img.webp);
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+}
+#navContainer {
+  padding: 30px 80px;
+}
+#subNav {
+  font-weight: 600;
+  padding-left: 16px;
+  line-height: 30px;
+}
