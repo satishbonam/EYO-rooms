@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import SignUp from "../auth/SignUp";
+// import SignUp from "../auth/SignUp";
 import styles from "./AuthBanner.module.css";
 import { Link } from "react-router-dom";
+import LogIn from "./LogIn";
+// import LoginWithNumber from "./LoginWithNumber";
 
 export default class AuthBanner extends Component {
   render() {
@@ -28,12 +30,14 @@ export default class AuthBanner extends Component {
           <div className="container-fluid">
             <div className="row justify-content-center align-items-center ">
               <div className="col-5" id={styles.headerContainer}>
-                <div id={styles.Heading}>There’s a smarter way to OYO around</div>
-                <div id={styles.subHeading}>Sign up with your phone number and get exclusive access to discounts and savings on OYO stays and with our many travel partners.</div>
+                <div id={styles.Heading}>There’s a smarter way to EYO around</div>
+                <div id={styles.subHeading}>Sign up with your phone number and get exclusive access to discounts and savings on EYO stays and with our many travel partners.</div>
               </div>
               <div className="col-5" id={styles.parentHeaderContainer}>
-                <div id={styles.formHeader}>Sign up & Get ₹500 OYO Money</div>
-                <SignUp />
+                <div id={styles.formHeader}>Sign up & Get ₹500 EYO Money</div>
+                {/* <SignUp /> */}
+                <LogIn />
+                {/* <LoginWithNumber /> */}
               </div>
             </div>
           </div>

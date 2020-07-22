@@ -30,3 +30,15 @@ input:focus {
   box-shadow: none;
   cursor: auto;
 }
+#loginHeader {
+  font-size: 32px;
+  line-height: 1.5;
+  font-weight: 700;
+  margin: 0px 0 28px 9px;
+}
+#formFooter {
+  color: #222;
+  margin: 16px 0 73px;
+  font-weight: 600;
+  line-height: normal;
+}
