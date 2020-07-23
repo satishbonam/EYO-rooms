@@ -26,7 +26,7 @@ export default class OtpForm extends Component {
     
       let otp = [digit1,digit2,digit3,digit4].join("")
       otp = Number(otp)
-      
+
     }
   render() {
 
@@ -44,7 +44,7 @@ export default class OtpForm extends Component {
           <input type="number" name="digit4"  value={digit4} onChange={handleChange} id={styles.otp} maxLength="1" />
         </div>
         {
-          isError && <small>please enter valid 4 digit otp</small>
+          isError && <small className="text-danger">please enter valid 4 digit otp</small>
         }
 
         <button disabled id={styles.button} type="submit" className="btn btn-primary">

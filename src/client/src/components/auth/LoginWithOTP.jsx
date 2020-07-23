@@ -56,12 +56,13 @@ class LoginWithOTP extends Component {
       this.setState({ isMobileValid: true });
       return;
     }
-
+    
     let mobileValidValue = this.validate(pattern.mobile, mobile);
     if (mobileValidValue) {
-      loginRequestWithOtp(mobile);
+      this.props.loginRequestWithOtp(mobile);
     } else {
-      return;
+      this.setState({ isMobileValid: true });
+      return 
     }
   };
 
