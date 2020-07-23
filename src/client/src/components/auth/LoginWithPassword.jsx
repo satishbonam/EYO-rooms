@@ -1,4 +1,5 @@
 
+
 import React, { Component } from "react";
 import styles from "./Form.module.css";
 import {connect} from "react-redux"
@@ -58,18 +59,28 @@ constructor(props){
 
   handleLoginWithPassword = (e)=>{
 
-    
-    const{mobile,password,isMobileValid,isPasswordValid} = this.state
+    e.preventDefault()
+  const{mobile,password,isMobileValid,isPasswordValid} = this.state
 
-let mobileValidValue = this.validate(pattern.mobile,mobile)
-let passwordValidValue = this.validate(pattern.password,password)
+  if(!mobile && !password){
+    this.setState({isMobileValid:true,isPasswordValid:true})
+    return
+  }
 
-this.setState({
-  isMobileValid:mobileValidValue,
-  isPasswordValid:passwordValidValue,
-})
+  let mobileValidValue = this.validate(pattern.mobile,mobile)
+  let passwordValidValue = this.validate(pattern.password,password)
 
-    if(!isValid && !isPasswordValid){
+  if(!mobileValidValue){
+    this.setState({isMobileValid:true})
+    return
+  }
+  if(!passwordValidValue){
+    this.setState({isPasswordValid:true})
+    return
+  }
+  
+
+    if(mobileValidValue && passwordValidValue){
       loginRequestWithPassword(value)
     }
     else{

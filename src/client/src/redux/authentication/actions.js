@@ -4,8 +4,11 @@ import {
   USER_SIGNUP_REQUEST,USER_SIGNUP_SUCCESS,USER_SIGNUP_FAILURE,
   USER_LOGIN_PASS_FAILURE,USER_LOGIN_PASS_SUCCESS,USER_LOGIN_PASS_REQUEST,
   USER_OTP_LOGIN_FAILURE,USER_OTP_LOGIN_SUCCESS,USER_OTP_LOGIN_REQUEST,
-  USER_LOGOUT_REQUEST,USER_LOGOUT_SUCCESS,USER_LOGOUT_FAILURE
+  USER_LOGOUT_REQUEST,USER_LOGOUT_SUCCESS,USER_LOGOUT_FAILURE,
+  USER_OTP_VERIFY_FAILURE,USER_OTP_VERIFY_SUCCESS,USER_OTP_VERIFY_REQUEST,
+  USER_OAUTH_FAILURE,USER_OAUTH_REQUEST,USER_OAUTH_SUCCESS
 } from "./actionTypes";
+
 import axiosInstance from "../../utils/axiosInterceptor"
 
 // signup
@@ -50,17 +53,32 @@ export const loginOtpRequest = () => ({
 });
 
 
+// login with otp verify
+export const loginOtpVerifyFailure = (payload) => ({
+  type: USER_OTP_VERIFY_FAILURE,
+  payload
+});
+export const loginOtpVerifySuccess = (payload) => ({
+  type: USER_OTP_VERIFY_SUCCESS,
+  payload
+});
+export const loginOtpVerifyRequest = () => ({
+  type: USER_OTP_VERIFY_REQUEST,
+});
+
+
+
 // login with Oauth
 export const loginOauthFailure = (payload) => ({
-  type: USER_OTP_LOGIN_FAILURE,
+  type: USER_OAUTH_FAILURE,
   payload
 });
 export const loginOauthSuccess = (payload) => ({
-  type: USER_OTP_LOGIN_SUCCESS,
+  type: USER_OAUTH_SUCCESS,
   payload
 });
 export const loginOauthRequest = () => ({
-  type: USER_OTP_LOGIN_REQUEST
+  type: USER_OAUTH_REQUEST
 });
 
 
@@ -95,11 +113,21 @@ export const loginRequestWithPassword = (payload)=>dispatch=>{
 // server request for login with  otp
 export const loginRequestWithOtp = (payload)=>dispatch=>{
   dispatch(loginOtpRequest())
-  return axiosInstance.post("/login/otp_verify",{
+  return axiosInstance.post("/login/otp_generate",{
     ...payload
   })
   .then(data=>dispatch(loginOtpSuccess(data)))
   .catch(error=>dispatch(loginOtpFailure(error)))
+}
+
+// server request for otp verify
+export const loginRequestWithOtpVerify = (payload)=>dispatch=>{
+  dispatch(loginOtpVerifyRequest())
+  return axiosInstance.post("/login/otp_verify",{
+    ...payload
+  })
+  .then(data=>dispatch(loginOtpVerifySuccess(data)))
+  .catch(error=>dispatch(loginOtpVerifyFailure(error)))
 }
 
 

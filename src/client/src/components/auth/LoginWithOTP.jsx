@@ -1,4 +1,5 @@
 
+
 import React, { Component } from "react";
 import styles from "./Form.module.css";
 import { connect } from "react-redux";
@@ -10,8 +11,7 @@ let pattern = {
   mobile:/^\d{10}$/,
 }
 
-
-export default class LoginWithOTP extends Component {
+ class LoginWithOTP extends Component {
   
 constructor(props){
   super(props);
@@ -52,26 +52,31 @@ validate(pattern,value){
   }
 }
 
-handleLoginWithPassword = (e)=>{
+handleLoginWithOtp = (e)=>{
+  e.preventDefault()
 const{mobile,isMobileValid} = this.state
+if(!mobile){
+  this.setState({isMobileValid:true})
+  return
+}
 
 let mobileValidValue = this.validate(pattern.mobile,mobile)
+if(mobileValidValue){
 
-this.setState({
-isMobileValid:mobileValidValue,
-})
+  loginRequestWithOtp(mobile)
+  
+}
+else{
+  return
+}
 
-  if(!isMobileValid){
-    loginRequestWithOtp(value)
-  }
-  else{
-    return
-  }
+  
   
 }
 
+
   render() {
-    const{mobile,handleChange} = this
+    const{mobile,handleChange,isMobileValid} = this
 
     return (
       <form id={styles.signupform}>
@@ -82,7 +87,7 @@ isMobileValid:mobileValidValue,
           <small className={isMobileValid?"d-block":"d-none"}>not an valid email</small>
         </div>
 
-        <button disabled id={styles.button} type="submit" className="btn btn-primary">
+        <button disabled id={styles.button} type="submit" onClick={this.handleLoginWithOtp} className="btn btn-primary">
           Verify Number
         </button>
         <div id={styles.formFooter}>

@@ -1,4 +1,5 @@
 
+
 import React, { Component } from "react";
 import styles from "./Form.module.css";
 import {connect} from "react-redux"
@@ -47,41 +48,57 @@ let pattern = {
   }
 
   handleSignup = (e)=>{
-
-    const{mobile,password,name,email,username,
-          isMobileValid,isEmailValid,isNameValid,isPasswordValid,isUsernameValid
-    } = this.state
+    e.preventDefault()
+    const {mobile,password,name,email,username } = this.state
    
+    if(!mobile && !name && !username && !email && !password){
+      
+      this.setState({
+        isEmailValid:true,
+        isMobileValid:true,
+        isNameValid:true,
+        isPasswordValid:true,
+        isUsernameValid:true
+      })
+      return
+    }
     let mobileValidValue = this.validate(pattern.mobile,mobile)
     let emailValidValue = this.validate(pattern.email,email)
     let nameVaildValue = this.validate(pattern.name,name)
     let usernameValidValue = this.validate(pattern.username,username)
     let passwordValidValue = this.validate(pattern.password,password)
     
-    if(!isEmailValid && !isMobileValid && !isPasswordValid && !isUsernameValid && !isNameValid){
-      
+    if(!mobileValidValue){
       this.setState({
-        isEmailValid:emailValidValue,
-        isMobileValid:mobileValidValue,
-        isNameValid:nameVaildValue,
-        isPasswordValid:passwordValidValue,
-        isUsernameValid:usernameValidValue
-      })
+       isMobileValid:true
+    })
+    return
+    }
+    if(!emailValidValue){
+      this.setState({
+       isEmailValid:true
+    })
+    return
+    }
+    if(!usernameValidValue){
+      this.setState({
+       isUsernameValid:true
+    })
+    return
+    }
+    if(!passwordValidValue){
+      this.setState({
+       isPasswordValid:true
+    })
+    return
+    }
+    if(!nameVaildValue){
+      this.setState({ isNameValid:true})
+    return
     }
 
-    
-    this.setState({
-      isEmailValid:emailValidValue,
-      isMobileValid:mobileValidValue,
-      isNameValid:nameVaildValue,
-      isPasswordValid:passwordValidValue,
-      isUsernameValid:usernameValidValue
-    })
-
-    
-
-    if(!isEmailValid && !isMobileValid && !isPasswordValid && !isUsernameValid && !isNameValid){
-      let value = {mobile,password,name,password,username}
+    if(mobileValidValue && emailValidValue && nameVaildValue && usernameValidValue && passwordValidValue){
+      let value = {mobile,password,name,email,username}
       signupRequest(value)
     }
     else{
@@ -127,8 +144,8 @@ let pattern = {
         <button disabled id={styles.button} type="submit" className="btn btn-primary">
           signup
         </button>
+       
 
-        
       </form>
     );
   }

@@ -1,13 +1,15 @@
 
+
 import React, { Component } from "react";
-import SignUp from "../auth/SignUp";
+
 import styles from "./AuthBanner.module.css";
 import { Link } from "react-router-dom";
 import LoginWithPassword from "./LoginWithPassword";
 import LoginWithOTP from "./LoginWithOTP";
+import SignUp from "./SignUp";
 
 export default class AuthBanner extends Component {
-  constructor(propd){
+  constructor(props){
     super(props);
     this.state = {
       otpForm:true,
@@ -27,7 +29,7 @@ export default class AuthBanner extends Component {
   }
 
   render() {
-    const {otpForm,showPasswordForm,showSignupForm}
+    const {showSignup,showLoginWithOtp,showLoginWithPassword} = this
 
     return (
       <div className="row m-0 ">
@@ -52,14 +54,14 @@ export default class AuthBanner extends Component {
           <div className="container-fluid">
             <div className="row justify-content-center align-items-center ">
               <div className="col-5" id={styles.headerContainer}>
-                <div id={styles.Heading}>There’s a smarter way to EYO around</div>
+                <div id={styles.Heading}>Thereâs a smarter way to EYO around</div>
                 <div id={styles.subHeading}>Sign up with your phone number and get exclusive access to discounts and savings on EYO stays and with our many travel partners.</div>
               </div>
               <div className="col-5" id={styles.parentHeaderContainer}>
-                <div id={styles.formHeader}>Sign up & Get ₹500 EYO Money</div>
-                {this.showSignupForm && <Signup showSignup={this.showSignup}/>}
-                {this.showOTPForm && <LoginWithOTP   showLoginWithPassword={this.showLoginWithPassword}/>}
-                {this.showPasswordForm && <LoginWithPassword showLoginWithOtp={this.showLoginWithOtp}/>}
+                <div id={styles.formHeader}>Sign up & Get 500 EYO Money</div>
+                {this.showSignupForm && <SignUp showSignup={showSignup}/>}
+                {this.showOTPForm && <LoginWithOTP   showLoginWithPassword={showLoginWithPassword}/>}
+                {this.showPasswordForm && <LoginWithPassword showLoginWithOtp={showLoginWithOtp}/>}
               </div>
             </div>
           </div>

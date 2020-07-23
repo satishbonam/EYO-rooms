@@ -3,7 +3,8 @@
 import { 
   USER_SIGNUP_REQUEST,USER_SIGNUP_SUCCESS,USER_SIGNUP_FAILURE,
   USER_LOGIN_PASS_FAILURE,USER_LOGIN_PASS_SUCCESS,USER_LOGIN_PASS_REQUEST,
-  USER_OTP_LOGIN_FAILURE,USER_OTP_LOGIN_SUCCESS,USER_OTP_LOGIN_REQUEST
+  USER_OTP_LOGIN_FAILURE,USER_OTP_LOGIN_SUCCESS,USER_OTP_LOGIN_REQUEST,
+   USER_OTP_VERIFY_FAILURE,USER_OTP_VERIFY_SUCCESS,USER_OTP_VERIFY_REQUEST
 } from "./actionTypes";
 
 const initState = {
@@ -12,7 +13,8 @@ const initState = {
   isLogin:false,
   isSignUp:false,
   token:"",
-  isError:false
+  isError:false,
+  otpValue:null
 
 };
 
@@ -70,13 +72,52 @@ const reducer = (state = initState, {type,payload}) => {
           ...state,
           isRequest:false,
           message:payload.msg,
-          token:payload.token
         }
       case USER_OTP_LOGIN_FAILURE:
         return {
           ...state,
           isRequest:false,
           isError:true
+        }
+      // login with otp verify
+      case  USER_OTP_VERIFY_FAILURE:
+        return {
+          ...state,
+          isRequest:false,
+          isError:true
+  
+        }
+      case USER_OTP_VERIFY_SUCCESS:
+        return {
+          ...state,
+          isRequest:false,
+          message:payload.msg,
+          token:payload.token
+        }
+      case USER_OTP_VERIFY_REQUEST:
+        return {
+          ...state,
+          isRequest:false,
+        }
+      // login with Oauth
+      case  USER_OTP_VERIFY_FAILURE:
+        return {
+          ...state,
+          isRequest:false,
+          isError:true
+  
+        }
+      case USER_OTP_VERIFY_SUCCESS:
+        return {
+          ...state,
+          isRequest:false,
+          message:payload.msg,
+          token:payload.token
+        }
+      case USER_OTP_VERIFY_REQUEST:
+        return {
+          ...state,
+          isRequest:false,
         }
     default:
       return state;
