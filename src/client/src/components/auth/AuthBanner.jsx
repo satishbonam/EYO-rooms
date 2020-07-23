@@ -2,7 +2,8 @@ import React, { Component } from "react";
 // import SignUp from "../auth/SignUp";
 import styles from "./AuthBanner.module.css";
 import { Link } from "react-router-dom";
-import LogIn from "./LogIn";
+// import LogIn from "./LogIn";
+import OtpForm from "./OtpForm";
 // import LoginWithNumber from "./LoginWithNumber";
 
 export default class AuthBanner extends Component {
@@ -36,8 +37,9 @@ export default class AuthBanner extends Component {
               <div className="col-5" id={styles.parentHeaderContainer}>
                 <div id={styles.formHeader}>Sign up & Get ₹500 EYO Money</div>
                 {/* <SignUp /> */}
-                <LogIn />
+                {/* <LogIn /> */}
                 {/* <LoginWithNumber /> */}
+                <OtpForm />
               </div>
             </div>
           </div>

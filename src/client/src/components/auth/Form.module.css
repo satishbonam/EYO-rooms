@@ -42,3 +42,20 @@ input:focus {
   font-weight: 600;
   line-height: normal;
 }
+#codeHeader {
+  padding-bottom: 10px;
+}
+#otp {
+  width: 72px;
+  height: 72px;
+  border-radius: 2px !important;
+  background-color: #fff;
+  border: 1px solid hsla(0, 0%, 65%, 0.2);
+  margin-right: 10px;
+  text-align: center;
+  outline: none;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+  box-sizing: border-box;
+}
