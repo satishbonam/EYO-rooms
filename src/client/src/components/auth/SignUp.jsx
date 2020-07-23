@@ -58,6 +58,18 @@ let pattern = {
     let usernameValidValue = this.validate(pattern.username,username)
     let passwordValidValue = this.validate(pattern.password,password)
     
+    if(!isEmailValid && !isMobileValid && !isPasswordValid && !isUsernameValid && !isNameValid){
+      
+      this.setState({
+        isEmailValid:emailValidValue,
+        isMobileValid:mobileValidValue,
+        isNameValid:nameVaildValue,
+        isPasswordValid:passwordValidValue,
+        isUsernameValid:usernameValidValue
+      })
+    }
+
+    
     this.setState({
       isEmailValid:emailValidValue,
       isMobileValid:mobileValidValue,
@@ -65,6 +77,7 @@ let pattern = {
       isPasswordValid:passwordValidValue,
       isUsernameValid:usernameValidValue
     })
+
     
 
     if(!isEmailValid && !isMobileValid && !isPasswordValid && !isUsernameValid && !isNameValid){
@@ -114,6 +127,8 @@ let pattern = {
         <button disabled id={styles.button} type="submit" className="btn btn-primary">
           signup
         </button>
+
+        
       </form>
     );
   }

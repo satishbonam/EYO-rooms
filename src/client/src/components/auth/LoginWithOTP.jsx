@@ -2,7 +2,8 @@
 import React, { Component } from "react";
 import styles from "./Form.module.css";
 import { connect } from "react-redux";
-import {loginRequestWithOtp} from "../../redux/authentication/actions"
+import {loginRequestWithOtp,loginRequestWithOauth} from "../../redux/authentication/actions"
+import GoogleLogin from "react-google-login"
 
 
 let pattern = {
@@ -19,6 +20,22 @@ constructor(props){
     isMobileValid:false,
   }
 }
+
+// for google oauth login
+googleResponse = (googleUser)=>{
+  console.log(googleUser)
+  
+  const value = {
+    name,
+    email,
+    provider:"google",
+    access_token
+  }
+  if(value){
+    loginRequestWithOauth(value)
+  }
+}
+
 handleChange = (e)=>{
   this.setState({
     [e.target.name] : e.target.value
@@ -71,6 +88,15 @@ isMobileValid:mobileValidValue,
         <div id={styles.formFooter}>
           Prefer to Proceed with OTP instead? <span className="text-danger" onClick={this.props.showLoginWithPassword(true)}>Click here</span>{" "}
         </div>
+        <GoogleLogin
+          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+          onSuccess={this.googleResponse}
+          onFailure={this.googleResponse}
+          cookiePolicy="single_host_origin"
+          // uxMode="popup"
+          // isSignedIn={false}
+        >
+        </GoogleLogin>
       </form>
     );
   }

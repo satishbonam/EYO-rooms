@@ -50,6 +50,20 @@ export const loginOtpRequest = () => ({
 });
 
 
+// login with Oauth
+export const loginOauthFailure = (payload) => ({
+  type: USER_OTP_LOGIN_FAILURE,
+  payload
+});
+export const loginOauthSuccess = (payload) => ({
+  type: USER_OTP_LOGIN_SUCCESS,
+  payload
+});
+export const loginOauthRequest = () => ({
+  type: USER_OTP_LOGIN_REQUEST
+});
+
+
 // logout
 export const logoutUserRequest = (payload) => ({
   type: USER_LOGOUT_REQUEST,
@@ -64,6 +78,9 @@ export const logoutUserFailure = () => ({
 });
 
 
+
+// axios request thunk
+
 // server request for login with password
 export const loginRequestWithPassword = (payload)=>dispatch=>{
   dispatch(loginPassRequest())
@@ -73,6 +90,7 @@ export const loginRequestWithPassword = (payload)=>dispatch=>{
   .then(data=>dispatch(loginPassSuccess(data)))
   .catch(error=>dispatch(loginPassFailure(error)))
 }
+
 
 // server request for login with  otp
 export const loginRequestWithOtp = (payload)=>dispatch=>{
@@ -84,6 +102,7 @@ export const loginRequestWithOtp = (payload)=>dispatch=>{
   .catch(error=>dispatch(loginOtpFailure(error)))
 }
 
+
 // server request for signup
 export const signupRequest = (payload)=>dispatch=>{
   dispatch(signupUserRequest())
@@ -93,6 +112,19 @@ export const signupRequest = (payload)=>dispatch=>{
   .then(data=>dispatch(signupUserSuccess(data)))
   .catch(error=>dispatch(signupUserFailure(error)))
 }
+
+
+// server request for google oauth login
+export const loginRequestWithOauth = (payload)=>dispatch=>{
+  dispatch(loginOauthRequest())
+  return axiosInstance.post("/register",{
+    ...payload
+  })
+  .then(data=>dispatch(loginOauthSuccess(data)))
+  .catch(error=>dispatch(loginOauthFailure(error)))
+}
+
+
 
 // server request for logout
 export const logoutRequest = (payload)=>dispatch=>{
