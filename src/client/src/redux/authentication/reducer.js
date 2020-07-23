@@ -100,21 +100,21 @@ const reducer = (state = initState, {type,payload}) => {
           isRequest:false,
         }
       // login with Oauth
-      case  USER_OTP_VERIFY_FAILURE:
+      case  USER_OAUTH_FAILURE:
         return {
           ...state,
           isRequest:false,
           isError:true
   
         }
-      case USER_OTP_VERIFY_SUCCESS:
+      case USER_OAUTH_REQUEST:
         return {
           ...state,
           isRequest:false,
           message:payload.msg,
           token:payload.token
         }
-      case USER_OTP_VERIFY_REQUEST:
+      case USER_OAUTH_SUCCESS:
         return {
           ...state,
           isRequest:false,
