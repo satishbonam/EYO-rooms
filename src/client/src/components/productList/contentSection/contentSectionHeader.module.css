@@ -1,0 +1,13 @@
+#filterOption {
+  flex-grow: 1;
+}
+#mapFilter {
+  padding: 0 44px 0 54px;
+}
+#filterHeader {
+  margin: 0;
+  font-size: 20px;
+  line-height: 32px;
+  font-weight: 700;
+  color: #333;
+}
