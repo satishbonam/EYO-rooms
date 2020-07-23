@@ -1,0 +1,41 @@
+#sidebar {
+  padding-top: 16px;
+  border-radius: 4px;
+}
+#filterHeading {
+  font-size: 26px;
+  font-weight: 700;
+  font-stretch: normal;
+  line-height: 1.23;
+  color: #333;
+}
+#filter > h4 {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 24px;
+  margin: 4px auto 16px;
+  color: #222;
+}
+#filter > input {
+  padding: 5px 60px 5px 20px;
+  border: 1px solid #c9c9c9;
+  font-size: 12px;
+}
+#tag {
+  font-size: 14px;
+  line-height: 2;
+  text-align: center;
+  color: #222;
+  margin: 10px 10px 0 0;
+  border-radius: 2px;
+  background-color: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  padding: 2px 10px;
+}
+#tagWrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+#check {
+  margin: 10px;
+}
