@@ -1,5 +1,3 @@
-
-
 import React, { Component } from "react";
 
 import styles from "./AuthBanner.module.css";
@@ -9,27 +7,28 @@ import LoginWithOTP from "./LoginWithOTP";
 import SignUp from "./SignUp";
 
 export default class AuthBanner extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      otpForm:true,
-      showPasswordForm:false,
-      showSignupForm:false
-    }
+      showOtpForm: false,
+      showPasswordForm: false,
+      showSignupForm: true,
+    };
   }
 
-  showLoginWithOtp = (istrue)=>{
-    this.setState({showOTPForm:istrue,showPasswordForm:false,showSignupForm:false})
-  }
-  showLoginWithPassword = (istrue)=>{
-    this.setState({showOTPForm:false,showPasswordForm:istrue,showSignupForm:false})
-  }
-  showSignup = (istrue)=>{
-    this.setState({showOTPForm:false,showPasswordForm:false,showSignupForm:istrue})
-  }
+  showLoginWithOtp = (istrue) => {
+    this.setState({ showOTPForm: istrue, showPasswordForm: false, showSignupForm: false });
+  };
+  showLoginWithPassword = (istrue) => {
+    this.setState({ showOTPForm: false, showPasswordForm: istrue, showSignupForm: false });
+  };
+  showSignup = (istrue) => {
+    this.setState({ showOTPForm: false, showPasswordForm: false, showSignupForm: istrue });
+  };
 
   render() {
-    const {showSignup,showLoginWithOtp,showLoginWithPassword} = this
+    const { showSignup, showLoginWithOtp, showLoginWithPassword } = this;
+    const { showSignupForm, showPasswordForm, showOtpForm } = this.state;
 
     return (
       <div className="row m-0 ">
@@ -59,9 +58,9 @@ export default class AuthBanner extends Component {
               </div>
               <div className="col-5" id={styles.parentHeaderContainer}>
                 <div id={styles.formHeader}>Sign up & Get 500 EYO Money</div>
-                {this.showSignupForm && <SignUp showSignup={showSignup}/>}
-                {this.showOTPForm && <LoginWithOTP   showLoginWithPassword={showLoginWithPassword}/>}
-                {this.showPasswordForm && <LoginWithPassword showLoginWithOtp={showLoginWithOtp}/>}
+                {showSignupForm && <SignUp showSignup={showSignup} />}
+                {showOtpForm && <LoginWithOTP showLoginWithPassword={showLoginWithPassword} />}
+                {showPasswordForm && <LoginWithPassword showLoginWithOtp={showLoginWithOtp} />}
               </div>
             </div>
           </div>
