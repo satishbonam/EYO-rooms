@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styles from "./Form.module.css";
+import {loginRequestWithOauth} from "../../redux/authentication/actions"
 
 export default class OtpForm extends Component {
   
@@ -20,13 +21,17 @@ export default class OtpForm extends Component {
   handleVerifyOtp = (e)=>{
     e.preventDefault()
     const{digit1,digit2,digit3,digit4} = this
+    const {mobile} = this.props
     if(!digit1 || !digit2 || !digit3 || !digit4){
       return this.setState({isError:true})
     }
     
       let otp = [digit1,digit2,digit3,digit4].join("")
-      otp = Number(otp)
-
+      if(otp.length !== 4){
+        this.setState({isError:true})
+      }
+      
+      this.props.loginRequestWithOauth(otp,mobile)
     }
   render() {
 
@@ -57,3 +62,14 @@ export default class OtpForm extends Component {
     );
   }
 }
+
+
+const mapStateToProps = (state) => ({
+  mobile:state.app.mobile
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loginRequestWithOauth: (payload) => dispatch(loginRequestWithOauth(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(OtpForm);

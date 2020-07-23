@@ -17,6 +17,7 @@ import {
   USER_LOGOUT_REQUEST,
   USER_LOGOUT_SUCCESS,
   USER_LOGOUT_FAILURE,
+  USER_MOBILE_SAVE
 } from "./actionTypes";
 
 // import axiosInstance from "../../utils/axiosInterceptor";
@@ -60,6 +61,11 @@ export const loginOtpSuccess = (payload) => ({
 export const loginOtpRequest = () => ({
   type: USER_OTP_LOGIN_REQUEST,
 });
+// save mobile
+export const saveUserMobile = (payload) => ({
+  type: USER_MOBILE_SAVE,
+  payload
+});
 
 // login with otp verify
 export const loginOtpVerifyFailure = (payload) => ({
@@ -100,6 +106,10 @@ export const logoutUserFailure = () => ({
   type: USER_LOGOUT_FAILURE,
 });
 
+
+
+
+
 // axios request thunk
 
 // server request for signup
@@ -127,6 +137,7 @@ export const loginRequestWithPassword = (payload) => (dispatch) => {
 
 // server request for login with  otp
 export const loginRequestWithOtp = (payload) => (dispatch) => {
+  dispatch(saveUserMobile(payload))
   dispatch(loginOtpRequest());
   return axios
     .post("/login/otp_generate", {

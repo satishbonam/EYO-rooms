@@ -11,6 +11,8 @@ import {
   USER_OTP_VERIFY_FAILURE,
   USER_OTP_VERIFY_SUCCESS,
   USER_OTP_VERIFY_REQUEST,
+  USER_MOBILE_SAVE
+  
 } from "./actionTypes";
 
 const initState = {
@@ -22,7 +24,8 @@ const initState = {
   isError: false,
   otpValue: null,
   isSignUp:false,
-  isLogin:false
+  isLogin:false,
+  mobile:null
 };
 
 const reducer = (state = initState, { type, payload }) => {
@@ -68,6 +71,12 @@ const reducer = (state = initState, { type, payload }) => {
           ...state,
           isRequest:false,
           isError:true
+        }
+      // mobile 
+      case USER_MOBILE_SAVE:
+        return {
+          ...state,
+         mobile:payload
         }
       // login with otp
       case USER_OTP_LOGIN_REQUEST:
@@ -122,14 +131,14 @@ const reducer = (state = initState, { type, payload }) => {
         return {
           ...state,
           isRequest:false,
-          message:payload.msg,
-          token:payload.token
         }
       case USER_OAUTH_SUCCESS:
         return {
           ...state,
           isRequest:false,
-        }
+          message:payload.msg,
+          token:payload.token
+      }
     default:
       return state;
   }
