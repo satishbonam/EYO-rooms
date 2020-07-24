@@ -14,7 +14,7 @@ def generate_random():
 
 def generate_otp(number):
     account_sid = 'ACfbc945f6da5d6e8258ebd43cf10c9d6b'
-    auth_token = '85879a175d247c1ef489add370970515'
+    auth_token = '6bec1d119404ded30c950ac0daa3f589'
 
     client = Client(account_sid, auth_token)
     otp = generate_random()
