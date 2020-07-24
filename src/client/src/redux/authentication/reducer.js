@@ -20,7 +20,7 @@ const initState = {
   isOtp: false,
   isLogin: false,
   isSignUp: false,
-  token: "",
+  token: null,
   isError: false,
   otpValue: null,
   isSignUp:false,
