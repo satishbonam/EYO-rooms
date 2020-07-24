@@ -11,7 +11,8 @@ import {
   USER_OTP_VERIFY_FAILURE,
   USER_OTP_VERIFY_SUCCESS,
   USER_OTP_VERIFY_REQUEST,
-  USER_MOBILE_SAVE
+  USER_MOBILE_SAVE,
+  USER_OAUTH_FAILURE,USER_OAUTH_SUCCESS,USER_OAUTH_REQUEST
   
 } from "./actionTypes";
 
@@ -23,8 +24,6 @@ const initState = {
   token: null,
   isError: false,
   otpValue: null,
-  isSignUp:false,
-  isLogin:false,
   mobile:null
 };
 
