@@ -21,8 +21,8 @@ class LoginWithPassword extends Component {
       password: "",
       isMobileValid: false,
       isPasswordValid: false,
-      isMessage:false,
-      messageText:"please enter all the fields"
+      isMessage: false,
+      messageText: "please enter all the fields",
     };
   }
   // for google oauth login
@@ -60,33 +60,32 @@ class LoginWithPassword extends Component {
   handleLoginWithPassword = (e) => {
     e.preventDefault();
     const { mobile, password, isMobileValid, isPasswordValid } = this.state;
-      
+
     if (!mobile || !password) {
-      this.setState({isMessage:true})
+      this.setState({ isMessage: true });
       return;
     }
     let mobileValidValue = this.validate(pattern.mobile, mobile);
     let passwordValidValue = this.validate(pattern.password, password);
 
-    if(!mobileValidValue){
-     return this.setState({isMobileValid:true})
+    if (!mobileValidValue) {
+      return this.setState({ isMobileValid: true });
     }
-    if(!passwordValidValue){
-     return this.setState({isPasswordValid:true})
+    if (!passwordValidValue) {
+      return this.setState({ isPasswordValid: true });
     }
 
-    if (mobile && password ) {
-      let value = { mobile, password};
+    if (mobile && password) {
+      let value = { mobile, password };
       console.log(value);
       this.props.loginRequestWithPassword(value);
     } else {
       return;
     }
-    
   };
 
   render() {
-    const { password, mobile, isMobileValid, isMessage,messageText} = this.state;
+    const { password, isPasswordValid, mobile, isMobileValid, isMessage, messageText } = this.state;
     return (
       <form id={styles.signupform}>
         <div className="form-group">
