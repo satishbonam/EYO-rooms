@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { loginRequestWithPassword, loginRequestWithOauth } from "../../redux/authentication/actions";
 import GoogleLogin from "react-google-login";
 
+
 let pattern = {
   username: /^[a-z\d]{5,12}$/i,
   name: /^[a-z]{5,12}$/i,
@@ -82,9 +83,13 @@ class LoginWithPassword extends Component {
     } else {
       return;
     }
-  };
-
+  }
+  
   render() {
+    if(this.props.token){
+      localStorage.setItem("jwt",token)
+     
+    }
     const { password, isPasswordValid, mobile, isMobileValid, isMessage, messageText } = this.state;
     return (
       <form id={styles.signupform}>
@@ -128,7 +133,7 @@ class LoginWithPassword extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  // isLogin: state.app.isLogin,
+  token = state.auth.token
 });
 
 const mapDispatchToProps = (dispatch) => ({

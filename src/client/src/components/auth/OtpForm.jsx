@@ -36,6 +36,10 @@ export default class OtpForm extends Component {
   render() {
 
     const {isError} = this
+
+    if(this.props.token){
+      localStorage.setItem("jwt",token)
+    }
     return (
       <form id={styles.signupform}>
         <div className="form-group">
@@ -65,7 +69,8 @@ export default class OtpForm extends Component {
 
 
 const mapStateToProps = (state) => ({
-  mobile:state.app.mobile
+  mobile:state.auth.mobile,
+  token:state.auth.token
 });
 
 const mapDispatchToProps = (dispatch) => ({

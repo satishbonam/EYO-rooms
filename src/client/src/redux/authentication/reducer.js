@@ -12,7 +12,13 @@ import {
   USER_OTP_VERIFY_SUCCESS,
   USER_OTP_VERIFY_REQUEST,
   USER_MOBILE_SAVE,
-  USER_OAUTH_FAILURE,USER_OAUTH_SUCCESS,USER_OAUTH_REQUEST
+  USER_OAUTH_FAILURE,USER_OAUTH_SUCCESS,USER_OAUTH_REQUEST,
+  USER_LOGOUT_REQUEST,
+  USER_LOGOUT_SUCCESS,
+  USER_LOGOUT_FAILURE,
+  GET_HOTEL_LISTING_FAILURE,
+  GET_HOTEL_LISTING_SUCCESS,
+  GET_HOTEL_LISTING_REQUEST
   
 } from "./actionTypes";
 
@@ -22,9 +28,12 @@ const initState = {
   isLogin: false,
   isSignUp: false,
   token: null,
+  user:null,
   isError: false,
   otpValue: null,
-  mobile:null
+  mobile:null,
+  isLogout:false,
+  hotelListData = []
 };
 
 const reducer = (state = initState, { type, payload }) => {
@@ -63,6 +72,7 @@ const reducer = (state = initState, { type, payload }) => {
           isRequest:false,
           message:payload.msg,
           token:payload.token,
+          user:payload.user_data,
           isLogin:payload.status
         }
       case USER_LOGIN_PASS_FAILURE:
@@ -97,6 +107,19 @@ const reducer = (state = initState, { type, payload }) => {
           isError:true
         }
       // login with otp verify
+      case USER_OTP_VERIFY_REQUEST:
+        return {
+        ...state,
+        isRequest:false,
+      }
+      case USER_OTP_VERIFY_SUCCESS:
+        return {
+          ...state,
+          isRequest:false,
+          message:payload.msg,
+          token:payload.token,
+          user:payload.user_data,
+        }
       case  USER_OTP_VERIFY_FAILURE:
         return {
           ...state,
@@ -104,28 +127,7 @@ const reducer = (state = initState, { type, payload }) => {
           isError:true
   
         }
-      case USER_OTP_VERIFY_SUCCESS:
-        return {
-          ...state,
-          isRequest:false,
-          message:payload.msg,
-          token:payload.token
-        }
-        case USER_OTP_VERIFY_REQUEST:
-          return {
-          ...state,
-          isRequest:false,
-          message:payload.msg,
-          token:payload.token
-        }
       // login with Oauth
-      case  USER_OAUTH_FAILURE:
-        return {
-          ...state,
-          isRequest:false,
-          isError:true
-  
-        }
       case USER_OAUTH_REQUEST:
         return {
           ...state,
@@ -136,7 +138,54 @@ const reducer = (state = initState, { type, payload }) => {
           ...state,
           isRequest:false,
           message:payload.msg,
-          token:payload.token
+          token:payload.token,
+          user:payload.user_data,
+      }
+      case  USER_OAUTH_FAILURE:
+        return {
+          ...state,
+          isRequest:false,
+          isError:true
+  
+        }
+      // logout
+      case  USER_LOGOUT_REQUEST:
+        return {
+          ...state,
+          isRequest:true,
+  
+        }
+      case USER_LOGOUT_SUCCESS:
+        return {
+          ...state,
+          isRequest:false,
+          isLogout:payload.status
+        }
+      case USER_LOGOUT_FAILURE:
+        return {
+          ...state,
+          isRequest:false,
+          isError:true
+      }
+
+      // hotel listing
+      case  GET_HOTEL_LISTING_REQUEST:
+        return {
+          ...state,
+          isRequest:true,
+  
+        }
+      case GET_HOTEL_LISTING_SUCCESS:
+        return {
+          ...state,
+          isRequest:false,
+          hotelListData: payload
+        }
+      case GET_HOTEL_LISTING_FAILURE:
+        return {
+          ...state,
+          isRequest:false,
+          isError:true
       }
     default:
       return state;

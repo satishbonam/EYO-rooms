@@ -53,7 +53,7 @@ export default class AuthBanner extends Component {
           <div className="container-fluid">
             <div className="row justify-content-center align-items-center ">
               <div className="col-5" id={styles.headerContainer}>
-                <div id={styles.Heading}>Thereâs a smarter way to EYO around</div>
+                <div id={styles.Heading}>There is a smarter way to EYO around</div>
                 <div id={styles.subHeading}>Sign up with your phone number and get exclusive access to discounts and savings on EYO stays and with our many travel partners.</div>
               </div>
               <div className="col-5" id={styles.parentHeaderContainer}>
