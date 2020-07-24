@@ -14,7 +14,7 @@ export default class contentSectionHeader extends Component {
             <span>Map View</span>
             <ToggleButton />
           </div>
-          <div className="col-3 d-flex  justify-content-around align-items-center ">
+          <div className="col-3 d-flex  justify-content-around align-items-center p-0">
             <span>Sort By</span>
             <div class="form-group m-0 pl-1" id={styles.filterOption}>
               <select class="form-control" id="exampleFormControlSelect1">

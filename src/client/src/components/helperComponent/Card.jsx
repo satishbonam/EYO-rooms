@@ -64,11 +64,11 @@ export default class Card extends Component {
               <div className="d-flex justify-content-between mt-3 ">
                 <div>
                   <div>
-                    <span>$ 915</span>
-                    <span>$ 915</span>
-                    <span>40 % off</span>
+                    <span id={styles.price}>$ 915</span>
+                    <span id={styles.slashPrice}>$ 915</span>
+                    <span id={styles.percentage}>40 % off</span>
                   </div>
-                  <div>per room per night</div>
+                  <div id={styles.pernight}>per room per night</div>
                 </div>
                 <div>
                   <button id={styles.whilteButton}>View details</button>
