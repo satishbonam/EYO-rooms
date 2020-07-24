@@ -28,7 +28,7 @@ import {
   // hotel listing
   GET_HOTEL_LISTING_FAILURE,
   GET_HOTEL_LISTING_SUCCESS,
-  GET_HOTEL_LISTING_REQUEST
+  GET_HOTEL_LISTING_REQUEST,
 } from "./actionTypes";
 
 // import axiosInstance from "../../utils/axiosInterceptor";
@@ -75,7 +75,7 @@ export const loginOtpRequest = () => ({
 // save mobile
 export const saveUserMobile = (payload) => ({
   type: USER_MOBILE_SAVE,
-  payload
+  payload,
 });
 
 // login with otp verify
@@ -117,7 +117,6 @@ export const logoutUserFailure = () => ({
   type: USER_LOGOUT_FAILURE,
 });
 
-
 // hotel listing
 export const hotelListingRequest = (payload) => ({
   type: GET_HOTEL_LISTING_REQUEST,
@@ -130,10 +129,6 @@ export const hotelListingSuccess = (payload) => ({
 export const hotelListingFailure = () => ({
   type: GET_HOTEL_LISTING_FAILURE,
 });
-
-
-
-
 
 // axios request thunk
 
@@ -162,7 +157,7 @@ export const loginRequestWithPassword = (payload) => (dispatch) => {
 
 // server request for login with  otp
 export const loginRequestWithOtp = (payload) => (dispatch) => {
-  dispatch(saveUserMobile(payload))
+  dispatch(saveUserMobile(payload));
   dispatch(loginOtpRequest());
   return axios
     .post("/login/otp_generate", {
@@ -182,7 +177,6 @@ export const loginRequestWithOtpVerify = (payload) => (dispatch) => {
     .then((data) => dispatch(loginOtpVerifySuccess(data)))
     .catch((error) => dispatch(loginOtpVerifyFailure(error)));
 };
-
 
 // server request for google oauth login
 export const loginRequestWithOauth = (payload) => (dispatch) => {
@@ -207,19 +201,19 @@ export const logoutRequest = (payload) => (dispatch) => {
 };
 
 // hotel listing data
-export const logoutRequest = (payload) => (dispatch) => {
-  dispatch(logoutUserRequest());
-  return
+export const hotelListingDataRequest = (payload) => (dispatch) => {
+  dispatch(hotelListingRequest());
+  return;
   return axios
-      .post(
-        "/logout",
-        {},
-        {
-          headers: {
-            auth_token: payload
-          }
-        }
-      )
-    .then((data) => dispatch(logoutUserSuccess(data)))
-    .catch((error) => dispatch(logoutUserFailure(error)));
+    .post(
+      "/logout",
+      {},
+      {
+        headers: {
+          auth_token: payload,
+        },
+      }
+    )
+    .then((data) => dispatch(hotelListingSuccess(data)))
+    .catch((error) => dispatch(hotelListingFailure(error)));
 };

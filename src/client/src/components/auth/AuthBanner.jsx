@@ -11,8 +11,8 @@ export default class AuthBanner extends Component {
     super(props);
     this.state = {
       showOtpForm: false,
-      showPasswordForm: false,
-      showSignupForm: true,
+      showPasswordForm: true,
+      showSignupForm: false,
     };
   }
 
@@ -58,7 +58,7 @@ export default class AuthBanner extends Component {
               </div>
               <div className="col-5" id={styles.parentHeaderContainer}>
                 <div id={styles.formHeader}>Sign up & Get 500 EYO Money</div>
-                {showSignupForm && <SignUp showSignup={showSignup} />}
+                {showSignupForm && <SignUp showLoginWithPassword={showLoginWithPassword} />}
                 {showOtpForm && <LoginWithOTP showLoginWithPassword={showLoginWithPassword} />}
                 {showPasswordForm && <LoginWithPassword showLoginWithOtp={showLoginWithOtp} />}
               </div>

@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { loginRequestWithPassword, loginRequestWithOauth } from "../../redux/authentication/actions";
 import GoogleLogin from "react-google-login";
 
-
 let pattern = {
   username: /^[a-z\d]{5,12}$/i,
   name: /^[a-z]{5,12}$/i,
@@ -83,12 +82,12 @@ class LoginWithPassword extends Component {
     } else {
       return;
     }
-  }
-  
+  };
+
   render() {
-    if(this.props.token){
-      localStorage.setItem("jwt",token)
-     
+    const { token, showLoginWithOtp } = this.props;
+    if (token) {
+      localStorage.setItem("jwt", token);
     }
     const { password, isPasswordValid, mobile, isMobileValid, isMessage, messageText } = this.state;
     return (
@@ -98,7 +97,7 @@ class LoginWithPassword extends Component {
 
           {isMessage && <small className="d-block text-danger">{messageText}</small>}
           <label for="exampleInputEmail1"> Please enter your phone number to continue</label>
-          <input type="number" value={mobile} onChange={this.handleChange} required className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+          <input type="number" name="mobile" value={mobile} onChange={this.handleChange} required className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
           <small className={isMobileValid ? "d-block text-danger" : "d-none text-danger"}>mobile is not valid</small>
         </div>
 
@@ -114,7 +113,7 @@ class LoginWithPassword extends Component {
 
         <div id={styles.formFooter}>
           Prefer to Proceed with OTP instead?{" "}
-          <span className="text-danger" onClick={this.props.showLoginWithOtp(true)}>
+          <span className="text-danger" onClick={() => showLoginWithOtp(true)}>
             Click here
           </span>{" "}
         </div>
@@ -133,7 +132,7 @@ class LoginWithPassword extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  token = state.auth.token
+  token: state.auth.token,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -125,6 +125,10 @@ class SignUp extends Component {
         <button id={styles.button} type="submit" className="btn btn-primary" onClick={handleSignup}>
           signup
         </button>
+        Prefer to Proceed with OTP login instead?{" "}
+          <span className="text-danger" onClick={()=>this.props.showLoginWithPassword(true)}>
+            Click here
+          </span>{" "}
       </form>
     );
   }
