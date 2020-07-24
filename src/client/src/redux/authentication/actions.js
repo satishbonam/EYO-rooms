@@ -1,22 +1,34 @@
 import {
+  // signup
   USER_SIGNUP_REQUEST,
   USER_SIGNUP_SUCCESS,
   USER_SIGNUP_FAILURE,
+  // login with password
   USER_LOGIN_PASS_FAILURE,
   USER_LOGIN_PASS_SUCCESS,
   USER_LOGIN_PASS_REQUEST,
+  // login with otp
   USER_OTP_LOGIN_FAILURE,
   USER_OTP_LOGIN_SUCCESS,
   USER_OTP_LOGIN_REQUEST,
-  USER_LOGOUT_REQUEST,
-  USER_LOGOUT_SUCCESS,
-  USER_LOGOUT_FAILURE,
+  // login otp verify
   USER_OTP_VERIFY_FAILURE,
   USER_OTP_VERIFY_SUCCESS,
   USER_OTP_VERIFY_REQUEST,
+  // google oauth login
   USER_OAUTH_FAILURE,
   USER_OAUTH_REQUEST,
   USER_OAUTH_SUCCESS,
+  // logout
+  USER_LOGOUT_REQUEST,
+  USER_LOGOUT_SUCCESS,
+  USER_LOGOUT_FAILURE,
+  // mobile save for otp
+  USER_MOBILE_SAVE,
+  // hotel listing
+  GET_HOTEL_LISTING_FAILURE,
+  GET_HOTEL_LISTING_SUCCESS,
+  GET_HOTEL_LISTING_REQUEST,
 } from "./actionTypes";
 
 // import axiosInstance from "../../utils/axiosInterceptor";
@@ -60,6 +72,11 @@ export const loginOtpSuccess = (payload) => ({
 export const loginOtpRequest = () => ({
   type: USER_OTP_LOGIN_REQUEST,
 });
+// save mobile
+export const saveUserMobile = (payload) => ({
+  type: USER_MOBILE_SAVE,
+  payload,
+});
 
 // login with otp verify
 export const loginOtpVerifyFailure = (payload) => ({
@@ -100,7 +117,32 @@ export const logoutUserFailure = () => ({
   type: USER_LOGOUT_FAILURE,
 });
 
+// hotel listing
+export const hotelListingRequest = (payload) => ({
+  type: GET_HOTEL_LISTING_REQUEST,
+  payload,
+});
+export const hotelListingSuccess = (payload) => ({
+  type: GET_HOTEL_LISTING_SUCCESS,
+  payload,
+});
+export const hotelListingFailure = () => ({
+  type: GET_HOTEL_LISTING_FAILURE,
+});
+
 // axios request thunk
+
+// server request for signup
+export const signupRequest = (payload) => (dispatch) => {
+  dispatch(signupUserRequest());
+  console.log(payload);
+  return axios
+    .post("/register", {
+      ...payload,
+    })
+    .then((res) => dispatch(signupUserSuccess(res)))
+    .catch((error) => dispatch(signupUserFailure(error)));
+};
 
 // server request for login with password
 export const loginRequestWithPassword = (payload) => (dispatch) => {
@@ -115,6 +157,7 @@ export const loginRequestWithPassword = (payload) => (dispatch) => {
 
 // server request for login with  otp
 export const loginRequestWithOtp = (payload) => (dispatch) => {
+  dispatch(saveUserMobile(payload));
   dispatch(loginOtpRequest());
   return axios
     .post("/login/otp_generate", {
@@ -135,23 +178,11 @@ export const loginRequestWithOtpVerify = (payload) => (dispatch) => {
     .catch((error) => dispatch(loginOtpVerifyFailure(error)));
 };
 
-// server request for signup
-export const signupRequest = (payload) => (dispatch) => {
-  dispatch(signupUserRequest());
-  console.log(payload);
-  return axios
-    .post("/register", {
-      ...payload,
-    })
-    .then((res) => dispatch(signupUserSuccess(res)))
-    .catch((error) => dispatch(signupUserFailure(error)));
-};
-
 // server request for google oauth login
 export const loginRequestWithOauth = (payload) => (dispatch) => {
   dispatch(loginOauthRequest());
   return axios
-    .post("/register", {
+    .post("/login/oauth", {
       ...payload,
     })
     .then((data) => dispatch(loginOauthSuccess(data)))
@@ -162,9 +193,27 @@ export const loginRequestWithOauth = (payload) => (dispatch) => {
 export const logoutRequest = (payload) => (dispatch) => {
   dispatch(logoutUserRequest());
   return axios
-    .post("/register", {
+    .post("/logout", {
       ...payload,
     })
     .then((data) => dispatch(logoutUserSuccess(data)))
     .catch((error) => dispatch(logoutUserFailure(error)));
+};
+
+// hotel listing data
+export const hotelListingDataRequest = (payload) => (dispatch) => {
+  dispatch(hotelListingRequest());
+  return;
+  return axios
+    .post(
+      "/logout",
+      {},
+      {
+        headers: {
+          auth_token: payload,
+        },
+      }
+    )
+    .then((data) => dispatch(hotelListingSuccess(data)))
+    .catch((error) => dispatch(hotelListingFailure(error)));
 };

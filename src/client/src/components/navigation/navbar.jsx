@@ -1,11 +1,33 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import styles from "../navigation/Navbar.module.css";
+import { logoutRequest } from "../../redux/authentication/actions";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { connect } from "react-redux";
+class navbar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLogin: false,
+    };
+  }
 
-export default class navbar extends Component {
+  handleLogout = (token) => {
+    this.props.logoutRequest(token);
+  };
+
   render() {
+    const { token, user, isLogout } = this.props;
+    const { isLogin } = this.state;
+    const { handleLogout } = this;
+    if (token) {
+      this.state({ isLogin: true });
+    }
+    if (isLogout) {
+      localStorage.setItem("jwt", null);
+    }
+
     return (
       <nav className="navbar navbar-expand-md navbar-light bg-white shadow-sm  border">
         <div className="container-fluid">
@@ -18,10 +40,20 @@ export default class navbar extends Component {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ml-auto">
               <li role="presentation" className="nav-item d-none d-md-block d-lg-block d-xl-block">
-                <Link to="/" id={styles.button} className="nav-link btn  btn-sm font-weight-bold ">
-                  {/* <FontAwesomeIcon icon={faUserCircle} /> */}
-                  Login / Signup
-                </Link>
+                {!isLogin ? (
+                  <Link to="/" id={styles.button} className="nav-link btn  btn-sm font-weight-bold ">
+                    {/* <FontAwesomeIcon icon={faUserCircle} /> */}
+                    Login / Signup
+                  </Link>
+                ) : (
+                  <>
+                    <b>{user.name || user.email}</b>
+                    <Link onClick={() => handleLogout(token)} id={styles.button} className="nav-link btn  btn-sm font-weight-bold ">
+                      {/* <FontAwesomeIcon icon={faUserCircle} /> */}
+                      Logout User
+                    </Link>
+                  </>
+                )}
               </li>
             </ul>
           </div>
@@ -30,3 +62,15 @@ export default class navbar extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  token: state.auth.token,
+  user: state.auth.userDetails,
+  isLogout: state.auth.isLogout,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  logoutRequest: (payload) => dispatch(logoutRequest(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(navbar);

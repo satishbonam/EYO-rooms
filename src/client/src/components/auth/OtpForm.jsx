@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styles from "./Form.module.css";
+import {loginRequestWithOauth} from "../../redux/authentication/actions"
 
 export default class OtpForm extends Component {
   
@@ -20,17 +21,25 @@ export default class OtpForm extends Component {
   handleVerifyOtp = (e)=>{
     e.preventDefault()
     const{digit1,digit2,digit3,digit4} = this
+    const {mobile} = this.props
     if(!digit1 || !digit2 || !digit3 || !digit4){
       return this.setState({isError:true})
     }
     
       let otp = [digit1,digit2,digit3,digit4].join("")
-      otp = Number(otp)
+      if(otp.length !== 4){
+        this.setState({isError:true})
+      }
       
+      this.props.loginRequestWithOauth(otp,mobile)
     }
   render() {
 
     const {isError} = this
+
+    if(this.props.token){
+      localStorage.setItem("jwt",token)
+    }
     return (
       <form id={styles.signupform}>
         <div className="form-group">
@@ -44,7 +53,7 @@ export default class OtpForm extends Component {
           <input type="number" name="digit4"  value={digit4} onChange={handleChange} id={styles.otp} maxLength="1" />
         </div>
         {
-          isError && <small>please enter valid 4 digit otp</small>
+          isError && <small className="text-danger">please enter valid 4 digit otp</small>
         }
 
         <button disabled id={styles.button} type="submit" className="btn btn-primary">
@@ -57,3 +66,15 @@ export default class OtpForm extends Component {
     );
   }
 }
+
+
+const mapStateToProps = (state) => ({
+  mobile:state.auth.mobile,
+  token:state.auth.token
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loginRequestWithOauth: (payload) => dispatch(loginRequestWithOauth(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(OtpForm);

@@ -21,6 +21,8 @@ class LoginWithPassword extends Component {
       password: "",
       isMobileValid: false,
       isPasswordValid: false,
+      isMessage: false,
+      messageText: "please enter all the fields",
     };
   }
   // for google oauth login
@@ -59,45 +61,50 @@ class LoginWithPassword extends Component {
     e.preventDefault();
     const { mobile, password, isMobileValid, isPasswordValid } = this.state;
 
-    if (!mobile && !password) {
-      this.setState({ isMobileValid: true, isPasswordValid: true });
+    if (!mobile || !password) {
+      this.setState({ isMessage: true });
       return;
     }
-
     let mobileValidValue = this.validate(pattern.mobile, mobile);
     let passwordValidValue = this.validate(pattern.password, password);
 
     if (!mobileValidValue) {
-      this.setState({ isMobileValid: true });
-      return;
+      return this.setState({ isMobileValid: true });
     }
     if (!passwordValidValue) {
-      this.setState({ isPasswordValid: true });
-      return;
+      return this.setState({ isPasswordValid: true });
     }
 
-    if (mobileValidValue && passwordValidValue) {
+    if (mobile && password) {
       let value = { mobile, password };
-      loginRequestWithPassword(value);
+      console.log(value);
+      this.props.loginRequestWithPassword(value);
     } else {
       return;
     }
   };
 
   render() {
-    const { password, mobile, isMobileValid } = this.state;
+    const { token, showLoginWithOtp } = this.props;
+    if (token) {
+      localStorage.setItem("jwt", token);
+    }
+    const { password, isPasswordValid, mobile, isMobileValid, isMessage, messageText } = this.state;
     return (
       <form id={styles.signupform}>
         <div className="form-group">
           <div id={styles.loginHeader}> Login / Signup</div>
+
+          {isMessage && <small className="d-block text-danger">{messageText}</small>}
           <label for="exampleInputEmail1"> Please enter your phone number to continue</label>
-          <input type="number" value={mobile} onChange={this.handleChange} required className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-          <small className={isMobileValid ? "d-block" : "d-none"}>mobile is not valid</small>
+          <input type="number" name="mobile" value={mobile} onChange={this.handleChange} required className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+          <small className={isMobileValid ? "d-block text-danger" : "d-none text-danger"}>mobile is not valid</small>
         </div>
 
         <div className="form-group">
           <label for="exampleInputPassword1">password</label>
           <input type="password" name="password" value={password} onChange={this.handleChange} required className="form-control" id="exampleInputPassword1" />
+          <small className={isPasswordValid ? "d-block text-danger" : "d-none text-danger"}>mobile is not valid</small>
         </div>
 
         <button onClick={this.handleLoginWithPassword} id={styles.button} type="submit" className="btn btn-primary">
@@ -106,7 +113,7 @@ class LoginWithPassword extends Component {
 
         <div id={styles.formFooter}>
           Prefer to Proceed with OTP instead?{" "}
-          <span className="text-danger" onClick={this.props.showLoginWithOtp(true)}>
+          <span className="text-danger" onClick={() => showLoginWithOtp(true)}>
             Click here
           </span>{" "}
         </div>
@@ -125,7 +132,7 @@ class LoginWithPassword extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  // isLogin: state.app.isLogin,
+  token: state.auth.token,
 });
 
 const mapDispatchToProps = (dispatch) => ({

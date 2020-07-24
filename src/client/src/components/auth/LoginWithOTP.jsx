@@ -56,17 +56,19 @@ class LoginWithOTP extends Component {
       this.setState({ isMobileValid: true });
       return;
     }
-
+    
     let mobileValidValue = this.validate(pattern.mobile, mobile);
     if (mobileValidValue) {
-      loginRequestWithOtp(mobile);
+      this.props.loginRequestWithOtp(mobile);
     } else {
-      return;
+      this.setState({ isMobileValid: true });
+      return 
     }
   };
 
   render() {
     const { mobile, handleChange, isMobileValid } = this;
+    const {showLoginWithPassword} = this.props
 
     return (
       <form id={styles.signupform}>
@@ -82,7 +84,7 @@ class LoginWithOTP extends Component {
         </button>
         <div id={styles.formFooter}>
           Prefer to Proceed with OTP instead?{" "}
-          <span className="text-danger" onClick={this.props.showLoginWithPassword(true)}>
+          <span className="text-danger" onClick={()=>showLoginWithPassword(true)}>
             Click here
           </span>{" "}
         </div>
