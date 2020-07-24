@@ -1,23 +1,34 @@
 import {
+  // signup
   USER_SIGNUP_REQUEST,
   USER_SIGNUP_SUCCESS,
   USER_SIGNUP_FAILURE,
+  // login with password
   USER_LOGIN_PASS_FAILURE,
   USER_LOGIN_PASS_SUCCESS,
   USER_LOGIN_PASS_REQUEST,
+  // login with otp
   USER_OTP_LOGIN_FAILURE,
   USER_OTP_LOGIN_SUCCESS,
   USER_OTP_LOGIN_REQUEST,
+  // login otp verify
   USER_OTP_VERIFY_FAILURE,
   USER_OTP_VERIFY_SUCCESS,
   USER_OTP_VERIFY_REQUEST,
+  // google oauth login
   USER_OAUTH_FAILURE,
   USER_OAUTH_REQUEST,
   USER_OAUTH_SUCCESS,
+  // logout
   USER_LOGOUT_REQUEST,
   USER_LOGOUT_SUCCESS,
   USER_LOGOUT_FAILURE,
-  USER_MOBILE_SAVE
+  // mobile save for otp
+  USER_MOBILE_SAVE,
+  // hotel listing
+  GET_HOTEL_LISTING_FAILURE,
+  GET_HOTEL_LISTING_SUCCESS,
+  GET_HOTEL_LISTING_REQUEST
 } from "./actionTypes";
 
 // import axiosInstance from "../../utils/axiosInterceptor";
@@ -107,6 +118,20 @@ export const logoutUserFailure = () => ({
 });
 
 
+// hotel listing
+export const hotelListingRequest = (payload) => ({
+  type: GET_HOTEL_LISTING_REQUEST,
+  payload,
+});
+export const hotelListingSuccess = (payload) => ({
+  type: GET_HOTEL_LISTING_SUCCESS,
+  payload,
+});
+export const hotelListingFailure = () => ({
+  type: GET_HOTEL_LISTING_FAILURE,
+});
+
+
 
 
 
@@ -177,6 +202,24 @@ export const logoutRequest = (payload) => (dispatch) => {
     .post("/logout", {
       ...payload,
     })
+    .then((data) => dispatch(logoutUserSuccess(data)))
+    .catch((error) => dispatch(logoutUserFailure(error)));
+};
+
+// hotel listing data
+export const logoutRequest = (payload) => (dispatch) => {
+  dispatch(logoutUserRequest());
+  return
+  return axios
+      .post(
+        "/logout",
+        {},
+        {
+          headers: {
+            auth_token: payload
+          }
+        }
+      )
     .then((data) => dispatch(logoutUserSuccess(data)))
     .catch((error) => dispatch(logoutUserFailure(error)));
 };
