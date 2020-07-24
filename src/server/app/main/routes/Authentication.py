@@ -39,10 +39,10 @@ class UserLogin(Resource):
     def post(self):
         data = UserLogin.parser.parse_args()
 
-        flag_request, token = user_login(data)
+        flag_request, token, user_data = user_login(data)
 
         if flag_request:
-            return {'status': flag_request, 'token': token, 'msg': 'Login Successful'}
+            return {'status': flag_request, 'token': token, 'msg': 'Login Successful', 'user_data': user_data}
         else:
             return {'status': flag_request, 'msg': 'Incorrrect Credentials'}
 
@@ -74,10 +74,10 @@ class LoginOtpVerify(Resource):
     def post(self):
         data = LoginOtpVerify.parser.parse_args()
 
-        flag_request, token = otp_verify(data)
+        flag_request, token, user_data = otp_verify(data)
 
         if flag_request:
-            return {'status': flag_request, 'token': token, 'msg': 'Login Successful'}
+            return {'status': flag_request, 'token': token, 'msg': 'Login Successful', 'user_data': user_data}
         else:
             return {'status': flag_request, 'msg': 'Incorrrect OTP'}
 
@@ -94,10 +94,10 @@ class OauthLogin(Resource):
     def post(self):
         data = OauthLogin.parser.parse_args()
 
-        flag_request, token = oauth_login(data)
+        flag_request, token, user_data = oauth_login(data)
 
         if flag_request:
-            return {'status': flag_request, 'token': token, 'msg': 'Login Successful'}
+            return {'status': flag_request, 'token': token, 'msg': 'Login Successful', 'user_data': user_data}
         else:
             return {'status': flag_request, 'msg': 'Incorrrect Credentials'}
 
