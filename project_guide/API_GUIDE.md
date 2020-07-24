@@ -45,9 +45,13 @@
 
 ```
 {
-   'status': True,
-   'msg': "Login Successfull"
-   'token':"sfsdfgfhhefgdfgdfgsd"
+    "msg": "Login Successful",
+    "status": true,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+    "user_data": {
+        "email": "satish.b.s.kumar@gmail.com",
+        "name": "satish"
+    }
 }
 ```
 
@@ -101,7 +105,11 @@
 {
     "msg": "Login Successful",
     "status": true,
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+    "user_data": {
+        "email": "satish.b.s.kumar@gmail.com",
+        "name": "satish"
+    }
 }
 ```
 
@@ -131,7 +139,11 @@
 {
     "msg": "Login Successful",
     "status": true,
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+    "user_data": {
+        "email": "satish.b.s.kumar@gmail.com",
+        "name": "satish"
+    }
 }
 ```
 
