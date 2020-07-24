@@ -17,7 +17,7 @@ def hotel_listing(params):
     count_query = 'select count(h.id) from hotel as h join category as c on h.category_id=c.id WHERE'
 
     if params.get('collections'):
-        collections = list(map(str, params.get('collections').split('&=')))
+        collections = list(map(str, params.get('collections').split('&')))
         for item in collections:
             query = query + \
                 "  h.collection->>'$[0].%s'=" % (item)+'"true"'+" AND"
