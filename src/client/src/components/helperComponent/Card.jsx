@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styles from "./card.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faCheckCircle, faWifi, faCarBattery } from "@fortawesome/free-solid-svg-icons";
+import Skeleton from "react-loading-skeleton";
 
 export default class Card extends Component {
   render() {
@@ -20,7 +21,8 @@ export default class Card extends Component {
           <div class="col-md-7">
             <div class="card-body">
               <h5 class="card-title m-0" id={styles.cardTitle}>
-                OYO Flagship 74641 Delightful Stay Em Byepass
+                {<Skeleton />}
+                {/* OYO Flagship 74641 Delightful Stay Em Byepass */}
               </h5>
               <div id={styles.location}> kolkata , kolkata </div>
               <div className="mt-3">
