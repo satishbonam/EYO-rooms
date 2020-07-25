@@ -5,8 +5,10 @@ import SidebarFilterItems from "./sidebarItems/SidebarFilterItems";
 import SidebarCollectionItems from "./sidebarItems/SidebarCollectionItems";
 import SidebarCategoriesItems from "./sidebarItems/SidebarCategoriesItems";
 import SidebarViewMoreItems from "./sidebarItems/SidebarViewMoreItmes";
+import {hotelListingDataRequest} from "../../../redux/authentication/actions"
+import { connect } from "react-redux";
 
-export default class Sidebar extends Component {
+class Sidebar extends Component {
   render() {
     return (
       <div className="col-3 border-right " id={styles.sidebar}>
@@ -21,7 +23,9 @@ export default class Sidebar extends Component {
         </div>
         <div className="col-12 pt-3 border-bottom" id={styles.filter}>
           <h4>Collections</h4>
-          <SidebarCollectionItems />
+            
+          <SidebarCollectionItems/>
+
           <div>
             <SidebarViewMoreItems />
           </div>
@@ -38,3 +42,14 @@ export default class Sidebar extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  hotelData :state.auth.hotelListData
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  hotelListingDataRequest: (payload) => dispatch(hotelListingDataRequest(payload)),
+  
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

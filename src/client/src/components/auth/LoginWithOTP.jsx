@@ -3,6 +3,7 @@ import styles from "./Form.module.css";
 import { connect } from "react-redux";
 import { loginRequestWithOtp, loginRequestWithOauth } from "../../redux/authentication/actions";
 import GoogleLogin from "react-google-login";
+import {Redirect,Link} from "react-router-dom"
 
 let pattern = {
   mobile: /^\d{10}$/,
@@ -19,25 +20,30 @@ class LoginWithOTP extends Component {
 
   // for google oauth login
   googleResponse = (googleUser) => {
-    console.log(googleUser);
 
-    // const value = {
-    //   name,
-    //   email,
-    //   provider:"google",
-    //   access_token
-    // }
-    // if (value) {
-    //   loginRequestWithOauth(value);
-    // }
+    const {accessToken} = googleUser
+    const{name,email} = googleUser.profileObj
+    console.log(accessToken,name,email)
+
+    const value = {
+      name,
+      email,
+      provider:"google",
+      access_token:accessToken
+    }
+
+     if (value) {
+     //console.log(value)
+       this.props.loginRequestWithOauth(value);
+     }
   };
 
   handleChange = (e) => {
     this.setState(
       {
         [e.target.name]: e.target.value,
-      },
-      () => console.log(this.state)
+      }
+      
     );
   };
 
@@ -59,7 +65,8 @@ class LoginWithOTP extends Component {
     
     let mobileValidValue = this.validate(pattern.mobile, mobile);
     if (mobileValidValue) {
-      this.props.loginRequestWithOtp(mobile);
+   
+      this.props.loginRequestWithOtp({mobile});
     } else {
       this.setState({ isMobileValid: true });
       return 
@@ -67,34 +74,46 @@ class LoginWithOTP extends Component {
   };
 
   render() {
-    const { mobile, handleChange, isMobileValid } = this;
-    const {showLoginWithPassword} = this.props
 
+    
+
+    const { mobile, handleChange, isMobileValid } = this;
+    const {showLoginWithPassword,token,user,otpGenerate} = this.props
+   // console.log(token,user)
+    if (token ) {
+      localStorage.setItem("jwt", token);
+      localStorage.setItem("data", JSON.stringify(user));
+      return <Redirect to="/" />
+    }
+     if (otpGenerate ) {
+      return <Redirect to="/otpverify" />
+    }
+    
     return (
       <form id={styles.signupform}>
         <div className="form-group">
           <div id={styles.loginHeader}> Login / Signup</div>
           <label for="exampleInputEmail1"> Please enter your phone number to continue</label>
-          <input type="password" name="mobile" value={mobile} onChange={handleChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+          <input type="number" name="mobile" value={mobile} onChange={handleChange} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
           <small className={isMobileValid ? "d-block" : "d-none"}>not an valid email</small>
         </div>
 
-        <button disabled id={styles.button} type="submit" onClick={this.handleLoginWithOtp} className="btn btn-primary">
+        <button id={styles.button} type="submit" onClick={this.handleLoginWithOtp} className="btn btn-primary">
           Verify Number
         </button>
         <div id={styles.formFooter}>
           Prefer to Proceed with OTP instead?{" "}
-          <span className="text-danger" onClick={()=>showLoginWithPassword(true)}>
+          <Link className="text-danger" to="/login">
             Click here
-          </span>{" "}
+          </Link>{" "}
         </div>
         <GoogleLogin
-          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+          clientId={"412804596146-clkr9mtigjj70d3atl49nctpai3q7bb7.apps.googleusercontent.com"}
           onSuccess={this.googleResponse}
           onFailure={this.googleResponse}
           cookiePolicy="single_host_origin"
-          // uxMode="popup"
-          // isSignedIn={false}
+           uxMode="popup"
+           isSignedIn={false}
         ></GoogleLogin>
       </form>
     );
@@ -102,11 +121,16 @@ class LoginWithOTP extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  isOtp: state.auth.isOtp,
+  
+  otpGenerate: state.auth.otpGenarate,
+  user:state.auth.user,
+  token:state.auth.token
+
 });
 
 const mapDispatchToProps = (dispatch) => ({
   loginRequestWithOtp: (payload) => dispatch(loginRequestWithOtp(payload)),
+  loginRequestWithOauth: (payload) => dispatch(loginRequestWithOauth(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginWithOTP);

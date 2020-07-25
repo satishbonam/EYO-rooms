@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import styles from "./Form.module.css";
-import {loginRequestWithOauth} from "../../redux/authentication/actions"
+import {loginRequestWithOtpVerify} from "../../redux/authentication/actions"
+import {connect} from "react-redux"
+import {Redirect} from "react-router-dom"
 
-export default class OtpForm extends Component {
+class OtpForm extends Component {
   
   constructor(props){
     super(props);
@@ -15,36 +17,43 @@ export default class OtpForm extends Component {
     }
   }
   handleChange=(e)=>{
-    this.setState({[e.target.name]:e.target.value})
+    this.setState({
+    [e.target.name]:e.target.value
+    },()=>console.log("number ",this.state)
+    )
+    
+
   }
 
   handleVerifyOtp = (e)=>{
     e.preventDefault()
-    const{digit1,digit2,digit3,digit4} = this
-    const {mobile} = this.props
+    const{digit1,digit2,digit3,digit4} = this.state
+    console.log(digit1)
+    const {mobileNumber} = this.props
     if(!digit1 || !digit2 || !digit3 || !digit4){
       return this.setState({isError:true})
     }
     
       let otp = [digit1,digit2,digit3,digit4].join("")
-      if(otp.length !== 4){
-        this.setState({isError:true})
-      }
-      
-      this.props.loginRequestWithOauth(otp,mobile)
+     if(otp.length !== 4){
+       return this.setState({isError:true})
+      } 
+      console.log(otp, typeof otp)
+      this.props.loginRequestWithOtpVerify({otp,mobile:"8500505795"})
     }
   render() {
-
-    const {isError} = this
-
-    if(this.props.token){
-      localStorage.setItem("jwt",token)
-    }
+    const {handleChange,handleVerifyOtp} = this
+     const {isError,digit1,digit2,digit3,digit4} = this.state
+     const {mobileNumber,token,user} = this.props
+     if(token){
+      return <Redirect to="/"/>
+     }
+   
     return (
-      <form id={styles.signupform}>
+      <form id={styles.signupform} onSubmit={handleVerifyOtp}>
         <div className="form-group">
           <div id={styles.loginHeader}>Share OTP</div>
-          <label>We have sent a temporary passcode to you at +91-8340663803</label>
+          <label>We have sent a temporary passcode to you at +91-{mobileNumber}</label>
           <label className="text-danger">Use a different number</label>
           <div id={styles.codeHeader}>Enter your 4-digit passcode</div>
           <input type="number" name="digit1"  value={digit1} onChange={handleChange} id={styles.otp} maxLength="1" />
@@ -56,7 +65,7 @@ export default class OtpForm extends Component {
           isError && <small className="text-danger">please enter valid 4 digit otp</small>
         }
 
-        <button disabled id={styles.button} type="submit" className="btn btn-primary">
+        <button  id={styles.button} type="submit" className="btn btn-primary">
           Submit
         </button>
         <div id={styles.formFooter}>
@@ -69,12 +78,13 @@ export default class OtpForm extends Component {
 
 
 const mapStateToProps = (state) => ({
-  mobile:state.auth.mobile,
-  token:state.auth.token
+  mobileNumber : state.auth.mobileNumber,
+    token: state.auth.token,
+    user: state.auth.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loginRequestWithOauth: (payload) => dispatch(loginRequestWithOauth(payload)),
+  loginRequestWithOtpVerify: (payload) => dispatch(loginRequestWithOtpVerify(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OtpForm);
