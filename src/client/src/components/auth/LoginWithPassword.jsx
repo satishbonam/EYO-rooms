@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import styles from "./Form.module.css";
 import { connect } from "react-redux";
-import { loginRequestWithPassword, loginRequestWithOauth } from "../../redux/authentication/actions";
+import { loginRequestWithPassword, loginRequestWithOauth ,changeSignupValue} from "../../redux/authentication/actions";
 import GoogleLogin from "react-google-login";
+import {Redirect, Link} from "react-router-dom"
 
 let pattern = {
   username: /^[a-z\d]{5,12}$/i,
@@ -27,19 +28,25 @@ class LoginWithPassword extends Component {
   }
   // for google oauth login
   googleResponse = (googleUser) => {
-    console.log(googleUser);
 
-    // const value = {
-    //   name,
-    //   email,
-    //   provider:"google",
-    //   access_token
-    // }
-    // if (value) {
-    //   loginRequestWithOauth(value);
-    // }
+    const {accessToken} = googleUser
+    const{name,email} = googleUser.profileObj
+    console.log(accessToken,name,email)
+
+    const value = {
+      name,
+      email,
+      provider:"google",
+      access_token:accessToken
+    }
+
+     if (value) {
+     //console.log(value)
+       this.props.loginRequestWithOauth(value);
+     }
   };
 
+ 
   handleChange = (e) => {
     this.setState(
       {
@@ -85,11 +92,16 @@ class LoginWithPassword extends Component {
   };
 
   render() {
-    const { token, showLoginWithOtp } = this.props;
-    if (token) {
-      localStorage.setItem("jwt", token);
-    }
+    
     const { password, isPasswordValid, mobile, isMobileValid, isMessage, messageText } = this.state;
+    const { token, showLoginWithOtp,user } = this.props;
+    
+    if (token) {
+      //localStorage.setItem("jwt", token);
+      //localStorage.setItem("data", JSON.stringify(user));
+      return <Redirect to="/" />
+    }
+  
     return (
       <form id={styles.signupform}>
         <div className="form-group">
@@ -113,13 +125,13 @@ class LoginWithPassword extends Component {
 
         <div id={styles.formFooter}>
           Prefer to Proceed with OTP instead?{" "}
-          <span className="text-danger" onClick={() => showLoginWithOtp(true)}>
+          <Link className="text-danger" to="/loginotp">
             Click here
-          </span>{" "}
+          </Link>{" "}
         </div>
 
         <GoogleLogin
-          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+          clientId={"412804596146-clkr9mtigjj70d3atl49nctpai3q7bb7.apps.googleusercontent.com"}
           onSuccess={this.googleResponse}
           onFailure={this.googleResponse}
           cookiePolicy="single_host_origin"
@@ -133,10 +145,13 @@ class LoginWithPassword extends Component {
 
 const mapStateToProps = (state) => ({
   token: state.auth.token,
+    user: state.auth.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   loginRequestWithPassword: (payload) => dispatch(loginRequestWithPassword(payload)),
+   loginRequestWithOauth: (payload) => dispatch(loginRequestWithOauth(payload)),
+    //changeSignupValue: (payload) => dispatch(changeSignupValue(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginWithPassword);
