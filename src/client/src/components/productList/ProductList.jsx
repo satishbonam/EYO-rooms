@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import { Link } from "react-router-dom";
+ import { Link, Redirect } from "react-router-dom";
 import Navbar from "../navigation/navbar";
 import Sidebar from "./sidebar/Sidebar";
 import Contentsection from "../productList/contentSection/ContentSection";
@@ -25,7 +25,12 @@ import {connect} from "react-redux"
   }
 
   render() {
-       const {hotelData} = this.props
+       const {hotelData,token} = this.props
+       console.log(hotelData)
+
+       if (!token ) {
+          return <Redirect to="/login" />
+        }
     return (
       <div className="container-fluid p-0">
         <Navbar />
@@ -40,7 +45,9 @@ import {connect} from "react-redux"
 
 
 const mapStateToProps = (state) => ({
-  hotelData :state.auth.hotelListData
+  hotelData :state.auth.hotelListData,
+   token: state.auth.token,
+  user: state.auth.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({

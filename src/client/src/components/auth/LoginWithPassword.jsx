@@ -97,8 +97,8 @@ class LoginWithPassword extends Component {
     const { token, showLoginWithOtp,user } = this.props;
     
     if (token) {
-      localStorage.setItem("jwt", token);
-      localStorage.setItem("data", JSON.stringify(user));
+      //localStorage.setItem("jwt", token);
+      //localStorage.setItem("data", JSON.stringify(user));
       return <Redirect to="/" />
     }
   

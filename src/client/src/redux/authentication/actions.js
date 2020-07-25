@@ -171,9 +171,10 @@ export const loginRequestWithPassword = (payload) => (dispatch) => {
 export const loginRequestWithOtp = (payload) => (dispatch) => {
   dispatch(saveUserMobile(payload));
   dispatch(loginOtpRequest());
+  console.log(payload)
   return axios
     .post("login/otp_generate", {
-      payload,
+      ...payload,
     })
     .then((data) => dispatch(loginOtpSuccess(data)))
     .catch((error) => dispatch(loginOtpFailure(error)));
@@ -230,7 +231,7 @@ export const hotelListingDataRequest = (payload) => (dispatch) => {
       {},
       {
         params: {
-          collections:["Sanitised_Stays","Business_Travellers"]
+          collections:"Sanitised_Stays"
         }
       }
     )

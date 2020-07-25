@@ -9,17 +9,19 @@ class ContentSection extends Component {
   render() {
 
   	const {hotelData} = this.props
+  	console.log(hotelData)
     return (
       <div className="col-9">
 
         <ContentHeader />
         {
-        	hotelData.map(ele=>(
-        	<Card data={ele}/>
-        	))
+        hotelData.data.map(ele=>(
+        	 <Card data={ele}/>
+        ))
         }
+       
       </div>
-    );
+    )
   }
 }
 

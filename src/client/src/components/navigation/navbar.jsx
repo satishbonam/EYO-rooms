@@ -46,7 +46,7 @@ class navbar extends Component {
       if (!token ) {
           return <Redirect to="/login" />
         }
-    console.log(user,token)
+    //console.log(user,token)
     return (
       <nav className="navbar navbar-expand-md navbar-light bg-white shadow-sm  border">
         <div className="container-fluid">
@@ -59,24 +59,20 @@ class navbar extends Component {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ml-auto">
               <li role="presentation" className="nav-item d-none d-md-block d-lg-block d-xl-block">
-                <Link to="/" id={styles.button} className="nav-link btn  btn-sm font-weight-bold ">
+                {!user ? (
+                  <Link to="/" id={styles.button} className="nav-link btn  btn-sm font-weight-bold ">
                     {/* <FontAwesomeIcon icon={faUserCircle} /> */}
                     Login / Signup
                   </Link>
-          
-               {
-                token && (
-                <>
-
-                   <b>{user?user.name:""}</b>
+                ) : (
+                  <>
+                    <b>{user.name}</b>
                     <Link onClick={() => handleLogout(token)} id={styles.button} className="nav-link btn  btn-sm font-weight-bold ">
                       {/* <FontAwesomeIcon icon={faUserCircle} /> */}
                       Logout
                     </Link>
-                </>
-                )
-              }
-               
+                  </>
+                )}
               </li>
             </ul>
           </div>

@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import styles from "./Form.module.css";
 import {loginRequestWithOtpVerify} from "../../redux/authentication/actions"
 import {connect} from "react-redux"
+import {Redirect} from "react-router-dom"
+
 class OtpForm extends Component {
   
   constructor(props){
@@ -37,13 +39,15 @@ class OtpForm extends Component {
        return this.setState({isError:true})
       } 
       console.log(otp, typeof otp)
-      this.props.loginRequestWithOtpVerify({otp,mobile:"876765655"})
+      this.props.loginRequestWithOtpVerify({otp,mobile:"8500505795"})
     }
   render() {
-
     const {handleChange,handleVerifyOtp} = this
      const {isError,digit1,digit2,digit3,digit4} = this.state
-     const {mobileNumber} = this.props
+     const {mobileNumber,token,user} = this.props
+     if(token){
+      return <Redirect to="/"/>
+     }
    
     return (
       <form id={styles.signupform} onSubmit={handleVerifyOtp}>
@@ -74,7 +78,9 @@ class OtpForm extends Component {
 
 
 const mapStateToProps = (state) => ({
-  mobileNumber : state.auth.mobileNumber
+  mobileNumber : state.auth.mobileNumber,
+    token: state.auth.token,
+    user: state.auth.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
