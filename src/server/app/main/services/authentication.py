@@ -6,10 +6,10 @@ import datetime
 from ..models.AuthenticationModel import BlacklistTokenModel
 from ..utils.db_save import db_save
 from ..utils.generate_otp import generate_otp
+import json
+
 
 # register user if email is not present in the users table
-
-
 def user_register(data):
 
     data_raw = UserModel().query.filter(UserModel.email == data.get("email")).first()
@@ -76,13 +76,12 @@ def user_login(data):
                 }
 
             token = jwt.encode(payload, key)
-
-            return flag, token.decode()
+            return flag, token.decode(), {"email": str(data_raw.email), "name": str(data_raw.name)}
 
         else:
-            return flag, ""
+            return flag, "", ""
     else:
-        return flag, ""
+        return flag, "", ""
 
 # generate otp to regisetred mobile
 
@@ -91,7 +90,9 @@ def otp_generate(data):
     data_raw = UserModel.query.filter(
         UserModel.mobile == data['mobile']).first()
 
+    print(data_raw)
     if data_raw:
+        print("enter")
         flag, otp = generate_otp(data['mobile'])
         if flag:
             otp_data = OtpModel.query.filter(
@@ -116,6 +117,8 @@ def otp_generate(data):
 def otp_verify(data):
     data_raw = OtpModel.query.filter(
         OtpModel.mobile == data['mobile']).first()
+    data_user = UserModel.query.filter(
+        UserModel.mobile == data['mobile']).first()
 
     if data_raw:
         flag = False
@@ -131,12 +134,12 @@ def otp_verify(data):
             }
             token = jwt.encode(payload, key)
 
-            return flag, token.decode()
+            return flag, token.decode(), {"email": str(data_user.email), "name": str(data_user.name)}
 
         else:
-            return flag, ""
+            return flag, "", ""
     else:
-        return flag, ""
+        return flag, "", ""
 
 # check user table if present post OAuth data to db ,if not register the user and post OAuth data to db
 
@@ -170,10 +173,10 @@ def oauth_login(data):
             }
             token = jwt.encode(payload, key)
 
-            return flag, token.decode()
+            return flag, token.decode(), {"email": str(data_raw.email), "name": str(data_raw.name)}
 
         else:
-            return flag, ""
+            return flag, "", ""
     else:
         # if user not present in users table ,register new user and send jwt token  for login
         flag_regsiter = user_register(data)
@@ -197,9 +200,9 @@ def oauth_login(data):
             }
             token = jwt.encode(payload, key)
 
-            return True, token.decode()
+            return True, token.decode(), {"email": str(data_registered.email), "name": str(data_registered.name)}
         else:
-            return False, ""
+            return False, "", ""
 
 
 # logout user and add jwt token to blacklistmodel

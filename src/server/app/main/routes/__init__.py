@@ -2,6 +2,7 @@
 # from .blueprint_test import bp
 from app.main import api
 from .Authentication import Register, LoginOtpGenerate, UserLogin, LoginOtpVerify, OauthLogin, UserLogout
+from .Listing import HotelListing
 
 
 def add_resources(app):
@@ -17,6 +18,7 @@ def add_resources(app):
     api.add_resource(LoginOtpVerify, '/login/otp_verify')
     api.add_resource(OauthLogin, '/login/oauth')
     api.add_resource(UserLogout, '/logout')
+    api.add_resource(HotelListing, '/hotel_listing')
 
 
 def register_blueprints(app):
