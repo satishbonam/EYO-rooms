@@ -4,7 +4,8 @@ import {hotelListingDataRequest} from "../../../../redux/authentication/actions"
 import { connect } from "react-redux";
 
 
- function SidebarCollectionItems() {
+ function SidebarCollectionItems(props) {
+ console.log(props)
   return (
     <>
       <label>
