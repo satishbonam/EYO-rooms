@@ -15,7 +15,7 @@ class ContentSection extends Component {
 
         <ContentHeader />
         {
-        hotelData.data.map(ele=>(
+        hotelData && hotelData.data.map(ele=>(
         	 <Card data={ele}/>
         ))
         }

@@ -77,6 +77,7 @@ import { connect } from "react-redux";
                     <span id={styles.percentage}>{data.rooms[0].discount_percentage} % off</span>
                   </div>
                   <div id={styles.pernight}>per room per night</div>
+                  <div id={styles.pernight}>Checking feature-{data.checkin_features}</div>
                 </div>
                 <div>
                   <button id={styles.whilteButton}>View details</button>
@@ -87,8 +88,6 @@ import { connect } from "react-redux";
           </div>
         </div>
       </div>
-      <br/>
-      <br/>
     </>
     );
   }

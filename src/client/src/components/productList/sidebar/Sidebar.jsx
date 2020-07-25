@@ -24,7 +24,7 @@ class Sidebar extends Component {
         <div className="col-12 pt-3 border-bottom" id={styles.filter}>
           <h4>Collections</h4>
             
-          
+          <SidebarCollectionItems/>
 
           <div>
             <SidebarViewMoreItems />
