@@ -3,6 +3,7 @@ import {
   USER_SIGNUP_REQUEST,
   USER_SIGNUP_SUCCESS,
   USER_SIGNUP_FAILURE,
+  CHANGE_SIGNUP_VALUE,
   // login with password
   USER_LOGIN_PASS_FAILURE,
   USER_LOGIN_PASS_SUCCESS,
@@ -23,6 +24,7 @@ import {
   USER_LOGOUT_REQUEST,
   USER_LOGOUT_SUCCESS,
   USER_LOGOUT_FAILURE,
+  CHANGE_LOGOUT_VALUE,
   // mobile save for otp
   USER_MOBILE_SAVE,
   // hotel listing
@@ -46,6 +48,11 @@ export const signupUserFailure = (payload) => ({
   type: USER_SIGNUP_FAILURE,
   payload,
 });
+export const changeSignupValue = (payload) => ({
+  type: CHANGE_SIGNUP_VALUE,
+  payload,
+});
+
 
 // login with password
 export const loginPassFailure = (payload) => ({
@@ -117,6 +124,11 @@ export const logoutUserFailure = () => ({
   type: USER_LOGOUT_FAILURE,
 });
 
+export const changeLogoutValue = (payload) => ({
+  type: CHANGE_LOGOUT_VALUE,
+  payload
+});
+
 // hotel listing
 export const hotelListingRequest = (payload) => ({
   type: GET_HOTEL_LISTING_REQUEST,
@@ -160,8 +172,8 @@ export const loginRequestWithOtp = (payload) => (dispatch) => {
   dispatch(saveUserMobile(payload));
   dispatch(loginOtpRequest());
   return axios
-    .post("/login/otp_generate", {
-      ...payload,
+    .post("login/otp_generate", {
+      payload,
     })
     .then((data) => dispatch(loginOtpSuccess(data)))
     .catch((error) => dispatch(loginOtpFailure(error)));
@@ -170,9 +182,10 @@ export const loginRequestWithOtp = (payload) => (dispatch) => {
 // server request for otp verify
 export const loginRequestWithOtpVerify = (payload) => (dispatch) => {
   dispatch(loginOtpVerifyRequest());
+  console.log(payload)
   return axios
     .post("/login/otp_verify", {
-      ...payload,
+      ...payload
     })
     .then((data) => dispatch(loginOtpVerifySuccess(data)))
     .catch((error) => dispatch(loginOtpVerifyFailure(error)));
@@ -193,27 +206,37 @@ export const loginRequestWithOauth = (payload) => (dispatch) => {
 export const logoutRequest = (payload) => (dispatch) => {
   dispatch(logoutUserRequest());
   return axios
-    .post("/logout", {
-      ...payload,
-    })
+    .get(
+      "/logout",
+      {},
+      {
+        headers: {
+          auth_token:payload
+        }
+      }
+    )
     .then((data) => dispatch(logoutUserSuccess(data)))
     .catch((error) => dispatch(logoutUserFailure(error)));
 };
 
 // hotel listing data
 export const hotelListingDataRequest = (payload) => (dispatch) => {
+  console.log("hotel listing calling...")
   dispatch(hotelListingRequest());
-  return;
+ 
   return axios
-    .post(
-      "/logout",
+    .get(
+      "/hotel_listing",
       {},
       {
-        headers: {
-          auth_token: payload,
-        },
+        params: {
+          collections:["Sanitised_Stays","Business_Travellers"]
+        }
       }
     )
-    .then((data) => dispatch(hotelListingSuccess(data)))
+    .then((data) => {
+      console.log(data)
+      dispatch(hotelListingSuccess(data))
+    })
     .catch((error) => dispatch(hotelListingFailure(error)));
 };

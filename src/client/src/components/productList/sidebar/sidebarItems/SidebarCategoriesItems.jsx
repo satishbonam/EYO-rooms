@@ -1,7 +1,9 @@
 import React from "react";
 import styles from "../../sidebar/sidebar.module.css";
+import {hotelListingDataRequest} from "../../../../redux/authentication/actions"
+import { connect } from "react-redux";
 
-export default function SidebarCategories() {
+ function SidebarCategoriesItems() {
   return (
     <>
       <div className="row flex-nowrap">
@@ -28,3 +30,15 @@ export default function SidebarCategories() {
     </>
   );
 }
+
+
+const mapStateToProps = (state) => ({
+  hotelData :state.auth.hotelListData
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  hotelListingDataRequest: (payload) => dispatch(hotelListingDataRequest(payload)),
+  
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SidebarCategoriesItems);

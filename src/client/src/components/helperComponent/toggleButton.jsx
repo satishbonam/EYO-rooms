@@ -1,7 +1,10 @@
 import React from "react";
 import styles from "./toggleButton.module.css";
+import {hotelListingDataRequest} from "../../redux/authentication/actions"
+import { connect } from "react-redux";
 
-export default function toggleButton() {
+
+ function toggleButton() {
   return (
     <>
       <input type="checkbox" id="switch" className={styles.checkbox} />
@@ -9,3 +12,15 @@ export default function toggleButton() {
     </>
   );
 }
+
+
+const mapStateToProps = (state) => ({
+  hotelData :state.auth.hotelListData
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  hotelListingDataRequest: (payload) => dispatch(hotelListingDataRequest(payload)),
+  
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(toggleButton);

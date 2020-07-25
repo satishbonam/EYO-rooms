@@ -1,14 +1,37 @@
 import React, { Component } from "react";
 import ContentHeader from "../contentSection/contentSectionHeader";
 import Card from "../../helperComponent/Card";
+import {hotelListingDataRequest} from "../../../redux/authentication/actions"
+import { connect } from "react-redux";
 
-export default class ContentSection extends Component {
+
+class ContentSection extends Component {
   render() {
+
+  	const {hotelData} = this.props
     return (
       <div className="col-9">
+
         <ContentHeader />
-        <Card />
+        {
+        	hotelData.map(ele=>(
+        	<Card data={ele}/>
+        	))
+        }
       </div>
     );
   }
 }
+
+
+
+const mapStateToProps = (state) => ({
+  hotelData :state.auth.hotelListData
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  hotelListingDataRequest: (payload) => dispatch(hotelListingDataRequest(payload)),
+  
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContentSection);

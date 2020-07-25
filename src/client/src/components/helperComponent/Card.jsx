@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import styles from "./card.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faCheckCircle, faWifi, faCarBattery } from "@fortawesome/free-solid-svg-icons";
+import {hotelListingDataRequest}from "../../redux/authentication/actions"
+import { connect } from "react-redux";
 
-export default class Card extends Component {
+ class Card extends Component {
   render() {
     return (
       <div class="card mt-5  ">
@@ -82,3 +84,15 @@ export default class Card extends Component {
     );
   }
 }
+
+
+const mapStateToProps = (state) => ({
+  hotelData :state.auth.hotelListData
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  hotelListingDataRequest: (payload) => dispatch(hotelListingDataRequest(payload)),
+  
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Card);

@@ -1,35 +1,17 @@
+
 import React, { Component } from "react";
 
 import styles from "./AuthBanner.module.css";
-import { Link } from "react-router-dom";
-import LoginWithPassword from "./LoginWithPassword";
-import LoginWithOTP from "./LoginWithOTP";
-import SignUp from "./SignUp";
+import { Link,Redirect } from "react-router-dom";
+import OtpForm from "./OtpForm";
 
-export default class AuthBanner extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showOtpForm: false,
-      showPasswordForm: true,
-      showSignupForm: false,
-    };
-  }
 
-  showLoginWithOtp = (istrue) => {
-    this.setState({ showOTPForm: istrue, showPasswordForm: false, showSignupForm: false });
-  };
-  showLoginWithPassword = (istrue) => {
-    this.setState({ showOTPForm: false, showPasswordForm: istrue, showSignupForm: false });
-  };
-  showSignup = (istrue) => {
-    this.setState({ showOTPForm: false, showPasswordForm: false, showSignupForm: istrue });
-  };
+export default class AuthBannerOtpVerify extends Component {
+ 
 
   render() {
-    const { showSignup, showLoginWithOtp, showLoginWithPassword } = this;
-    const { showSignupForm, showPasswordForm, showOtpForm } = this.state;
-
+   
+   
     return (
       <div className="row m-0 ">
         <div className=" col-12 p-0" id={styles.overview}>
@@ -58,9 +40,7 @@ export default class AuthBanner extends Component {
               </div>
               <div className="col-5" id={styles.parentHeaderContainer}>
                 <div id={styles.formHeader}>Sign up & Get 500 EYO Money</div>
-                {showSignupForm && <SignUp showLoginWithPassword={showLoginWithPassword} />}
-                {showOtpForm && <LoginWithOTP showLoginWithPassword={showLoginWithPassword} />}
-                {showPasswordForm && <LoginWithPassword showLoginWithOtp={showLoginWithOtp} />}
+                <OtpForm/>
               </div>
             </div>
           </div>

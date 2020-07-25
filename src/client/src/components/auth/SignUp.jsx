@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import styles from "./Form.module.css";
 import { connect } from "react-redux";
-import { signupRequest } from "../../redux/authentication/actions";
+import { signupRequest,hotelListingDataRequest,changeSignupValue } from "../../redux/authentication/actions";
+import {Redirect,Link} from "react-router-dom"
 
 let pattern = {
   username: /^[a-z\d]{5,20}$/i,
@@ -49,6 +50,8 @@ class SignUp extends Component {
 
   handleSignup = (e) => {
     e.preventDefault();
+
+    
     const { signupRequest } = this.props;
     const { mobile, password, name, email, username } = this.state;
 
@@ -87,10 +90,21 @@ class SignUp extends Component {
     }
   };
 
+  changeValue= ()=>{
+      this.props.changeSignupValue(false)
+      this.props.history.push("/")
+  }
+
   render() {
     const { name, email, password, mobile, username, isNameValid, isMobileValid,
        isEmailValid, isPasswordValid, isUsernameValid, isMessage,messageText } = this.state;
-    const { handleChange, handleSignup } = this;
+    const { handleChange, handleSignup, changeValue } = this
+    const {isSignUp} = this.props
+
+    if(isSignUp){
+      changeValue()
+
+    }
 
     return (
       <form id={styles.signupform}>
@@ -126,9 +140,9 @@ class SignUp extends Component {
           signup
         </button>
         Prefer to Proceed with OTP login instead?{" "}
-          <span className="text-danger" onClick={()=>this.props.showLoginWithPassword(true)}>
+          <Link className="text-danger" to="/login">
             Click here
-          </span>{" "}
+          </Link>{" "}
       </form>
     );
   }
@@ -140,6 +154,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   signupRequest: (payload) => dispatch(signupRequest(payload)),
+  changeSignupValue: (payload) => dispatch(changeSignupValue(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
