@@ -8,7 +8,7 @@ export default class Routes extends Component {
   render() {
     return (
       <>
-        <Route path="/" exact component={ProductList} />
+        <Route path="/" component={ProductList} />
         <Route path="/login" component={AuthBanner} />
       </>
     );

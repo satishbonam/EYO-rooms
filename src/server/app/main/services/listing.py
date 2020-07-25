@@ -10,6 +10,7 @@ import json
 
 # register user if email is not present in the users table
 def hotel_listing(params):
+    print()
     per_page = 20
 
     query = "select h.name as name,h.images->>'$[0]' as images,h.rooms->>'$' as rooms,created_at,updated_at, h.collection->>'$[0]' as collection,c.name as category,c.tag as tag,h.accomodation_type->>'$[0]' as acc_type,h.amenities as amenities,checkin_features as c_f from hotel as h join category as c on h.category_id=c.id WHERE"
@@ -17,20 +18,19 @@ def hotel_listing(params):
     count_query = 'select count(h.id) from hotel as h join category as c on h.category_id=c.id WHERE'
 
     if params.get('collections'):
-        collections = list(map(str, params.get('collections').split('&=')))
+        collections = params.getlist("collections")
         for item in collections:
             query = query + \
                 "  h.collection->>'$[0].%s'=" % (item)+'"true"'+" AND"
             count_query = count_query + \
                 "  h.collection->>'$[0].%s'=" % (item)+'"true"'+" AND"
     if params.get('category'):
-        category = list(map(str, params.get('category').split('&')))
+        category = params.getlist("category")
         for item in category:
             query = query + "  c.name='%s' AND" % (item)
             count_query = count_query + "  c.name='%s' AND" % (item)
     if params.get('accomodation_type'):
-        accomodation_type = list(
-            map(str, params.get('accomodation_type').split('&')))
+        accomodation_type = params.getlist("accomodation_type")
         for item in accomodation_type:
             query = query + \
                 "  h.accomodation_type->>'$[0].%s'=" % (item)+'"true"'+" AND"
@@ -39,16 +39,14 @@ def hotel_listing(params):
                     item) + '"true"' + " AND"
 
     if params.get('amenities'):
-        amenities = list(
-            map(str, params.get('amenities').split('&')))
+        amenities = params.getlist("amenities")
         for item in amenities:
             query = query + \
                 "  h.amenities->>'$[0].%s'=" % (item)+'"true"'+" AND"
             count_query = count_query + \
                 "  h.amenities->>'$[0].%s'=" % (item)+'"true"'+" AND"
     if params.get('checkin_features'):
-        checkin_features = list(
-            map(str, params.get('checkin_features').split('&')))
+        params.getlist("checkin_features")
         for item in checkin_features:
             query = query + "  h.checkin_features='%s'" % (item)
             count_query = count_query + \
@@ -76,11 +74,11 @@ def hotel_listing(params):
         total_results = row[0]
         total_pages = int(math.ceil((row[0]/per_page)))
 
-    print(query)
+    # print(query)
     data_raw = db.engine.execute(query)
     data_base = db.engine.execute(base_query)
 
-    print(data_raw)
+    # print(data_raw)
 
     data = []
 

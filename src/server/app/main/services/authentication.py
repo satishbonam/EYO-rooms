@@ -81,7 +81,7 @@ def user_login(data):
         else:
             return flag, "", ""
     else:
-        return flag, "", ""
+        return False, "", ""
 
 # generate otp to regisetred mobile
 
@@ -139,7 +139,7 @@ def otp_verify(data):
         else:
             return flag, "", ""
     else:
-        return flag, "", ""
+        return False, "", ""
 
 # check user table if present post OAuth data to db ,if not register the user and post OAuth data to db
 
