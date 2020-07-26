@@ -172,3 +172,122 @@
     "status": true
 }
 ```
+
+## /bill_data
+
+### Request params
+
+#### required:checkin and checkout
+
+```
+{
+    "check_in":""
+    "check_out":""
+  all filter params
+}
+```
+
+### Request body
+
+#### required:hotel_id
+
+```
+{
+  "hotel_id":"",
+  "room_id":"",
+  "check_in":"",
+  "check_out":"",
+  "no_of_guests":"",
+  "no_of_rooms":""
+}
+```
+
+### Response Body
+
+```
+{
+    "rooms":[{"id":"1","room_type":"<type>","size":"145","actual_price":"","discount_price":"","discount":""},
+            {"id":"2","room_type":"<type>","size":"145","actual_price":"","discount_price":"","discount":""},
+            {"id":"3","room_type":"<type>","size":"145","actual_price":"","discount_price":"","discount":""}]
+    "selected_room":{
+                        "id":1,
+                        "rooms_available":"",
+                        "no_of_rooms":""
+                        "no_of_guests":"",
+                        "actual_price":"",
+                        "discount_price":"",
+                        "discount":"",
+                        offer:{"membership":true,"discount":"","savings":""}
+                        "check_in":"",
+                        "check_out":""
+
+                     }
+}
+```
+
+## /entity
+
+### Request body
+
+#### required:hotel_id
+
+```
+{
+  "hotel_id":"",
+}
+```
+
+### Response Body
+
+```
+{
+    "id":""
+    "title":""
+    "location":""
+    "rating":""
+    "no_of_ratings":""
+    "description":""
+    "amenities":""
+    "hotel_policy":""
+}
+```
+
+## /recommendations
+
+### Request params
+
+```
+{
+  all filter params
+}
+```
+
+### Response Body
+
+```
+{
+    "data":[{"id":"","title":"","location":"","rating":"","no_of_ratings":"","description":"","amenities":"","hotel_policy":""},...20-items]
+}
+```
+
+## /reviews
+
+### Request body
+
+#### required:hotel_id
+
+```
+{
+  "hotel_id":"",
+}
+```
+
+### Response Body
+
+```
+{
+    "avg_rating":"",
+    "no_of_ratings:"",
+    reviews:[{"user_name":"","is_verified":"","date":"","rating":"","comment":""}...20-reviews]
+}
+```
