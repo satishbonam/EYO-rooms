@@ -53,7 +53,6 @@ export const changeSignupValue = (payload) => ({
   payload,
 });
 
-
 // login with password
 export const loginPassFailure = (payload) => ({
   type: USER_LOGIN_PASS_FAILURE,
@@ -126,7 +125,7 @@ export const logoutUserFailure = () => ({
 
 export const changeLogoutValue = (payload) => ({
   type: CHANGE_LOGOUT_VALUE,
-  payload
+  payload,
 });
 
 // hotel listing
@@ -171,9 +170,9 @@ export const loginRequestWithPassword = (payload) => (dispatch) => {
 export const loginRequestWithOtp = (payload) => (dispatch) => {
   dispatch(saveUserMobile(payload));
   dispatch(loginOtpRequest());
-  console.log(payload)
+  console.log(payload);
   return axios
-    .post("login/otp_generate", {
+    .post("/login/otp_generate", {
       ...payload,
     })
     .then((data) => dispatch(loginOtpSuccess(data)))
@@ -183,10 +182,10 @@ export const loginRequestWithOtp = (payload) => (dispatch) => {
 // server request for otp verify
 export const loginRequestWithOtpVerify = (payload) => (dispatch) => {
   dispatch(loginOtpVerifyRequest());
-  console.log(payload)
+  console.log(payload);
   return axios
     .post("/login/otp_verify", {
-      ...payload
+      ...payload,
     })
     .then((data) => dispatch(loginOtpVerifySuccess(data)))
     .catch((error) => dispatch(loginOtpVerifyFailure(error)));
@@ -212,8 +211,8 @@ export const logoutRequest = (payload) => (dispatch) => {
       {},
       {
         headers: {
-          auth_token:payload
-        }
+          auth_token: payload,
+        },
       }
     )
     .then((data) => dispatch(logoutUserSuccess(data)))
@@ -222,22 +221,14 @@ export const logoutRequest = (payload) => (dispatch) => {
 
 // hotel listing data
 export const hotelListingDataRequest = (payload) => (dispatch) => {
-  console.log("hotel listing calling...")
+  console.log("hotel listing calling...", payload);
   dispatch(hotelListingRequest());
- 
+
   return axios
-    .get(
-      "/hotel_listing",
-      {},
-      {
-        params: {
-          collections:"Sanitised_Stays"
-        }
-      }
-    )
+    .get("/hotel_listing?" + payload, {})
     .then((data) => {
-      console.log(data)
-      dispatch(hotelListingSuccess(data))
+      console.log(data);
+      dispatch(hotelListingSuccess(data));
     })
     .catch((error) => dispatch(hotelListingFailure(error)));
 };

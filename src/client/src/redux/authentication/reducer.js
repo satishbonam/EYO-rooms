@@ -22,7 +22,7 @@ import {
   GET_HOTEL_LISTING_FAILURE,
   GET_HOTEL_LISTING_SUCCESS,
   GET_HOTEL_LISTING_REQUEST,
-  CHANGE_LOGOUT_VALUE
+  CHANGE_LOGOUT_VALUE,
 } from "./actionTypes";
 
 const initState = {
@@ -36,8 +36,8 @@ const initState = {
   otpValue: null,
   mobile: null,
   isLogout: false,
-  otpGenerate:false,
-  hotelListData: [],
+  otpGenerate: false,
+  hotelListData: undefined,
 };
 
 const reducer = (state = initState, { type, payload }) => {
@@ -62,10 +62,10 @@ const reducer = (state = initState, { type, payload }) => {
         isRequest: false,
         isError: true,
       };
-      case CHANGE_SIGNUP_VALUE:
+    case CHANGE_SIGNUP_VALUE:
       return {
         ...state,
-       isSignUp:false
+        isSignUp: false,
       };
 
     // login with password
@@ -82,7 +82,6 @@ const reducer = (state = initState, { type, payload }) => {
         token: payload.token,
         user: payload.user_data,
         isLogin: payload.status,
-
       };
     case USER_LOGIN_PASS_FAILURE:
       return {
@@ -107,7 +106,7 @@ const reducer = (state = initState, { type, payload }) => {
         ...state,
         isRequest: false,
         message: payload.msg,
-        otpGenerate:payload.status
+        otpGenerate: payload.status,
       };
     case USER_OTP_LOGIN_FAILURE:
       return {
@@ -166,8 +165,8 @@ const reducer = (state = initState, { type, payload }) => {
         ...state,
         isRequest: false,
         isLogout: payload.status,
-        token:null,
-        user:null
+        token: null,
+        user: null,
       };
     case USER_LOGOUT_FAILURE:
       return {
@@ -178,7 +177,7 @@ const reducer = (state = initState, { type, payload }) => {
     case CHANGE_LOGOUT_VALUE:
       return {
         ...state,
-        isLogout:false
+        isLogout: false,
       };
 
     // hotel listing
@@ -200,7 +199,6 @@ const reducer = (state = initState, { type, payload }) => {
         isError: true,
       };
 
-      
     default:
       return state;
   }
