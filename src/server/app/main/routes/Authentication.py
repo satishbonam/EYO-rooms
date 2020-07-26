@@ -9,6 +9,7 @@ from ..utils.token_validate import token_validate
 
 # POST route to register
 class Register(Resource):
+    print("called")
     parser = reqparse.RequestParser()
     parser.add_argument("name", type=str, required=True)
     parser.add_argument("email", type=str, required=True)
@@ -18,6 +19,7 @@ class Register(Resource):
 
     @classmethod
     def post(self):
+        print("called")
         payload = Register.parser.parse_args()
         flag_request = user_register(payload)
 

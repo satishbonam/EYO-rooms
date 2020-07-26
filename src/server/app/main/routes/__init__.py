@@ -6,6 +6,7 @@ from .Listing import HotelListing
 
 
 def add_resources(app):
+    print("called","routes")
     """
     Method to add resources to app context
 

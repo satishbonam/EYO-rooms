@@ -22,7 +22,7 @@ class DevelopmentConfig(Config):
     # SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://<user>:<password>@<host>:<port>/<database_name>'
 
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'mysql://root:satish@localhost/eyo_rooms'
+    SQLALCHEMY_DATABASE_URI = 'mysql://admin:143drawing@database-test.cfdblff4exgl.ap-south-1.rds.amazonaws.com/eyo_rooms'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     ENV = 'development'
 
@@ -30,7 +30,7 @@ class DevelopmentConfig(Config):
 class TestingConfig(Config):
     DEBUG = True
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'mysql://root:satish@localhost/eyo_rooms'
+    SQLALCHEMY_DATABASE_URI = 'mysql://admin:143drawing@database-test.cfdblff4exgl.ap-south-1.rds.amazonaws.com/eyo_rooms'
     PRESERVE_CONTEXT_ON_EXCEPTION = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
