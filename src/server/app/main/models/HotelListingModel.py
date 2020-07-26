@@ -1,4 +1,4 @@
-from .. import db
+from . import db
 
 
 # hotel category datbase model for Hotel listing

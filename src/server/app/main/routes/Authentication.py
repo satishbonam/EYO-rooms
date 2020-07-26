@@ -1,6 +1,6 @@
 from flask import request
 from flask_restful import Resource, reqparse
-from app.main import db
+from app.main.models import db
 from ..services.authentication import user_register, user_login, otp_generate, otp_verify, oauth_login, user_logout
 import jwt
 import datetime

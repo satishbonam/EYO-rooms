@@ -1,6 +1,6 @@
 from ..models.HotelListingModel import HotelCategoryModel, HotelModel
-from app.main import db
-from app.main.settings import key
+from app.main.models import db
+from config import key
 import jwt
 import datetime
 from ..utils.db_save import db_save

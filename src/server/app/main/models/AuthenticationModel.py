@@ -1,4 +1,4 @@
-from .. import db
+from . import db
 
 
 # user datbase model for authentication
