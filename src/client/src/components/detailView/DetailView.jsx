@@ -11,7 +11,7 @@ export default class DetailView extends Component {
         <Navbar />
         <DetailViewCarusel />
         <div className="container-fluid">
-          <div className="row m-0 " style={{ display: "unset" }}>
+          <div className="row m-0 ">
             <DetailViewContent />
             <PriceCard />
           </div>
