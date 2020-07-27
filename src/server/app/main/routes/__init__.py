@@ -1,8 +1,9 @@
 # import resprctive blueprints and flask REstful resources
+from flask_restful import Api
+from flask import Flask, request, Blueprint
 from .Authentication import Register, LoginOtpGenerate, UserLogin, LoginOtpVerify, OauthLogin, UserLogout
 from .Listing import HotelListing
-from flask import Flask, request, Blueprint
-from flask_restful import Api
+from.Entity import Entity, BillData, Recommendations, Reviews
 
 
 api_blueprint = Blueprint('api', __name__)
@@ -24,6 +25,10 @@ def add_resources(app):
     api.add_resource(OauthLogin, '/login/oauth')
     api.add_resource(UserLogout, '/logout')
     api.add_resource(HotelListing, '/hotel_listing')
+    api.add_resource(Entity, '/entity')
+    api.add_resource(BillData, '/bill_data')
+    api.add_resource(Recommendations, '/recommendations')
+    api.add_resource(Reviews, '/reviews')
 
 
 def register_blueprints(app):

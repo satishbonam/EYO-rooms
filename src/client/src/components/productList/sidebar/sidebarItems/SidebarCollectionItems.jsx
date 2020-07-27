@@ -1,44 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../../sidebar/sidebar.module.css";
-import {hotelListingDataRequest} from "../../../../redux/authentication/actions"
+import { hotelListingDataRequest } from "../../../../redux/authentication/actions";
 import { connect } from "react-redux";
 
-
- function SidebarCollectionItems(props) {
- console.log(props)
+function SidebarCollectionItems(props) {
+  const { label, onClick } = props;
+  const [checked, setChecked] = useState(false);
   return (
     <>
-      <label>
-        <input id={styles.check} type="checkbox" aria-label="Checkbox for following text input" />
-        <span>Sanitised stays</span>
-      </label>
-      <label>
-        <input id={styles.check} type="checkbox" aria-label="Checkbox for following text input" />
-        <span>EYO_Welcome's_Couples</span>
-      </label>
-      <label>
-        <input id={styles.check} type="checkbox" aria-label="Checkbox for following text input" />
-        <span>Local_ID's_Accepted</span>
-      </label>
-      <label>
-        <input id={styles.check} type="checkbox" aria-label="Checkbox for following text input" />
-        <span>Business_Travellers</span>
-      </label>
-       <label>
-        <input id={styles.check} type="checkbox" aria-label="Checkbox for following text input" />
-        <span>EYO_Welcome's_Couples</span>
+      <label onClick={onClick}>
+        <input
+          id={styles.check}
+          type="checkbox"
+          checked={checked}
+          aria-label="Checkbox for following text input"
+          onChange={() => {
+            setChecked(!checked);
+          }}
+        />
+        <span>{label}</span>
       </label>
     </>
   );
 }
 
 const mapStateToProps = (state) => ({
-  hotelData :state.auth.hotelListData
+  hotelData: state.auth.hotelListData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  hotelListingDataRequest: (payload) => dispatch(hotelListingDataRequest(payload)),
-  
+  hotelListingDataRequest: (payload) =>
+    dispatch(hotelListingDataRequest(payload)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SidebarCollectionItems);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SidebarCollectionItems);
