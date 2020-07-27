@@ -10,7 +10,6 @@ import json
 
 # register user if email is not present in the users table
 def hotel_listing(params):
-    print()
     per_page = 20
 
     query = "select h.name as name,h.images->>'$[0]' as images,h.rooms->>'$' as rooms,created_at,updated_at, h.collection->>'$[0]' as collection,c.name as category,c.tag as tag,h.accomodation_type->>'$[0]' as acc_type,h.amenities as amenities,checkin_features as c_f from hotel as h join category as c on h.category_id=c.id WHERE"
@@ -46,7 +45,7 @@ def hotel_listing(params):
             count_query = count_query + \
                 "  h.amenities->>'$[0].%s'=" % (item)+'"true"'+" AND"
     if params.get('checkin_features'):
-        params.getlist("checkin_features")
+        checkin_features = params.getlist("checkin_features")
         for item in checkin_features:
             query = query + "  h.checkin_features='%s'" % (item)
             count_query = count_query + \
@@ -98,4 +97,4 @@ def hotel_listing(params):
         temp_dict['checkin_features'] = hotel['c_f']
         data.append(temp_dict)
 
-    return data, total_pages, total_results
+    return data, total_pages, total_results, params.get('page') or 1
