@@ -9,7 +9,7 @@ class Config:
 class DevelopmentConfig(Config):
 
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'mysql://root:satish@localhost/eyo_rooms'
+    SQLALCHEMY_DATABASE_URI = 'mysql://admin:143drawing@database-test.cfdblff4exgl.ap-south-1.rds.amazonaws.com/eyo_rooms'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     ENV = 'development'
     SQLALCHEMY_ECHO = True

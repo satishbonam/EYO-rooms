@@ -46,7 +46,7 @@ def hotel_listing(params):
             count_query = count_query + \
                 "  h.amenities->>'$[0].%s'=" % (item)+'"true"'+" AND"
     if params.get('checkin_features'):
-        params.getlist("checkin_features")
+        checkin_features = params.getlist("checkin_features")
         for item in checkin_features:
             query = query + "  h.checkin_features='%s'" % (item)
             count_query = count_query + \
