@@ -175,21 +175,9 @@
 
 ## /bill_data
 
-### Request params
-
-#### required:checkin and checkout
-
-```
-{
-    "check_in":""
-    "check_out":""
-  all filter params
-}
-```
-
 ### Request body
 
-#### required:hotel_id
+#### required:hotel_id,check_in,check_out
 
 ```
 {
@@ -199,6 +187,7 @@
   "check_out":"",
   "no_of_guests":"",
   "no_of_rooms":""
+  "membership":<boolean>
 }
 ```
 
@@ -215,9 +204,9 @@
                         "no_of_rooms":""
                         "no_of_guests":"",
                         "actual_price":"",
-                        "discount_price":"",
+                        "discounted_price":"",
                         "discount":"",
-                        offer:{"membership":true,"discount":"","savings":""}
+                        offer:{"membership":true,"savings":""}
                         "check_in":"",
                         "check_out":""
 
