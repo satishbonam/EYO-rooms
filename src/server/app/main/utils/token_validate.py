@@ -1,7 +1,7 @@
 import jwt
-from app.main.settings import key
+from config import key
 import datetime
-from app.main import db
+from app.main.models import db
 from ..models.AuthenticationModel import BlacklistTokenModel
 
 

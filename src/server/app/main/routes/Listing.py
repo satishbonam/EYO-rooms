@@ -1,6 +1,6 @@
 from flask import request
 from flask_restful import Resource, reqparse
-from app.main import db
+from app.main.models import db
 from ..services.listing import hotel_listing
 import jwt
 import datetime

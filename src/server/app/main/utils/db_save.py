@@ -1,4 +1,4 @@
-from app.main import db
+from app.main.models import db
 
 
 # to commit to database,if any error accur rollback databse to previous state
