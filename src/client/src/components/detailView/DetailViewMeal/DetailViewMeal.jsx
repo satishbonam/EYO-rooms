@@ -4,7 +4,7 @@ import styles from "./DetailviewMeal.module.css";
 export default class DetailViewMeal extends Component {
   render() {
     return (
-      <div className="col-7 m-0 mt-3">
+      <>
         <div className="px-4" id={styles.heading}>
           Choose your room
         </div>
@@ -43,7 +43,7 @@ export default class DetailViewMeal extends Component {
             );
           })}
         </div>
-      </div>
+      </>
     );
   }
 }

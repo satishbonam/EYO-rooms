@@ -6,7 +6,7 @@ import { faCheckCircle, faStar } from "@fortawesome/free-solid-svg-icons";
 export default class DetailViewRating extends Component {
   render() {
     return (
-      <div className="col-7 m-0 mt-3">
+      <>
         <div className="px-4" id={styles.heading}>
           Ratings and Reviews
         </div>
@@ -63,7 +63,7 @@ export default class DetailViewRating extends Component {
             </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }

@@ -2,11 +2,32 @@ import React, { Component } from "react";
 import styles from "./PriceCard.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDoorClosed, faPen, faTags } from "@fortawesome/free-solid-svg-icons";
+import DateRangePicker from "react-bootstrap-daterangepicker";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-daterangepicker/daterangepicker.css";
 
 export default class PriceCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputStart: "01/01/2020",
+      inputFinish: "01/01/2018",
+    };
+  }
+
+  handleEvent = (picker, start, end, label) => {
+    this.setState({
+      inputStart: picker.startDate.format("DD/MM/YYYY"),
+      inputFinish: picker.endDate.format("DD//MM/YYYY"),
+    });
+    // console.log(picker.startDate, start, end, label);
+  };
   render() {
+    console.log("amresh");
+    console.log(this.state);
+
     return (
-      <div className="col-5 mt-4" id={styles.cardContainer}>
+      <div className="col-5 mt-4 sticky-top" id={styles.cardContainer}>
         <div class="card w-100 ">
           <div className="d-flex justify-content-around" id={styles.header}>
             <div className="m-0">
@@ -26,11 +47,13 @@ export default class PriceCard extends Component {
               <div id={styles.perNight}>inclusive of all taxes</div>
             </div>
             <div className="d-flex justify-content-around" id={styles.SecduleContainer}>
-              <div>
-                <span>Wed, 12 Aug</span>
-                <span>-</span>
-                <span>Thu, 10 Sep</span>
-              </div>
+              <DateRangePicker autoUpdateInput={false} startDate={this.state.inputStart} endDate={this.state.inputFinish} locale={{ format: "DD/MM/YYYY" }} onApply={this.handleEvent} autoApply={true}>
+                <div>
+                  <span>Wed, 12 Aug</span>
+                  <span>-</span>
+                  <span>Thu, 10 Sep</span>
+                </div>
+              </DateRangePicker>
               <div id={styles.divide}></div>
               <div>
                 <span>3 Rooms, 3 Guests</span>

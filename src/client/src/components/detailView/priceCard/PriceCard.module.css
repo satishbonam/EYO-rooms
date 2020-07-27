@@ -9,6 +9,7 @@
 #cardContainer {
   padding-right: 104px;
 }
+
 #off {
   text-transform: uppercase;
   font-size: 12px;
@@ -134,4 +135,7 @@ button {
   color: rgb(238, 46, 36);
   font-size: 14px;
   line-height: 1.5;
+}
+.daterangepicker.show-calendar .drp-buttons {
+  display: none;
 }

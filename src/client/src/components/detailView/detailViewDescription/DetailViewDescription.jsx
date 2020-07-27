@@ -6,7 +6,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 export default class DetailViewDescription extends Component {
   render() {
     return (
-      <div className="col-8  mt-4">
+      <>
         <div className="col-12 px-3">
           <div className="d-flex justify-content-around " id={styles.headingContainer}>
             <h1 className="mx-4" id={styles.heading}>
@@ -56,7 +56,7 @@ export default class DetailViewDescription extends Component {
             </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }

@@ -6,7 +6,7 @@ import { faStar, faCheckCircle, faFan, faTv, faBed } from "@fortawesome/free-sol
 export default class DetailViewYourRomm extends Component {
   render() {
     return (
-      <div className="col-7 m-0 ">
+      <>
         <div className="px-4" id={styles.heading}>
           Choose your room
         </div>
@@ -78,7 +78,7 @@ export default class DetailViewYourRomm extends Component {
             </div>
           </div>
         </div>
-      </div>
+      </>
     );
   }
 }

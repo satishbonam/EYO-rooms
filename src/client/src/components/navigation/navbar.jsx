@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { Link , Redirect} from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import styles from "../navigation/Navbar.module.css";
-import { logoutRequest,changeLogoutValue } from "../../redux/authentication/actions";
+import { logoutRequest, changeLogoutValue } from "../../redux/authentication/actions";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
-
 
 class navbar extends Component {
   constructor(props) {
@@ -16,36 +15,32 @@ class navbar extends Component {
   }
 
   handleLogout = (token) => {
-    console.log(token)
+    console.log(token);
     this.props.logoutRequest(token);
   };
 
-  changeValue = ()=>{
-    this.props.changeLogoutValue(false)
-  }
+  changeValue = () => {
+    this.props.changeLogoutValue(false);
+  };
 
   render() {
-
-    const {isLogout,token,user} = this.props
-    const {changeValue} = this
+    const { isLogout, token, user } = this.props;
+    const { changeValue } = this;
     const { isLogin } = this.state;
     const { handleLogout } = this;
- 
-      //let user = JSON.parse(localStorage.getItem("data"))
-      //let token = localStorage.getItem("jwt")
 
+    //let user = JSON.parse(localStorage.getItem("data"))
+    //let token = localStorage.getItem("jwt")
 
-    
-
-    if(isLogout){
-      localStorage.setItem("data",undefined)
-      localStorage.setItem("jwt",undefined)
-      changeValue()
+    if (isLogout) {
+      localStorage.setItem("data", undefined);
+      localStorage.setItem("jwt", undefined);
+      changeValue();
     }
-   
-      if (!token ) {
-          return <Redirect to="/login" />
-        }
+
+    // if (!token ) {
+    //     return <Redirect to="/login" />
+    //   }
     //console.log(user,token)
     return (
       <nav className="navbar navbar-expand-md navbar-light bg-white shadow-sm  border">
@@ -90,7 +85,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   logoutRequest: (payload) => dispatch(logoutRequest(payload)),
-  changeLogoutValue:(payload)=>dispatch(changeLogoutValue(payload))
+  changeLogoutValue: (payload) => dispatch(changeLogoutValue(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(navbar);
