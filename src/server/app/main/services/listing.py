@@ -12,7 +12,7 @@ import json
 def hotel_listing(params):
     per_page = 20
 
-    query = "select h.name as name,h.images->>'$[0]' as images,h.rooms->>'$' as rooms,created_at,updated_at, h.collection->>'$[0]' as collection,c.name as category,c.tag as tag,h.accomodation_type->>'$[0]' as acc_type,h.amenities as amenities,checkin_features as c_f from hotel as h join category as c on h.category_id=c.id WHERE"
+    query = "select h.id as id,h.name as name,h.images->>'$[0]' as images,h.rooms->>'$' as rooms,created_at,updated_at, h.collection->>'$[0]' as collection,c.name as category,c.tag as tag,h.accomodation_type->>'$[0]' as acc_type,h.amenities as amenities,checkin_features as c_f from hotel as h join category as c on h.category_id=c.id WHERE"
     base_query = "select h.collection->>'$[0]' as collection,c.name as category,c.tag as tag,h.accomodation_type->>'$[0]' as acc_type,h.amenities as amenities,checkin_features as c_f from hotel as h join category as c on h.category_id=c.id limit 1"
     count_query = 'select count(h.id) from hotel as h join category as c on h.category_id=c.id WHERE'
 
@@ -83,6 +83,7 @@ def hotel_listing(params):
 
     for hotel in data_raw:
         temp_dict = {}
+        temp_dict['hotel_id']=hotel['id']
         temp_dict['name'] = hotel['name']
         temp_dict['created_at'] = str(hotel['created_at'])
         temp_dict['updated_at'] = str(hotel['updated_at'])
