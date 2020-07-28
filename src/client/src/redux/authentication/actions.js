@@ -37,6 +37,22 @@ import {
   HANDLE_FILTER_CHECKIN,
   HANDLE_FILTER_COLLECTIONS,
   HANDLE_PARAMS,
+  // hotel entity
+  HOTEL_ENTITY_REQUEST,
+  HOTEL_ENTITY_SUCCESS,
+  HOTEL_ENTITY_FAILURE,
+  // hotel recommendation
+  HOTEL_RECOMMENDATION_REQUEST,
+  HOTEL_RECOMMENDATION_SUCCESS,
+  HOTEL_RECOMMENDATION_FAILURE,
+  // hotel review
+  HOTEL_REVIEW_REQUEST,
+  HOTEL_REVIEW_SUCCESS,
+  HOTEL_REVIEW_FAILURE,
+  // hotel bill data
+  HOTEL_BILLING_REQUEST,
+  HOTEL_BILLING_SUCCESS,
+  HOTEL_BILLING_FAILURE,
 } from "./actionTypes";
 
 // import axiosInstance from "../../utils/axiosInterceptor";
@@ -145,6 +161,62 @@ export const hotelListingSuccess = (payload) => ({
 });
 export const hotelListingFailure = () => ({
   type: GET_HOTEL_LISTING_FAILURE,
+});
+
+
+// hotel enity
+export const hotelEntityRequest = (payload) => ({
+  type: HOTEL_ENTITY_REQUEST,
+  payload,
+});
+export const hotelEntitySuccess = (payload) => ({
+  type: HOTEL_ENTITY_SUCCESS,
+  payload,
+});
+export const hotelEntityFailure = (payload) => ({
+  type: HOTEL_ENTITY_FAILURE,
+  payload,
+});
+// hotel  bill data
+export const hotelBillingRequest = (payload) => ({
+  type: HOTEL_BILLING_REQUEST,
+  payload,
+});
+export const hotelBillingSuccess = (payload) => ({
+  type: HOTEL_BILLING_SUCCESS,
+  payload,
+});
+export const hotelBillingFailure = (payload) => ({
+  type: HOTEL_BILLING_FAILURE,
+  payload,
+});
+
+// hotel recommendations
+export const hotelRecommendationRequest = (payload) => ({
+  type: HOTEL_RECOMMENDATION_REQUEST,
+  payload,
+});
+export const hotelRecommendationSuccess = (payload) => ({
+  type: HOTEL_RECOMMENDATION_SUCCESS,
+  payload,
+});
+export const hotelRecommendationFailure = (payload) => ({
+  type: HOTEL_RECOMMENDATION_FAILURE,
+  payload,
+});
+
+// hotel reviews
+export const hotelReviewRequest = (payload) => ({
+  type: HOTEL_REVIEW_REQUEST,
+  payload,
+});
+export const hotelReviewSuccess = (payload) => ({
+  type: HOTEL_REVIEW_SUCCESS,
+  payload,
+});
+export const hotelReviewFailure = (payload) => ({
+  type: HOTEL_REVIEW_FAILURE,
+  payload,
 });
 
 // axios request thunk
@@ -268,3 +340,56 @@ export const handleParams = (payload) => ({
   type: HANDLE_PARAMS,
   payload,
 });
+
+// hotel entity data
+export const hotelEntityDataRequest = (payload) => (dispatch) => {
+  console.log("hotel entity calling...", payload);
+  dispatch(hotelEntityRequest());
+  return axios
+    .post("/entity", {
+      hotel_id: payload,
+    })
+    .then((data) => dispatch(hotelEntitySuccess(data)))
+    .catch((error) => dispatch(hotelEntityFailure(error)));
+};
+// hotel billing  data
+export const hotelBillingDataRequest = (payload) => (dispatch) => {
+  console.log("hotel billing calling...", payload);
+  dispatch(hotelBillingRequest());
+  return axios
+    .post("/bill_data", {
+      ...payload,
+    })
+    .then((data) => dispatch(hotelBillingSuccess(data)))
+    .catch((error) => dispatch(hotelBillingFailure(error)));
+};
+
+// hotel recommendation
+export const hotelRecommendationDataRequest = (payload) => (dispatch) => {
+  console.log("hotel recomendation calling...", payload);
+  dispatch(hotelRecommendationRequest());
+
+  return axios
+    .get("/recommendations?" + payload, {})
+    .then((data) => {
+      console.log(data);
+      dispatch(hotelRecommendationSuccess(data));
+    })
+    .catch((error) => dispatch(hotelRecommendationFailure(error)));
+};
+
+// hotel review
+export const hotelReviewDataRequest = (payload) => (dispatch) => {
+  console.log("hotel review calling...", payload);
+  dispatch(hotelReviewRequest());
+
+  return axios
+    .post("/reviews", {
+      hotel_id: payload,
+    })
+    .then((data) => {
+      console.log(data);
+      dispatch(hotelReviewSuccess(data));
+    })
+    .catch((error) => dispatch(hotelReviewFailure(error)));
+};

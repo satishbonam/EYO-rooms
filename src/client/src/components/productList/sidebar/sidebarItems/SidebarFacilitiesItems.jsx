@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import styles from "../../sidebar/sidebar.module.css";
-import { hotelListingDataRequest } from "../../../../redux/authentication/actions";
+import {
+  hotelListingDataRequest,
+  handleParams,
+} from "../../../../redux/authentication/actions";
 import { connect } from "react-redux";
 import { build } from "search-params";
 
@@ -8,7 +11,6 @@ class SidebarFacilitiesItems extends React.Component {
   componentDidUpdate(prevProps) {
     const { hotelListingDataRequest, hotelData } = this.props;
     var para = {};
-    hotelData &&
     if (prevProps.value !== this.props.value) {
       console.log(this.props);
       this.props.url.history.push(build(para));

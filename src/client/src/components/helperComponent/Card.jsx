@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import styles from "./card.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar, faCheckCircle, faWifi, faCarBattery } from "@fortawesome/free-solid-svg-icons";
+import {
+  faStar,
+  faCheckCircle,
+  faWifi,
+  faCarBattery,
+} from "@fortawesome/free-solid-svg-icons";
 import { hotelListingDataRequest } from "../../redux/authentication/actions";
 import { connect } from "react-redux";
 
@@ -14,13 +19,34 @@ class Card extends Component {
         <div class="card mt-5 border-0" id={styles.border}>
           <div class="row no-gutters" id={styles.imgContainer}>
             <div class="col-md-4  h-100">
-              <img src={data.images.large[0]} class="card-img" alt="..." id={styles.imageFit} />
+              <img
+                src={data.images.large[0]}
+                class="card-img"
+                alt="..."
+                id={styles.imageFit}
+              />
             </div>
             <div className="col-1 d-flex flex-column justify-content-center h-100">
-              <img src={data.images.thumb[0]} class="card-img p-1 h-25" alt="" />
-              <img src={data.images.thumb[1]} class="card-img p-1 h-25" alt="" />
-              <img src={data.images.thumb[2]} class="card-img p-1 h-25" alt="" />
-              <img src={data.images.thumb[3]} class="card-img p-1 h-25" alt="" />
+              <img
+                src={data.images.thumb[0]}
+                class="card-img p-1 h-25"
+                alt=""
+              />
+              <img
+                src={data.images.thumb[1]}
+                class="card-img p-1 h-25"
+                alt=""
+              />
+              <img
+                src={data.images.thumb[2]}
+                class="card-img p-1 h-25"
+                alt=""
+              />
+              <img
+                src={data.images.thumb[3]}
+                class="card-img p-1 h-25"
+                alt=""
+              />
             </div>
             <div class="col-md-7">
               <div class="card-body" id={styles.cardBody}>
@@ -69,12 +95,20 @@ class Card extends Component {
                 <div className="d-flex justify-content-between mt-3 ">
                   <div>
                     <div>
-                      <span id={styles.price}>$ {data.rooms[0].actual_price}</span>
-                      <span id={styles.slashPrice}>$ {data.rooms[0].discounted_price}</span>
-                      <span id={styles.percentage}>{data.rooms[0].discount_percentage} % off</span>
+                      <span id={styles.price}>
+                        $ {data.rooms[0].actual_price}
+                      </span>
+                      <span id={styles.slashPrice}>
+                        $ {data.rooms[0].discounted_price}
+                      </span>
+                      <span id={styles.percentage}>
+                        {data.rooms[0].discount_percentage} % off
+                      </span>
                     </div>
                     <div id={styles.pernight}>per room per night</div>
-                    <div id={styles.pernight}>Checking feature-{data.checkin_features}</div>
+                    <div id={styles.pernight}>
+                      Checking feature-{data.checkin_features}
+                    </div>
                   </div>
                   <div>
                     <button id={styles.whilteButton}>View details</button>
@@ -95,7 +129,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  hotelListingDataRequest: (payload) => dispatch(hotelListingDataRequest(payload)),
+  hotelListingDataRequest: (payload) =>
+    dispatch(hotelListingDataRequest(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Card);
