@@ -28,6 +28,7 @@ import {
   HANDLE_FILTER_CATEGORY,
   HANDLE_FILTER_CHECKIN,
   HANDLE_FILTER_COLLECTIONS,
+  HANDLE_PARAMS,
 } from "./actionTypes";
 
 const initState = {
@@ -43,6 +44,7 @@ const initState = {
   isLogout: false,
   otpGenerate: false,
   hotelListData: undefined,
+  params: "",
 };
 
 const reducer = (state = initState, { type, payload }) => {
@@ -287,9 +289,29 @@ const reducer = (state = initState, { type, payload }) => {
           },
         },
       };
+    case HANDLE_PARAMS:
 
     default:
-      return state;
+      return {
+        ...state,
+        params: {
+          amenities: state.hotelListData.filters.amenities.map((item) =>
+            item.status ? item.label : ""
+          ),
+          collections: state.hotelListData.filters.collections.map((item) =>
+            item.status ? item.label : ""
+          ),
+          accomodation_type: state.hotelListData.filters.accomodation_type.map(
+            (item) => (item.status ? item.label : "")
+          ),
+          category: state.hotelListData.filters.category.map((item) =>
+            item.status ? item.label : ""
+          ),
+          checkin_features: state.hotelListData.filters.checkin_features.map(
+            (item) => (item.status ? item.label : "")
+          ),
+        },
+      };
   }
 };
 

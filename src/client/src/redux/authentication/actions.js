@@ -36,6 +36,7 @@ import {
   HANDLE_FILTER_CATEGORY,
   HANDLE_FILTER_CHECKIN,
   HANDLE_FILTER_COLLECTIONS,
+  HANDLE_PARAMS,
 } from "./actionTypes";
 
 // import axiosInstance from "../../utils/axiosInterceptor";
@@ -260,5 +261,10 @@ export const handleFilterCategory = (payload) => ({
 
 export const handleFilterAccomodation = (payload) => ({
   type: HANDLE_FILTER_ACCOMODATION,
+  payload,
+});
+
+export const handleParams = (payload) => ({
+  type: HANDLE_PARAMS,
   payload,
 });

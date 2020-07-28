@@ -50,11 +50,13 @@ class SidebarCollectionItems extends React.Component {
 
 const mapStateToProps = (state) => ({
   hotelData: state.auth.hotelListData,
+  params: state.auth.params,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   hotelListingDataRequest: (payload) =>
     dispatch(hotelListingDataRequest(payload)),
+  handleParams: (payload) => dispatch(handleParams(payload)),
 });
 
 export default connect(

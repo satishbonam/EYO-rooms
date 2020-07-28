@@ -16,6 +16,17 @@ def entity(data):
     query = "select h.name as name,h.images->>'$[0]' as images,h.rooms->>'$' as rooms,created_at,updated_at, h.collection->>'$[0]' as collection,c.name as category,c.tag as tag,h.accomodation_type->>'$[0]' as acc_type,h.amenities as amenities,checkin_features as c_f from hotel as h join category as c on h.category_id=c.id WHERE h.id=%d" % (
         data['hotel_id'])
 
+    count_query = 'select count(r.id) as count, AVG(r.rating) as avg_rating from reviews as r join user as u on r.user_id = u.id WHERE r.hotel_id = %d' % (
+        payload['hotel_id'])
+
+    query = query + ';'
+    count_query = count_query + ';'
+    count_raw = db.engine.execute(count_query)
+
+    for row in count_raw:
+        no_of_ratings = row['count']
+        avg_rating = row['avg_rating']
+
     data_raw = db.engine.execute(query)
 
     data = []

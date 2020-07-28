@@ -9,13 +9,6 @@ class SidebarFacilitiesItems extends React.Component {
     const { hotelListingDataRequest, hotelData } = this.props;
     var para = {};
     hotelData &&
-      hotelData.filters.amenities.forEach((item) => {
-        if (item.status && para.amenities) {
-          para["amenities"].push(item.label);
-        } else if (item.status) {
-          para["amenities"] = [item.label];
-        }
-      });
     if (prevProps.value !== this.props.value) {
       console.log(this.props);
       this.props.url.history.push(build(para));
@@ -50,11 +43,13 @@ class SidebarFacilitiesItems extends React.Component {
 
 const mapStateToProps = (state) => ({
   hotelData: state.auth.hotelListData,
+  params: state.auth.params,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   hotelListingDataRequest: (payload) =>
     dispatch(hotelListingDataRequest(payload)),
+  handleParams: (payload) => dispatch(handleParams(payload)),
 });
 
 export default connect(
