@@ -7,14 +7,7 @@ import SidebarCategoriesItems from "./sidebarItems/SidebarCategoriesItems";
 import SidebarViewMoreItems from "./sidebarItems/SidebarViewMoreItmes";
 import SidebarAccomodationItems from "./sidebarItems/SidebarAccomodationItems";
 import SidebarCheckinItems from "./sidebarItems/SidebarCheckinItems";
-import {
-  hotelListingDataRequest,
-  handleFilterAmenities,
-  handleFilterAccomodation,
-  handleFilterCategory,
-  handleFilterCheckin,
-  handleFilterCollection,
-} from "../../../redux/authentication/actions";
+import { hotelListingDataRequest, handleFilterAmenities, handleFilterAccomodation, handleFilterCategory, handleFilterCheckin, handleFilterCollection } from "../../../redux/authentication/actions";
 import SidebarFacilitiesItems from "./sidebarItems/SidebarFacilitiesItems";
 import { connect } from "react-redux";
 
@@ -25,15 +18,7 @@ class Sidebar extends Component {
 
   render() {
     let collections, amenities, category, accomodation;
-    const {
-      hotelData,
-      handleFilterAmenities,
-      url,
-      handleFilterAccomodation,
-      handleFilterCategory,
-      handleFilterCheckin,
-      handleFilterCollection,
-    } = this.props;
+    const { hotelData, handleFilterAmenities, url, handleFilterAccomodation, handleFilterCategory, handleFilterCheckin, handleFilterCollection } = this.props;
     const { handleRoute } = this;
 
     return (
@@ -49,51 +34,30 @@ class Sidebar extends Component {
         </div>
 
         <div className="col-12 pt-3 border-bottom" id={styles.filter}>
-          <h4>Hotel Facilities</h4>
+          <h4>Categories</h4>
 
           {hotelData &&
+            hotelData.status &&
             hotelData.filters.category.map((item) => {
-              return (
-                <SidebarCategoriesItems
-                  url={url}
-                  key={item.label}
-                  label={item.label.split("_").join(" ")}
-                  value={item.status}
-                  onClick={() => handleFilterCategory(item)}
-                />
-              );
+              return <SidebarCategoriesItems url={url} key={item.label} label={item.label.split("_").join(" ")} value={item.status} onClick={() => handleFilterCategory(item)} />;
             })}
         </div>
         <div className="col-12 pt-3 border-bottom" id={styles.filter}>
           <h4>Hotel Facilities</h4>
 
           {hotelData &&
+            hotelData.status &&
             hotelData.filters.accomodation_type.map((item) => {
-              return (
-                <SidebarAccomodationItems
-                  url={url}
-                  key={item.label}
-                  label={item.label.split("_").join(" ")}
-                  value={item.status}
-                  onClick={() => handleFilterAccomodation(item)}
-                />
-              );
+              return <SidebarAccomodationItems url={url} key={item.label} label={item.label.split("_").join(" ")} value={item.status} onClick={() => handleFilterAccomodation(item)} />;
             })}
         </div>
         <div className="col-12 pt-3 border-bottom" id={styles.filter}>
-          <h4>Hotel Facilities</h4>
+          <h4>Accomodation Type</h4>
 
           {hotelData &&
+            hotelData.status &&
             hotelData.filters.amenities.map((item) => {
-              return (
-                <SidebarFacilitiesItems
-                  url={url}
-                  key={item.label}
-                  label={item.label.split("_").join(" ")}
-                  value={item.status}
-                  onClick={() => handleFilterAmenities(item)}
-                />
-              );
+              return <SidebarFacilitiesItems url={url} key={item.label} label={item.label.split("_").join(" ")} value={item.status} onClick={() => handleFilterAmenities(item)} />;
             })}
         </div>
 
@@ -101,32 +65,18 @@ class Sidebar extends Component {
           <h4>Hotel Facilities</h4>
 
           {hotelData &&
+            hotelData.status &&
             hotelData.filters.collections.map((item) => {
-              return (
-                <SidebarCollectionItems
-                  url={url}
-                  key={item.label}
-                  label={item.label.split("_").join(" ")}
-                  value={item.status}
-                  onClick={() => handleFilterCollection(item)}
-                />
-              );
+              return <SidebarCollectionItems url={url} key={item.label} label={item.label.split("_").join(" ")} value={item.status} onClick={() => handleFilterCollection(item)} />;
             })}
         </div>
         <div className="col-12 pt-3 border-bottom" id={styles.filter}>
-          <h4>Hotel Facilities</h4>
+          <h4>Check-in features</h4>
 
           {hotelData &&
+            hotelData.status &&
             hotelData.filters.checkin_features.map((item) => {
-              return (
-                <SidebarCheckinItems
-                  url={url}
-                  key={item.label}
-                  label={item.label.split("_").join(" ")}
-                  value={item.status}
-                  onClick={() => handleFilterCheckin(item)}
-                />
-              );
+              return <SidebarCheckinItems url={url} key={item.label} label={item.label.split("_").join(" ")} value={item.status} onClick={() => handleFilterCheckin(item)} />;
             })}
         </div>
       </div>
@@ -139,15 +89,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  hotelListingDataRequest: (payload) =>
-    dispatch(hotelListingDataRequest(payload)),
+  hotelListingDataRequest: (payload) => dispatch(hotelListingDataRequest(payload)),
   handleFilterAmenities: (payload) => dispatch(handleFilterAmenities(payload)),
-  handleFilterCollection: (payload) =>
-    dispatch(handleFilterCollection(payload)),
+  handleFilterCollection: (payload) => dispatch(handleFilterCollection(payload)),
   handleFilterCheckin: (payload) => dispatch(handleFilterCheckin(payload)),
   handleFilterCategory: (payload) => dispatch(handleFilterCategory(payload)),
-  handleFilterAccomodation: (payload) =>
-    dispatch(handleFilterAccomodation(payload)),
+  handleFilterAccomodation: (payload) => dispatch(handleFilterAccomodation(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
