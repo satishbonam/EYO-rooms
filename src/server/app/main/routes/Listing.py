@@ -14,9 +14,9 @@ class HotelListing(Resource):
     @classmethod
     def get(self):
         params = request.args
-        data, total_pages, total_results = hotel_listing(params)
+        data, total_pages, total_results, page = hotel_listing(params)
 
         if data:
-            return {"status": True, "data": data, "total_pages": total_pages, "total_results": total_results}
+            return {"status": True, "page": page, "data": data, "total_pages": total_pages, "total_results": total_results}
         else:
             return {"status": False, "msg": "Error in getting hotels"}

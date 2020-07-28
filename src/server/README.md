@@ -11,9 +11,10 @@ After cloning follow the steps to setup
 
 ### To migrate the databsae
 
-1. python manage.py db init
-2. python manage.py db migrate
-3. python manage.py db upgrade
+1. flask db init
+2. flask db stamp head
+3. flask db migrate
+4. flask db upgrade
 
 ### To add the models
 
