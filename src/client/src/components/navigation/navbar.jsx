@@ -43,9 +43,9 @@ class navbar extends Component {
       changeValue()
     }
    
-      if (!token ) {
-          return <Redirect to="/login" />
-        }
+      // if (!token ) {
+      //     return <Redirect to="/login" />
+      //   }
     //console.log(user,token)
     return (
       <nav className="navbar navbar-expand-md navbar-light bg-white shadow-sm  border">

@@ -14,8 +14,27 @@ class Sidebar extends Component {
   constructor(props) {
     super(props);
   }
-  handleRoute = (key, value) => {
+  handleRoute = (key, value,type) => {
+    console.log(key,value,type)
+    if(type){
+      
+      const { url, hotelListingDataRequest } = this.props;
+      let urll = url.location.pathname;
+      let new_url = new URLSearchParams(urll);
+      new_url.delete(key, value);
+      var str = new_url.toString().split("%2F=&");
+      if (str.length > 1) {
+        str = str[1];
+      } else {
+        str = str[0].split("%2F");
+        str = str[1];
+      }
+      url.history.push(str);
+      hotelListingDataRequest(str);
+      return
+    }
     const { url, hotelListingDataRequest } = this.props;
+    console.log(url)
     let urll = url.location.pathname;
     let new_url = new URLSearchParams(urll);
     new_url.append(key, value);
@@ -30,13 +49,22 @@ class Sidebar extends Component {
     hotelListingDataRequest(str);
   };
   render() {
-    let facility;
-    let collections;
+    let collections,amenities,category,accomodation;
     const { hotelData } = this.props;
     const { handleRoute } = this;
     if (hotelData) {
       collections = Object.keys(hotelData.data[0].collections);
-      console.log(hotelData.data[0].collections);
+      console.log(collections);
+
+      amenities = Object.keys(hotelData.data[0].amenities[0]);
+      console.log(amenities);
+
+      accomodation = Object.keys(hotelData.data[0].accomodation_type);
+      console.log(accomodation);
+
+      category = hotelData.data[0].category
+      console.log(category);
+      
     }
 
     return (
@@ -53,35 +81,61 @@ class Sidebar extends Component {
 
         <div className="col-12 pt-3 border-bottom" id={styles.filter}>
           <h4>Collections</h4>
-          {collections &&
-            collections.map((item) => {
-              return (
-                <SidebarCollectionItems
-                  key={item}
-                  label={item.split("_").join(" ")}
-                  onClick={() => handleRoute("collections", item)}
-                />
-              );
-            })}
-          <SidebarViewMoreItems />
-          <div></div>
+        
+          <SidebarCollectionItems
+          handleRoute = {handleRoute}
+        />
+          
+          <div>
+            <SidebarViewMoreItems
+              
+             />
+          </div>
         </div>
         <div className="col-12 pt-3 border-bottom" id={styles.filter}>
           <h4>Accomodation Type</h4>
 
           <div>
-            <SidebarAccomodationItems />
+            <SidebarAccomodationItems handleRoute={handleRoute}/>
+            {/* {accomodation &&
+            accomodation.map((item) => {
+              return (
+                <SidebarAccomodationItems
+                  key={item}
+                  label={item.split("_").join(" ")}
+                  onClick={() => handleRoute("accomodation_type", item)}
+                />
+              );
+            })} */}
           </div>
         </div>
         <div className="col-12 pt-3 border-bottom" id={styles.filter}>
           <h4>Hotel Facilities</h4>
-          {facility &&
-            facility.map((ele) => <SidebarFacilitiesItems facility={ele} />)}
+         
+          {amenities &&
+            amenities.map((item) => {
+              return (
+                <SidebarFacilitiesItems
+                  key={item}
+                  label={item.split("_").join(" ")}
+                  onClick={() => handleRoute("amenities", item)}
+                />
+              );
+            })}
         </div>
 
         <div className="col-12 pt-3" id={styles.filter}>
           <h4>Categories</h4>
-          <SidebarCategoriesItems />
+          {accomodation &&
+            accomodation.map((item) => {
+              return (
+                <SidebarCategoriesItems
+                  key={item}
+                  label={item.split("_").join(" ")}
+                  onClick={() => handleRoute("category", item)}
+                />
+              );
+            })}
           <div>
             <SidebarViewMoreItems />
           </div>

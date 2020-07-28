@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 
  function SidebarFilterItems(props) {
- 	console.log(props)
+ 	// console.log(props)
   return (
     <>
       <div id={styles.tag}>Howrah Railway station </div>

@@ -1,21 +1,30 @@
 
 
-import React from "react";
+import React,{useState} from "react";
 import styles from "../../sidebar/sidebar.module.css";
 import {hotelListingDataRequest} from "../../../../redux/authentication/actions"
 import { connect } from "react-redux";
 
 
  function SidebarFacilitiesItems(props) {
- 	const {facility} = props
- 	console.log(props)
+	const { label, onClick } = props;
+	const [checked, setChecked] = useState(false);
+ 	console.log("amenities",checked)
   return (
     <>
     	<div>
-    		<label>
-        		<input id={styles.check} type="checkbox" aria-label="Checkbox for following text input" />
-        		<span>{facility}</span>
-      		</label>
+			<label onClick={onClick}>
+			<input
+			id={styles.check}
+			type="checkbox"
+			checked={checked}
+			aria-label="Checkbox for following text input"
+			onChange={() => {
+				setChecked(!checked);
+			}}
+			/>
+			<span>{label}</span>
+		</label>
     	</div>
       	
     </>
