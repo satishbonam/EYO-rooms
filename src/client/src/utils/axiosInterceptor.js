@@ -8,7 +8,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const axiosInstance = axios.create({
-  baseURL: " http://eyo-server.satishbonam.tech",
+  baseURL: "http://eyo-server.satishbonam.tech",
 });
 
 axiosInstance.interceptors.request.use((request) => {

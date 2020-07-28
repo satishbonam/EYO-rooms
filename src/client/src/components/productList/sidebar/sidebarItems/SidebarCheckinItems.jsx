@@ -4,16 +4,16 @@ import { hotelListingDataRequest } from "../../../../redux/authentication/action
 import { connect } from "react-redux";
 import { build } from "search-params";
 
-class SidebarAccomodationItems extends React.Component {
+class SidebarCheckinItems extends React.Component {
   componentDidUpdate(prevProps) {
     const { hotelListingDataRequest, hotelData } = this.props;
     var para = {};
     hotelData &&
-      hotelData.filters.accomodation_type.forEach((item) => {
-        if (item.status && para.accomodation_type) {
-          para["accomodation_type"].push(item.label);
+      hotelData.filters.checkin_features.forEach((item) => {
+        if (item.status && para.checkin_features) {
+          para["checkin_features"].push(item.label);
         } else if (item.status) {
-          para["accomodation_type"] = [item.label];
+          para["checkin_features"] = [item.label];
         }
       });
     if (prevProps.value !== this.props.value) {
@@ -60,4 +60,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(SidebarAccomodationItems);
+)(SidebarCheckinItems);

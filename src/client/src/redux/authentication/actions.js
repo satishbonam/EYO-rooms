@@ -31,6 +31,11 @@ import {
   GET_HOTEL_LISTING_FAILURE,
   GET_HOTEL_LISTING_SUCCESS,
   GET_HOTEL_LISTING_REQUEST,
+  HANDLE_FILTER_AMENITIES,
+  HANDLE_FILTER_ACCOMODATION,
+  HANDLE_FILTER_CATEGORY,
+  HANDLE_FILTER_CHECKIN,
+  HANDLE_FILTER_COLLECTIONS,
 } from "./actionTypes";
 
 // import axiosInstance from "../../utils/axiosInterceptor";
@@ -232,3 +237,28 @@ export const hotelListingDataRequest = (payload) => (dispatch) => {
     })
     .catch((error) => dispatch(hotelListingFailure(error)));
 };
+
+export const handleFilterAmenities = (payload) => ({
+  type: HANDLE_FILTER_AMENITIES,
+  payload,
+});
+
+export const handleFilterCollection = (payload) => ({
+  type: HANDLE_FILTER_COLLECTIONS,
+  payload,
+});
+
+export const handleFilterCheckin = (payload) => ({
+  type: HANDLE_FILTER_CHECKIN,
+  payload,
+});
+
+export const handleFilterCategory = (payload) => ({
+  type: HANDLE_FILTER_CATEGORY,
+  payload,
+});
+
+export const handleFilterAccomodation = (payload) => ({
+  type: HANDLE_FILTER_ACCOMODATION,
+  payload,
+});

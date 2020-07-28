@@ -10,17 +10,22 @@ class ProductList extends Component {
   constructor(props) {
     super(props);
   }
+  componentDidMount() {
+    let x = document.location.pathname.split("");
+    let path = x.slice(1, x.length).join("");
+    this.props.hotelListingDataRequest(path);
+  }
+  // shouldComponentUpdate(prevProps) {
+  //   const { hotelListingDataRequest, location } = this.props;
+  //   hotelListingDataRequest(location.pathname);
+  //   return location.pathname !== prevProps.location.pathname;
+  // }
 
-  componentDidMount = () => {
-    const { hotelListingDataRequest, location, token } = this.props;
-      console.log(location)
-       hotelListingDataRequest(location.pathname);
-  };
-  shouldComponentUpdate = () => {
-    const { hotelListingDataRequest, location, token } = this.props;
+  // shouldComponentUpdate = () => {
+  //   const { hotelListingDataRequest, location, token } = this.props;
 
-    return token && hotelListingDataRequest(location.pathname);
-  };
+  //   return token && hotelListingDataRequest(location.pathname);
+  // };
 
   render() {
     const { hotelData, token } = this.props;

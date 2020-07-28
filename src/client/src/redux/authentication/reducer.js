@@ -23,6 +23,11 @@ import {
   GET_HOTEL_LISTING_SUCCESS,
   GET_HOTEL_LISTING_REQUEST,
   CHANGE_LOGOUT_VALUE,
+  HANDLE_FILTER_AMENITIES,
+  HANDLE_FILTER_ACCOMODATION,
+  HANDLE_FILTER_CATEGORY,
+  HANDLE_FILTER_CHECKIN,
+  HANDLE_FILTER_COLLECTIONS,
 } from "./actionTypes";
 
 const initState = {
@@ -197,6 +202,90 @@ const reducer = (state = initState, { type, payload }) => {
         ...state,
         isRequest: false,
         isError: true,
+      };
+    case HANDLE_FILTER_AMENITIES:
+      return {
+        ...state,
+        hotelListData: {
+          ...state.hotelListData,
+          filters: {
+            ...state.hotelListData.filters,
+            amenities: state.hotelListData.filters.amenities.map((item) => {
+              if (item.label === payload.label) {
+                return { label: payload.label, status: !payload.status };
+              }
+              return item;
+            }),
+          },
+        },
+      };
+    case HANDLE_FILTER_ACCOMODATION:
+      return {
+        ...state,
+        hotelListData: {
+          ...state.hotelListData,
+          filters: {
+            ...state.hotelListData.filters,
+            accomodation_type: state.hotelListData.filters.accomodation_type.map(
+              (item) => {
+                if (item.label === payload.label) {
+                  return { label: payload.label, status: !payload.status };
+                }
+                return item;
+              }
+            ),
+          },
+        },
+      };
+    case HANDLE_FILTER_CATEGORY:
+      return {
+        ...state,
+        hotelListData: {
+          ...state.hotelListData,
+          filters: {
+            ...state.hotelListData.filters,
+            category: state.hotelListData.filters.category.map((item) => {
+              if (item.label === payload.label) {
+                return { label: payload.label, status: !payload.status };
+              }
+              return item;
+            }),
+          },
+        },
+      };
+    case HANDLE_FILTER_CHECKIN:
+      return {
+        ...state,
+        hotelListData: {
+          ...state.hotelListData,
+          filters: {
+            ...state.hotelListData.filters,
+            checkin_features: state.hotelListData.filters.checkin_features.map(
+              (item) => {
+                if (item.label === payload.label) {
+                  return { label: payload.label, status: !payload.status };
+                }
+                return item;
+              }
+            ),
+          },
+        },
+      };
+    case HANDLE_FILTER_COLLECTIONS:
+      return {
+        ...state,
+        hotelListData: {
+          ...state.hotelListData,
+          filters: {
+            ...state.hotelListData.filters,
+            collections: state.hotelListData.filters.collections.map((item) => {
+              if (item.label === payload.label) {
+                return { label: payload.label, status: !payload.status };
+              }
+              return item;
+            }),
+          },
+        },
       };
 
     default:
