@@ -12,6 +12,21 @@ import json
 def hotel_listing(params):
     per_page = 20
 
+    amenities_filter = [{"status": False, "label": "Parking_Facility"}, {"status": False, "label": "Seating_Area"}, {"status": False, "label": "Balcony"}, {"status": False, "label": "Attached_Bathroom"}, {"status": False, "label": "AC"}, {"status": False, "label": "Complimentary_BreakFast"}, {"status": False, "label": "Banquet_Hall"}, {"status": False, "label": "Hot_Water"}, {"status": False, "label": "Card_Payment"}, {"status": False, "label": "Kitchen"}, {
+        "status": False, "label": "Washing_Machine"}, {"status": False, "label": "Swimming_Pool"}, {"status": False, "label": "Living_Room"}, {"status": False, "label": "Bottled_Water"}, {"status": False, "label": "KitPre_Book_Mealschen"}, {"status": False, "label": "Free_Wifi"}, {"status": False, "label": "Elevator"}, {"status": False, "label": "TV"}, {"status": False, "label": "Single_Bed"}, {"status": False, "label": "Queen_sized_Bed"}, {"status": False, "label": "King_sized_Bed"}, {"status": False, "label": "Geyser"}]
+
+    accomodation_type_filter = [{"status": False, "label": "Apartment"}, {
+        "status": False, "label": "EYO_Home"}, {"status": False, "label": "Hotel"}]
+
+    collection_filter = [{"status": False, "label": "Business_Travellers"}, {"status": False, "label": "For_Group_Travellers"}, {"status": False, "label": "Family_EYOs"}, {
+        "status": False, "label": "Sanitised_Stays"}, {"status": False, "label": "EYO_Welcomes_Couples"}, {"status": False, "label": "Local_ID's_Accepted"}]
+
+    category_filter = [{"status": False, "label": "EYO Rooms", "tag": "Super affordable stays with essential amenities"}, {"status": False, "label": "Premiun", "tag": "Hotels at prime location and premium amenities"}, {"status": False, "label": "Home", "tag": "A space for new-age travellers-Serviced by EYO,Executive apartments with stylish interiors-Serviced by EYO"}, {
+        "status": False, "label": "Capital O", "tag": "Budget stay with Comfortable bed and Clean washroom"}, {"status": False, "label": "Collection O", "tag": "Villas and apartments with extra space and privacy"}, {"status": False, "label": "Silver Key", "tag": "Premium hotels with spacious rooms for business travellers & families"}]
+
+    checkin_filter = [{"status": False, "label": "Pay at Hotel"}, {
+        "status": False, "label": "Pay later"}, {"status": False, "label": "Pay Online"}]
+
     query = "select h.name as name,h.images->>'$[0]' as images,h.rooms->>'$' as rooms,created_at,updated_at, h.collection->>'$[0]' as collection,c.name as category,c.tag as tag,h.accomodation_type->>'$[0]' as acc_type,h.amenities as amenities,checkin_features as c_f from hotel as h join category as c on h.category_id=c.id WHERE"
     base_query = "select h.collection->>'$[0]' as collection,c.name as category,c.tag as tag,h.accomodation_type->>'$[0]' as acc_type,h.amenities as amenities,checkin_features as c_f from hotel as h join category as c on h.category_id=c.id limit 1"
     count_query = 'select count(h.id) from hotel as h join category as c on h.category_id=c.id WHERE'
@@ -19,6 +34,9 @@ def hotel_listing(params):
     if params.get('collections'):
         collections = params.getlist("collections")
         for item in collections:
+            for col in collection_filter:
+                if col['label'] == item:
+                    col['status'] = True
             query = query + \
                 "  h.collection->>'$[0].%s'=" % (item)+'"true"'+" AND"
             count_query = count_query + \
@@ -26,11 +44,17 @@ def hotel_listing(params):
     if params.get('category'):
         category = params.getlist("category")
         for item in category:
+            for col in category_filter:
+                if col['label'] == item:
+                    col['status'] = True
             query = query + "  c.name='%s' AND" % (item)
             count_query = count_query + "  c.name='%s' AND" % (item)
     if params.get('accomodation_type'):
         accomodation_type = params.getlist("accomodation_type")
         for item in accomodation_type:
+            for col in accomodation_type_filter:
+                if col['label'] == item:
+                    col['status'] = True
             query = query + \
                 "  h.accomodation_type->>'$[0].%s'=" % (item)+'"true"'+" AND"
             count_query = count_query + \
@@ -40,6 +64,9 @@ def hotel_listing(params):
     if params.get('amenities'):
         amenities = params.getlist("amenities")
         for item in amenities:
+            for col in amenities_filter:
+                if col['label'] == item:
+                    col['status'] = True
             query = query + \
                 "  h.amenities->>'$[0].%s'=" % (item)+'"true"'+" AND"
             count_query = count_query + \
@@ -47,6 +74,9 @@ def hotel_listing(params):
     if params.get('checkin_features'):
         checkin_features = params.getlist("checkin_features")
         for item in checkin_features:
+            for col in checkin_filter:
+                if col['label'] == item:
+                    col['status'] = True
             query = query + "  h.checkin_features='%s'" % (item)
             count_query = count_query + \
                 "   h.checkin_features='%s'" % (item)
@@ -80,6 +110,12 @@ def hotel_listing(params):
     # print(data_raw)
 
     data = []
+    filters = {}
+    filters['amenities'] = amenities_filter
+    filters['accomodation_type'] = accomodation_type_filter
+    filters['collections'] = collection_filter
+    filters['category'] = category_filter
+    filters['checkin_features'] = checkin_filter
 
     for hotel in data_raw:
         temp_dict = {}
@@ -97,4 +133,4 @@ def hotel_listing(params):
         temp_dict['checkin_features'] = hotel['c_f']
         data.append(temp_dict)
 
-    return data, total_pages, total_results, params.get('page') or 1
+    return data, total_pages, total_results, params.get('page') or 1, filters
