@@ -105,6 +105,8 @@ def bill_data(data):
 
     if select:
         selected['id'] = select['id']
+        selected['type'] = select['type']
+        selected['size'] = select['size']
         selected['rooms_available'] = select['max_rooms']
         selected['no_of_rooms'] = data.get('no_of_rooms') or 1
         selected['no_of_guests'] = data.get('no_of_guests') or 1
@@ -127,6 +129,8 @@ def bill_data(data):
 
     else:
         selected['id'] = default['id']
+        selected['type'] = select['type']
+        selected['size'] = select['size']
         selected['rooms_available'] = default['max_rooms']
         selected['no_of_rooms'] = data.get('no_of_rooms') or 1
         selected['no_of_guests'] = data.get('no_of_guests') or 1
