@@ -99,7 +99,7 @@ class LoginWithPassword extends Component {
     if (token) {
       //localStorage.setItem("jwt", token);
       //localStorage.setItem("data", JSON.stringify(user));
-      return <Redirect to="/" />
+      // return <Redirect to="/" />
     }
   
     return (
@@ -127,17 +127,23 @@ class LoginWithPassword extends Component {
           Prefer to Proceed with OTP instead?{" "}
           <Link className="text-danger" to="/loginotp">
             Click here
-          </Link>{" "}
+          </Link>
+          <div className="border-bottom w-100 mt-4 text-center">
+            Or sing in as
+          </div>
+          <div className="text-center mt-4">
+              <GoogleLogin
+              clientId={"412804596146-clkr9mtigjj70d3atl49nctpai3q7bb7.apps.googleusercontent.com"}
+              onSuccess={this.googleResponse}
+              onFailure={this.googleResponse}
+              cookiePolicy="single_host_origin"
+              uxMode="popup"
+              isSignedIn={false}
+            ></GoogleLogin>
+          </div>
         </div>
 
-        <GoogleLogin
-          clientId={"412804596146-clkr9mtigjj70d3atl49nctpai3q7bb7.apps.googleusercontent.com"}
-          onSuccess={this.googleResponse}
-          onFailure={this.googleResponse}
-          cookiePolicy="single_host_origin"
-          // uxMode="popup"
-          // isSignedIn={false}
-        ></GoogleLogin>
+        
       </form>
     );
   }

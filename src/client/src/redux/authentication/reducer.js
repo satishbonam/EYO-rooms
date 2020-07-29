@@ -23,19 +23,19 @@ import {
   GET_HOTEL_LISTING_FAILURE,
   GET_HOTEL_LISTING_SUCCESS,
   GET_HOTEL_LISTING_REQUEST,
-   // hotel entity
-   HOTEL_ENTITY_REQUEST,
-   HOTEL_ENTITY_SUCCESS,
-   HOTEL_ENTITY_FAILURE,
-   // hotel recommendation
-   HOTEL_RECOMMENDATION_REQUEST,
-   HOTEL_RECOMMENDATION_SUCCESS,
-   HOTEL_RECOMMENDATION_FAILURE,
-   // hotel review
-   HOTEL_REVIEW_REQUEST,
-   HOTEL_REVIEW_SUCCESS,
-   HOTEL_REVIEW_FAILURE,
-     // hotel bill data
+  // hotel entity
+  HOTEL_ENTITY_REQUEST,
+  HOTEL_ENTITY_SUCCESS,
+  HOTEL_ENTITY_FAILURE,
+  // hotel recommendation
+  HOTEL_RECOMMENDATION_REQUEST,
+  HOTEL_RECOMMENDATION_SUCCESS,
+  HOTEL_RECOMMENDATION_FAILURE,
+  // hotel review
+  HOTEL_REVIEW_REQUEST,
+  HOTEL_REVIEW_SUCCESS,
+  HOTEL_REVIEW_FAILURE,
+  // hotel bill data
   HOTEL_BILLING_REQUEST,
   HOTEL_BILLING_SUCCESS,
   HOTEL_BILLING_FAILURE,
@@ -59,13 +59,16 @@ const initState = {
   otpValue: null,
   mobile: null,
   isLogout: false,
-  otpGenerate:false,
+  otpGenerate: false,
   hotelListData: undefined,
-  entityData:undefined,
-  billingData:undefined,
-  review:undefined,
-  recommendation:undefined,
-  params: ""
+  params: "",
+  otpGenerate: false,
+  hotelListData: undefined,
+  entityData: undefined,
+  billingData: undefined,
+  review: undefined,
+  recommendation: undefined,
+  params: "",
 };
 
 const reducer = (state = initState, { type, payload }) => {
@@ -90,10 +93,10 @@ const reducer = (state = initState, { type, payload }) => {
         isRequest: false,
         isError: true,
       };
-      case CHANGE_SIGNUP_VALUE:
+    case CHANGE_SIGNUP_VALUE:
       return {
         ...state,
-       isSignUp:false
+        isSignUp: false,
       };
 
     // login with password
@@ -110,7 +113,6 @@ const reducer = (state = initState, { type, payload }) => {
         token: payload.token,
         user: payload.user_data,
         isLogin: payload.status,
-
       };
     case USER_LOGIN_PASS_FAILURE:
       return {
@@ -135,7 +137,7 @@ const reducer = (state = initState, { type, payload }) => {
         ...state,
         isRequest: false,
         message: payload.msg,
-        otpGenerate:payload.status
+        otpGenerate: payload.status,
       };
     case USER_OTP_LOGIN_FAILURE:
       return {
@@ -194,8 +196,8 @@ const reducer = (state = initState, { type, payload }) => {
         ...state,
         isRequest: false,
         isLogout: payload.status,
-        token:null,
-        user:null
+        token: null,
+        user: null,
       };
     case USER_LOGOUT_FAILURE:
       return {
@@ -206,7 +208,7 @@ const reducer = (state = initState, { type, payload }) => {
     case CHANGE_LOGOUT_VALUE:
       return {
         ...state,
-        isLogout:false
+        isLogout: false,
       };
 
     // hotel listing
@@ -234,62 +236,62 @@ const reducer = (state = initState, { type, payload }) => {
         isRequest: true,
       };
     case HOTEL_ENTITY_SUCCESS:
-      console.log(payload)
+      console.log(payload,"entity success");
       return {
         ...state,
         isRequest: false,
         entityData: payload.data[0],
       };
-      case HOTEL_ENTITY_FAILURE:
-        return {
-          ...state,
-          isRequest: false,
-          isError: true,
-        };
-        // hotel bill data
-        case HOTEL_BILLING_REQUEST:
-          return {
-            ...state,
-            isRequest: true,
-          };
-          case HOTEL_BILLING_SUCCESS:
-            console.log(payload.data)
-        return {
-          ...state,
-          isRequest: false,
-          billingData: payload.data,
-        };
-        case HOTEL_BILLING_FAILURE:
-          return {
+    case HOTEL_ENTITY_FAILURE:
+      return {
         ...state,
         isRequest: false,
         isError: true,
       };
-      // hotel recoomedation
-      case HOTEL_RECOMMENDATION_REQUEST:
-        return {
-          ...state,
-          isRequest: true,
-        };
-        case HOTEL_RECOMMENDATION_SUCCESS:
-          return {
-            ...state,
-            isRequest: false,
-            recommendation: payload,
-          };
-          case HOTEL_RECOMMENDATION_FAILURE:
-            return {
+    // hotel bill data
+    case HOTEL_BILLING_REQUEST:
+      return {
+        ...state,
+        isRequest: true,
+      };
+    case HOTEL_BILLING_SUCCESS:
+      console.log(payload.data);
+      return {
+        ...state,
+        isRequest: false,
+        billingData: payload.data,
+      };
+    case HOTEL_BILLING_FAILURE:
+      return {
         ...state,
         isRequest: false,
         isError: true,
       };
-      // hotel review
-      case HOTEL_REVIEW_REQUEST:
-        console.log(payload)
-        return {
-          ...state,
-          isRequest: true,
-        };
+    // hotel recoomedation
+    case HOTEL_RECOMMENDATION_REQUEST:
+      return {
+        ...state,
+        isRequest: true,
+      };
+    case HOTEL_RECOMMENDATION_SUCCESS:
+      return {
+        ...state,
+        isRequest: false,
+        recommendation: payload,
+      };
+    case HOTEL_RECOMMENDATION_FAILURE:
+      return {
+        ...state,
+        isRequest: false,
+        isError: true,
+      };
+    // hotel review
+    case HOTEL_REVIEW_REQUEST:
+      console.log(payload);
+      return {
+        ...state,
+        isRequest: true,
+      };
     case HOTEL_REVIEW_SUCCESS:
       return {
         ...state,
@@ -388,8 +390,6 @@ const reducer = (state = initState, { type, payload }) => {
         },
       };
     case HANDLE_PARAMS:
-
-    default:
       return {
         ...state,
         params: {
@@ -410,8 +410,9 @@ const reducer = (state = initState, { type, payload }) => {
           ),
         },
       };
-      
 
+    default:
+      return state;
   }
 };
 

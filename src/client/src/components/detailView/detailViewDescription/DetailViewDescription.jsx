@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import styles from "./DetailViewDescription.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+// import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar , faFan, faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking, faThermometerEmpty, faChair, faTv, faSoap} from "@fortawesome/free-solid-svg-icons"
 import {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} from "../../../redux/authentication/actions"
 import {connect} from "react-redux"
 
@@ -32,7 +33,7 @@ import {connect} from "react-redux"
   // }
   render() {
     const {entityData,billingData,review} = this.props
-    // console.log(entityData,billingData,review)
+    console.log(entityData,billingData,review)
     return (
       <>
         <div className="col-12 px-3">

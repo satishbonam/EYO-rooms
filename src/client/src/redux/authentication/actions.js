@@ -31,6 +31,12 @@ import {
   GET_HOTEL_LISTING_FAILURE,
   GET_HOTEL_LISTING_SUCCESS,
   GET_HOTEL_LISTING_REQUEST,
+  HANDLE_FILTER_AMENITIES,
+  HANDLE_FILTER_ACCOMODATION,
+  HANDLE_FILTER_CATEGORY,
+  HANDLE_FILTER_CHECKIN,
+  HANDLE_FILTER_COLLECTIONS,
+  HANDLE_PARAMS,
   // hotel entity
   HOTEL_ENTITY_REQUEST,
   HOTEL_ENTITY_SUCCESS,
@@ -46,10 +52,8 @@ import {
   // hotel bill data
   HOTEL_BILLING_REQUEST,
   HOTEL_BILLING_SUCCESS,
-  HOTEL_BILLING_FAILURE
+  HOTEL_BILLING_FAILURE,
 } from "./actionTypes";
-
-
 
 // import axiosInstance from "../../utils/axiosInterceptor";
 import axios from "../../utils/axiosInterceptor";
@@ -70,7 +74,6 @@ export const changeSignupValue = (payload) => ({
   type: CHANGE_SIGNUP_VALUE,
   payload,
 });
-
 
 // login with password
 export const loginPassFailure = (payload) => ({
@@ -144,7 +147,7 @@ export const logoutUserFailure = () => ({
 
 export const changeLogoutValue = (payload) => ({
   type: CHANGE_LOGOUT_VALUE,
-  payload
+  payload,
 });
 
 // hotel listing
@@ -159,7 +162,154 @@ export const hotelListingSuccess = (payload) => ({
 export const hotelListingFailure = () => ({
   type: GET_HOTEL_LISTING_FAILURE,
 });
-// hotel filtering
+
+
+// hotel enity
+export const hotelEntityRequest = (payload) => ({
+  type: HOTEL_ENTITY_REQUEST,
+  payload,
+});
+export const hotelEntitySuccess = (payload) => ({
+  type: HOTEL_ENTITY_SUCCESS,
+  payload,
+});
+export const hotelEntityFailure = (payload) => ({
+  type: HOTEL_ENTITY_FAILURE,
+  payload,
+});
+// hotel  bill data
+export const hotelBillingRequest = (payload) => ({
+  type: HOTEL_BILLING_REQUEST,
+  payload,
+});
+export const hotelBillingSuccess = (payload) => ({
+  type: HOTEL_BILLING_SUCCESS,
+  payload,
+});
+export const hotelBillingFailure = (payload) => ({
+  type: HOTEL_BILLING_FAILURE,
+  payload,
+});
+
+// hotel recommendations
+export const hotelRecommendationRequest = (payload) => ({
+  type: HOTEL_RECOMMENDATION_REQUEST,
+  payload,
+});
+export const hotelRecommendationSuccess = (payload) => ({
+  type: HOTEL_RECOMMENDATION_SUCCESS,
+  payload,
+});
+export const hotelRecommendationFailure = (payload) => ({
+  type: HOTEL_RECOMMENDATION_FAILURE,
+  payload,
+});
+
+// hotel reviews
+export const hotelReviewRequest = (payload) => ({
+  type: HOTEL_REVIEW_REQUEST,
+  payload,
+});
+export const hotelReviewSuccess = (payload) => ({
+  type: HOTEL_REVIEW_SUCCESS,
+  payload,
+});
+export const hotelReviewFailure = (payload) => ({
+  type: HOTEL_REVIEW_FAILURE,
+  payload,
+});
+
+// axios request thunk
+
+// server request for signup
+export const signupRequest = (payload) => (dispatch) => {
+  dispatch(signupUserRequest());
+  console.log(payload);
+  return axios
+    .post("/register", {
+      ...payload,
+    })
+    .then((res) => dispatch(signupUserSuccess(res)))
+    .catch((error) => dispatch(signupUserFailure(error)));
+};
+
+// server request for login with password
+export const loginRequestWithPassword = (payload) => (dispatch) => {
+  dispatch(loginPassRequest());
+  return axios
+    .post("/login", {
+      ...payload,
+    })
+    .then((data) => dispatch(loginPassSuccess(data)))
+    .catch((error) => dispatch(loginPassFailure(error)));
+};
+
+// server request for login with  otp
+export const loginRequestWithOtp = (payload) => (dispatch) => {
+  dispatch(saveUserMobile(payload));
+  dispatch(loginOtpRequest());
+  console.log(payload);
+  return axios
+    .post("/login/otp_generate", {
+      ...payload,
+    })
+    .then((data) => dispatch(loginOtpSuccess(data)))
+    .catch((error) => dispatch(loginOtpFailure(error)));
+};
+
+// server request for otp verify
+export const loginRequestWithOtpVerify = (payload) => (dispatch) => {
+  dispatch(loginOtpVerifyRequest());
+  console.log(payload);
+  return axios
+    .post("/login/otp_verify", {
+      ...payload,
+    })
+    .then((data) => dispatch(loginOtpVerifySuccess(data)))
+    .catch((error) => dispatch(loginOtpVerifyFailure(error)));
+};
+
+// server request for google oauth login
+export const loginRequestWithOauth = (payload) => (dispatch) => {
+  dispatch(loginOauthRequest());
+  return axios
+    .post("/login/oauth", {
+      ...payload,
+    })
+    .then((data) => dispatch(loginOauthSuccess(data)))
+    .catch((error) => dispatch(loginOauthFailure(error)));
+};
+
+// server request for logout
+export const logoutRequest = (payload) => (dispatch) => {
+  dispatch(logoutUserRequest());
+  return axios
+    .get(
+      "/logout",
+      {},
+      {
+        headers: {
+          auth_token: payload,
+        },
+      }
+    )
+    .then((data) => dispatch(logoutUserSuccess(data)))
+    .catch((error) => dispatch(logoutUserFailure(error)));
+};
+
+// hotel listing data
+export const hotelListingDataRequest = (payload) => (dispatch) => {
+  console.log("hotel listing calling...", payload);
+  dispatch(hotelListingRequest());
+
+  return axios
+    .get("/hotel_listing?" + payload, {})
+    .then((data) => {
+      console.log(data);
+      dispatch(hotelListingSuccess(data));
+    })
+    .catch((error) => dispatch(hotelListingFailure(error)));
+};
 
 export const handleFilterAmenities = (payload) => ({
   type: HANDLE_FILTER_AMENITIES,
@@ -191,163 +341,13 @@ export const handleParams = (payload) => ({
   payload,
 });
 
-
-// hotel enity 
-  export const hotelEntityRequest = (payload) => ({
-    type: HOTEL_ENTITY_REQUEST,
-    payload,
-  });
-  export const hotelEntitySuccess = (payload) => ({
-    type: HOTEL_ENTITY_SUCCESS,
-    payload,
-  });
-  export const hotelEntityFailure = (payload) => ({
-    type: HOTEL_ENTITY_FAILURE,
-    payload
-  });
-  // hotel  bill data
-    export const hotelBillingRequest = (payload) => ({
-      type: HOTEL_BILLING_REQUEST,
-      payload,
-    });
-    export const hotelBillingSuccess = (payload) => ({
-      type: HOTEL_BILLING_SUCCESS,
-      payload,
-    });
-    export const hotelBillingFailure = (payload) => ({
-      type: HOTEL_BILLING_FAILURE,
-      payload
-    });
-
-// hotel recommendations
-  export const hotelRecommendationRequest = (payload) => ({
-    type: HOTEL_RECOMMENDATION_REQUEST,
-    payload,
-  });
-  export const hotelRecommendationSuccess = (payload) => ({
-    type: HOTEL_RECOMMENDATION_SUCCESS,
-    payload,
-  });
-  export const hotelRecommendationFailure = (payload) => ({
-    type: HOTEL_RECOMMENDATION_FAILURE,
-    payload
-  });
-
-// hotel reviews
-  export const hotelReviewRequest = (payload) => ({
-    type: HOTEL_REVIEW_REQUEST,
-    payload,
-  });
-  export const hotelReviewSuccess = (payload) => ({
-    type: HOTEL_REVIEW_SUCCESS,
-    payload,
-  });
-  export const hotelReviewFailure = (payload) => ({
-    type: HOTEL_REVIEW_FAILURE,
-    payload
-  });
-
-
-// axios request thunk
-
-// server request for signup
-export const signupRequest = (payload) => (dispatch) => {
-  dispatch(signupUserRequest());
-  console.log(payload);
-  return axios
-    .post("/register", {
-      ...payload,
-    })
-    .then((res) => dispatch(signupUserSuccess(res)))
-    .catch((error) => dispatch(signupUserFailure(error)));
-};
-
-// server request for login with password
-export const loginRequestWithPassword = (payload) => (dispatch) => {
-  dispatch(loginPassRequest());
-  return axios
-    .post("/login", {
-      ...payload,
-    })
-    .then((data) => dispatch(loginPassSuccess(data)))
-    .catch((error) => dispatch(loginPassFailure(error)));
-};
-
-// server request for login with  otp
-export const loginRequestWithOtp = (payload) => (dispatch) => {
-  dispatch(saveUserMobile(payload));
-  dispatch(loginOtpRequest());
-  console.log(payload)
-  return axios
-    .post("login/otp_generate", {
-      ...payload,
-    })
-    .then((data) => dispatch(loginOtpSuccess(data)))
-    .catch((error) => dispatch(loginOtpFailure(error)));
-};
-
-// server request for otp verify
-export const loginRequestWithOtpVerify = (payload) => (dispatch) => {
-  dispatch(loginOtpVerifyRequest());
-  console.log(payload)
-  return axios
-    .post("/login/otp_verify", {
-      ...payload
-    })
-    .then((data) => dispatch(loginOtpVerifySuccess(data)))
-    .catch((error) => dispatch(loginOtpVerifyFailure(error)));
-};
-
-// server request for google oauth login
-export const loginRequestWithOauth = (payload) => (dispatch) => {
-  dispatch(loginOauthRequest());
-  return axios
-    .post("/login/oauth", {
-      ...payload,
-    })
-    .then((data) => dispatch(loginOauthSuccess(data)))
-    .catch((error) => dispatch(loginOauthFailure(error)));
-};
-
-// server request for logout
-export const logoutRequest = (payload) => (dispatch) => {
-  dispatch(logoutUserRequest());
-  return axios
-    .get(
-      "/logout",
-      {},
-      {
-        headers: {
-          auth_token:payload
-        }
-      }
-    )
-    .then((data) => dispatch(logoutUserSuccess(data)))
-    .catch((error) => dispatch(logoutUserFailure(error)));
-};
-
-// hotel listing data
-export const hotelListingDataRequest = (payload) => (dispatch) => {
-  console.log("hotel listing calling...", payload);
-  dispatch(hotelListingRequest());
-
-  return axios
-    .get("/hotel_listing?" + payload, {})
-    .then((data) => {
-      console.log(data);
-      dispatch(hotelListingSuccess(data));
-    })
-    .catch((error) => dispatch(hotelListingFailure(error)));
-};
-
-
 // hotel entity data
 export const hotelEntityDataRequest = (payload) => (dispatch) => {
   console.log("hotel entity calling...", payload);
   dispatch(hotelEntityRequest());
   return axios
     .post("/entity", {
-      hotel_id:payload
+      hotel_id: payload,
     })
     .then((data) => dispatch(hotelEntitySuccess(data)))
     .catch((error) => dispatch(hotelEntityFailure(error)));
@@ -357,22 +357,21 @@ export const hotelBillingDataRequest = (payload) => (dispatch) => {
   console.log("hotel billing calling...", payload);
   dispatch(hotelBillingRequest());
   return axios
-  .post("/bill_data", {
-      ...payload
+    .post("/bill_data", {
+      ...payload,
     })
     .then((data) => dispatch(hotelBillingSuccess(data)))
     .catch((error) => dispatch(hotelBillingFailure(error)));
 };
 
-
 // hotel recommendation
 export const hotelRecommendationDataRequest = (payload) => (dispatch) => {
   console.log("hotel recomendation calling...", payload);
   dispatch(hotelRecommendationRequest());
-  
+
   return axios
-  .get("/recommendations?" + payload, {})
-  .then((data) => {
+    .get("/recommendations?" + payload, {})
+    .then((data) => {
       console.log(data);
       dispatch(hotelRecommendationSuccess(data));
     })
@@ -385,9 +384,9 @@ export const hotelReviewDataRequest = (payload) => (dispatch) => {
   dispatch(hotelReviewRequest());
 
   return axios
-  .post("/reviews", {
-    hotel_id:payload
-  })
+    .post("/reviews", {
+      hotel_id: payload,
+    })
     .then((data) => {
       console.log(data);
       dispatch(hotelReviewSuccess(data));

@@ -1,8 +1,12 @@
 #imgContainer {
   height: 276px;
+  padding: 0px 0px 23px 0px;
 }
 #imageFit {
   height: 100%;
+}
+#cardBody {
+  padding: 0px 0px 23px 15px;
 }
 #cardTitle {
   font-size: 20px;
@@ -20,6 +24,9 @@
 #rating {
   background-color: #1ab64f;
   /* padding: 2px; */
+}
+#border {
+  border-bottom: 1px solid #dee2e6 !important;
 }
 
 #ratingContainer > span {

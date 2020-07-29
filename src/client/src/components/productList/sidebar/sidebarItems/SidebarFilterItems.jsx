@@ -1,6 +1,9 @@
 import React from "react";
 import styles from "../../sidebar/sidebar.module.css";
-import { hotelListingDataRequest } from "../../../../redux/authentication/actions";
+import {
+  hotelListingDataRequest,
+  handleParams,
+} from "../../../../redux/authentication/actions";
 import { connect } from "react-redux";
 
 function SidebarFilterItems(props) {

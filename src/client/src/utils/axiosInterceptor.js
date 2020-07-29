@@ -20,7 +20,6 @@ axiosInstance.interceptors.request.use((request) => {
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log(response, "axios instance");
     if (interceptorEnabled) {
       return response.data;
     }

@@ -28,6 +28,7 @@ class ProductList extends Component {
   // };
 
   render() {
+    console.log(this.props,"history checkings")
     const { hotelData, token } = this.props;
     // console.log(hotelData);
 

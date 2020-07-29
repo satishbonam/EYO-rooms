@@ -26,6 +26,7 @@
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "search-params": "^3.0.0",
     "uuid": "^8.1.0"
   },
   "scripts": {
