@@ -2,9 +2,22 @@ import React, { Component } from "react";
 import styles from "./DetailViewAmenities.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFan, faWifi, faBed } from "@fortawesome/free-solid-svg-icons";
+import {connect} from "react-redux"
 
-export default class DetailViewAmenities extends Component {
-  render() {
+ class DetailViewAmenities extends Component {
+
+   render() {
+  
+    const {entityData} = this.props
+    // let amenities = []
+    // if(entityData){
+
+    //    for (item of entityData.amenities[0]){
+    //      console.log (item)
+    //    }
+
+    //    console.log(amenities)
+    // }
     return (
       <div className="col-12 px-3 mt-5">
         <div>
@@ -39,3 +52,13 @@ export default class DetailViewAmenities extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  token: state.auth.token,
+    user: state.auth.user,
+    entityData: state.auth.entityData
+});
+
+
+
+export default connect(mapStateToProps, null)(DetailViewAmenities);

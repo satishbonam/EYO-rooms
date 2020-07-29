@@ -19,10 +19,26 @@ import {
   USER_LOGOUT_REQUEST,
   USER_LOGOUT_SUCCESS,
   USER_LOGOUT_FAILURE,
+  CHANGE_LOGOUT_VALUE,
   GET_HOTEL_LISTING_FAILURE,
   GET_HOTEL_LISTING_SUCCESS,
   GET_HOTEL_LISTING_REQUEST,
-  CHANGE_LOGOUT_VALUE
+   // hotel entity
+   HOTEL_ENTITY_REQUEST,
+   HOTEL_ENTITY_SUCCESS,
+   HOTEL_ENTITY_FAILURE,
+   // hotel recommendation
+   HOTEL_RECOMMENDATION_REQUEST,
+   HOTEL_RECOMMENDATION_SUCCESS,
+   HOTEL_RECOMMENDATION_FAILURE,
+   // hotel review
+   HOTEL_REVIEW_REQUEST,
+   HOTEL_REVIEW_SUCCESS,
+   HOTEL_REVIEW_FAILURE,
+     // hotel bill data
+  HOTEL_BILLING_REQUEST,
+  HOTEL_BILLING_SUCCESS,
+  HOTEL_BILLING_FAILURE
 } from "./actionTypes";
 
 const initState = {
@@ -37,7 +53,11 @@ const initState = {
   mobile: null,
   isLogout: false,
   otpGenerate:false,
-  hotelListData: [],
+  hotelListData: undefined,
+  entityData:undefined,
+  billingData:undefined,
+  review:undefined,
+  recommendation:undefined
 };
 
 const reducer = (state = initState, { type, payload }) => {
@@ -194,6 +214,81 @@ const reducer = (state = initState, { type, payload }) => {
         hotelListData: payload,
       };
     case GET_HOTEL_LISTING_FAILURE:
+      return {
+        ...state,
+        isRequest: false,
+        isError: true,
+      };
+    // hotel entity
+    case HOTEL_ENTITY_REQUEST:
+      return {
+        ...state,
+        isRequest: true,
+      };
+    case HOTEL_ENTITY_SUCCESS:
+      console.log(payload)
+      return {
+        ...state,
+        isRequest: false,
+        entityData: payload.data[0],
+      };
+      case HOTEL_ENTITY_FAILURE:
+        return {
+          ...state,
+          isRequest: false,
+          isError: true,
+        };
+        // hotel bill data
+        case HOTEL_BILLING_REQUEST:
+          return {
+            ...state,
+            isRequest: true,
+          };
+          case HOTEL_BILLING_SUCCESS:
+            console.log(payload.data)
+        return {
+          ...state,
+          isRequest: false,
+          billingData: payload.data,
+        };
+        case HOTEL_BILLING_FAILURE:
+          return {
+        ...state,
+        isRequest: false,
+        isError: true,
+      };
+      // hotel recoomedation
+      case HOTEL_RECOMMENDATION_REQUEST:
+        return {
+          ...state,
+          isRequest: true,
+        };
+        case HOTEL_RECOMMENDATION_SUCCESS:
+          return {
+            ...state,
+            isRequest: false,
+            recommendation: payload,
+          };
+          case HOTEL_RECOMMENDATION_FAILURE:
+            return {
+        ...state,
+        isRequest: false,
+        isError: true,
+      };
+      // hotel review
+      case HOTEL_REVIEW_REQUEST:
+        console.log(payload)
+        return {
+          ...state,
+          isRequest: true,
+        };
+    case HOTEL_REVIEW_SUCCESS:
+      return {
+        ...state,
+        isRequest: false,
+        review: payload.data,
+      };
+    case HOTEL_REVIEW_FAILURE:
       return {
         ...state,
         isRequest: false,

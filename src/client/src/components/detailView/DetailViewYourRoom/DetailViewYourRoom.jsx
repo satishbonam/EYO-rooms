@@ -2,9 +2,30 @@ import React, { Component } from "react";
 import styles from "./DetailViewYourRoom.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faCheckCircle, faFan, faTv, faBed } from "@fortawesome/free-solid-svg-icons";
+import {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} from "../../../redux/authentication/actions"
+import {connect} from "react-redux"
 
-export default class DetailViewYourRomm extends Component {
+
+ class DetailViewYourRomm extends Component {
+
+  componentDidMount=()=>{
+    const {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} = this.props
+    // hotelEntityDataRequest(10)
+    //  hotelBillingDataRequest({
+    //   hotel_id:"10",
+    //   room_id:"1",
+    //   check_in:"01/01/2020",
+    //   check_out:"01/01/2020",
+    //   no_of_guests:"2",
+    //   no_of_rooms:"2",
+    //   membership: true
+    // })
+    // hotelReviewDataRequest(10)
+  }
+  
   render() {
+    const {billingData} = this.props
+    console.log(billingData)
     return (
       <>
         <div className="px-4" id={styles.heading}>
@@ -82,3 +103,19 @@ export default class DetailViewYourRomm extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  token: state.auth.token,
+    user: state.auth.user,
+    entityData: state.auth.entityData,
+    review: state.auth.review,
+    billingData:state.auth.billingData
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  hotelEntityDataRequest: (payload) => dispatch(hotelEntityDataRequest(payload)), 
+  hotelBillingDataRequest: (payload) => dispatch(hotelBillingDataRequest(payload)), 
+  hotelReviewDataRequest: (payload) => dispatch(hotelReviewDataRequest(payload)), 
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailViewYourRomm);

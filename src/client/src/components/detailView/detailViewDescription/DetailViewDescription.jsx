@@ -2,15 +2,43 @@ import React, { Component } from "react";
 import styles from "./DetailViewDescription.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} from "../../../redux/authentication/actions"
+import {connect} from "react-redux"
 
-export default class DetailViewDescription extends Component {
+ class DetailViewDescription extends Component {
+
+
+  componentDidMount=()=>{
+    const {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} = this.props
+    hotelEntityDataRequest(10)
+    //  hotelBillingDataRequest({
+    //   hotel_id:"10",
+    //   room_id:"1",
+    //   check_in:"01/01/2020",
+    //   check_out:"01/01/2020",
+    //   no_of_guests:"2",
+    //   no_of_rooms:"2",
+    //   membership: true
+    // })
+    // hotelReviewDataRequest(10)
+  }
+  // shouldComponentUpdate=()=>{
+  //   // const {hotelBillingDataRequest,entityData} = this.props
+  //   const {entityData,billingData,review} = this.props
+  //   console.log(entityData,billingData,review)
+  //   // setTimeout(()=>{
+
+  //   // },1000)
+  // }
   render() {
+    const {entityData,billingData,review} = this.props
+    // console.log(entityData,billingData,review)
     return (
       <>
         <div className="col-12 px-3">
           <div className="d-flex justify-content-around " id={styles.headingContainer}>
             <h1 className="mx-4" id={styles.heading}>
-              OYO Townhouse 229 Hotel Mannat International
+              {entityData?entityData.name:"loading.."}
             </h1>
             <div className="mr-5 ">
               <div className="d-flex bg-success justify-content-around" id={styles.ratingIcons}>
@@ -60,3 +88,18 @@ export default class DetailViewDescription extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  token: state.auth.token,
+    user: state.auth.user,
+    entityData: state.auth.entityData,
+    review: state.auth.review
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  hotelEntityDataRequest: (payload) => dispatch(hotelEntityDataRequest(payload)), 
+  hotelBillingDataRequest: (payload) => dispatch(hotelBillingDataRequest(payload)), 
+  hotelReviewDataRequest: (payload) => dispatch(hotelReviewDataRequest(payload)), 
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailViewDescription);

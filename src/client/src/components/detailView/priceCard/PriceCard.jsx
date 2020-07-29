@@ -4,9 +4,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDoorClosed, faPen, faTags } from "@fortawesome/free-solid-svg-icons";
 import DateRangePicker from "react-bootstrap-daterangepicker";
 import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-daterangepicker/daterangepicker.css";
+import "bootstrap-daterangepicker/daterangepicker.css"; 
+import {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} from "../../../redux/authentication/actions"
+import {connect} from "react-redux"
 
-export default class PriceCard extends Component {
+ class PriceCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,6 +24,8 @@ export default class PriceCard extends Component {
     });
     // console.log(picker.startDate, start, end, label);
   };
+
+  
   render() {
     console.log("amresh");
     console.log(this.state);
@@ -115,3 +119,20 @@ export default class PriceCard extends Component {
     );
   }
 }
+
+
+const mapStateToProps = (state) => ({
+  token: state.auth.token,
+    user: state.auth.user,
+    entityData: state.auth.entityData,
+    review: state.auth.review,
+    billingData:state.auth.billingData
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  hotelEntityDataRequest: (payload) => dispatch(hotelEntityDataRequest(payload)), 
+  hotelBillingDataRequest: (payload) => dispatch(hotelBillingDataRequest(payload)), 
+  hotelReviewDataRequest: (payload) => dispatch(hotelReviewDataRequest(payload)), 
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PriceCard);

@@ -2,9 +2,22 @@ import React, { Component } from "react";
 import styles from "./DetailViewRating.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faStar } from "@fortawesome/free-solid-svg-icons";
+import {hotelReviewDataRequest} from "../../../redux/authentication/actions"
+import {connect} from "react-redux"
 
-export default class DetailViewRating extends Component {
+ class DetailViewRating extends Component {
+  
+  componentDidMount=()=>{
+    const {hotelReviewDataRequest,billingData,entityData} = this.props
+      hotelReviewDataRequest(10)
+  }
   render() {
+        const {review}  =this.props
+        console.log(review)
+        if(review){
+
+    // const {avg_rating,no_of_ratings} = review
+  }
     return (
       <>
         <div className="px-4" id={styles.heading}>
@@ -12,7 +25,6 @@ export default class DetailViewRating extends Component {
         </div>
         <div className="px-3" id={styles.heading}>
           <span>
-            {" "}
             <FontAwesomeIcon icon={faCheckCircle} color="#57A4FF" size="lg" />
           </span>
           <span>Only Verified Stays</span>
@@ -24,14 +36,14 @@ export default class DetailViewRating extends Component {
                 <div className="col-md-5 d-flex flex-column align-items-center border-right p-1 rounded">
                   <div className="d-flex  align-items-center" id={styles.ratingBox}>
                     <span>
-                      4.6
+                      {review?review.avg_rating:"0"}
                       <span>
                         <FontAwesomeIcon icon={faStar} color="#fff" size="sm" />
                       </span>
                     </span>
                   </div>
                   <div id={styles.status}>EXCELLENT</div>
-                  <div id={styles.count}>134 ratings</div>
+                  <div id={styles.count}>{review?review.no_of_ratings:"0"} ratings</div>
                 </div>
                 <div className="col-md-7 p-2">
                   {[
@@ -67,3 +79,17 @@ export default class DetailViewRating extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  token: state.auth.token,
+    user: state.auth.user,
+    review:state.auth.review,
+    entityData:state.auth.entityData,
+    billinData:state.auth.billingData
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  hotelReviewDataRequest: (payload) => dispatch(hotelReviewDataRequest(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailViewRating);
