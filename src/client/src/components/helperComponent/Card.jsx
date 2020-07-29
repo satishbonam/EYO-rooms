@@ -7,12 +7,34 @@ import {
   faWifi,
   faCarBattery,
 } from "@fortawesome/free-solid-svg-icons";
-import { hotelListingDataRequest } from "../../redux/authentication/actions";
+import { hotelListingDataRequest ,hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} from "../../redux/authentication/actions";
 import { connect } from "react-redux";
-
+import {Redirect} from "react-router-dom"
 class Card extends Component {
+
+  changeToEntityPage=(id)=>{
+    console.log("calling entity page",id)
+    const {hotelEntityDataRequest,hotelBillingDataRequest, history} =  this.props
+
+
+    // hotelEntityDataRequest(id)
+
+      hotelBillingDataRequest({
+      hotel_id:id,
+      room_id:"1",
+      check_in:"01/01/2020",
+      check_out:"01/01/2020",
+      no_of_guests:"2",
+      no_of_rooms:"2",
+      membership: true
+    })
+    
+    // <Redirect to={`/entity/${id}`}/>
+  }
+
   render() {
     const { data } = this.props;
+    const {changeToEntityPage} =  this
 
     return (
       <>
@@ -111,7 +133,7 @@ class Card extends Component {
                     </div>
                   </div>
                   <div>
-                    <button id={styles.whilteButton}>View details</button>
+                    <a href={`/entity/${data.hotel_id}`} target="_blank" id={styles.whilteButton}>View details</a>
                     <button id={styles.greenButton}>Book Now</button>
                   </div>
                 </div>
@@ -124,13 +146,18 @@ class Card extends Component {
   }
 }
 
+
 const mapStateToProps = (state) => ({
-  hotelData: state.auth.hotelListData,
+  token: state.auth.token,
+    user: state.auth.user,
+    entityData: state.auth.entityData,
+    review: state.auth.review
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  hotelListingDataRequest: (payload) =>
-    dispatch(hotelListingDataRequest(payload)),
+  hotelEntityDataRequest: (payload) => dispatch(hotelEntityDataRequest(payload)), 
+  hotelBillingDataRequest: (payload) => dispatch(hotelBillingDataRequest(payload)), 
+  hotelReviewDataRequest: (payload) => dispatch(hotelReviewDataRequest(payload)), 
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Card);

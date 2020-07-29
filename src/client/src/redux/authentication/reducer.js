@@ -237,7 +237,7 @@ const reducer = (state = initState, { type, payload }) => {
         isRequest: true,
       };
     case HOTEL_ENTITY_SUCCESS:
-      console.log(payload);
+      console.log(payload,"entity success");
       return {
         ...state,
         isRequest: false,
