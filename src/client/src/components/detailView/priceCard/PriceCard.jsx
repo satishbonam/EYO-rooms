@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import styles from "./PriceCard.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDoorClosed, faPen, faTags } from "@fortawesome/free-solid-svg-icons";
-import DateRangePicker from "react-bootstrap-daterangepicker";
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-daterangepicker/daterangepicker.css"; 
+// import DateRangePicker from "react-bootstrap-daterangepicker";
+// import "bootstrap/dist/css/bootstrap.css";
+// import "bootstrap-daterangepicker/daterangepicker.css"; 
 import {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} from "../../../redux/authentication/actions"
 import {connect} from "react-redux"
 
@@ -52,13 +52,13 @@ import {connect} from "react-redux"
                 <div id={styles.perNight}>inclusive of all taxes</div>
               </div>
               <div className="d-flex justify-content-around" id={styles.SecduleContainer}>
-                <DateRangePicker autoUpdateInput={false} startDate={this.state.inputStart} endDate={this.state.inputFinish} locale={{ format: "DD/MM/YYYY" }} onApply={this.handleEvent} autoApply={true}>
+                {/* <DateRangePicker autoUpdateInput={false} startDate={this.state.inputStart} endDate={this.state.inputFinish} locale={{ format: "DD/MM/YYYY" }} onApply={this.handleEvent} autoApply={true}>
                   <div>
                     <span>Wed, 12 Aug</span>
                     <span>-</span>
                     <span>Thu, 10 Sep</span>
                   </div>
-                </DateRangePicker>
+                </DateRangePicker> */}
                 <div id={styles.divide}></div>
                 <div>
                   <span>3 Rooms, 3 Guests</span>
