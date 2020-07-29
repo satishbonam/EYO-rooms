@@ -255,7 +255,7 @@
 
 ```
 {
-    "data":[{"id":"","title":"","location":"","rating":"","no_of_ratings":"","description":"","amenities":"","hotel_policy":""},...20-items]
+    "data":[{"id":"","title":"","location":"","rating":"","no_of_ratings":"","description":"","amenities":"","hotel_policy":""},...10-items]
 }
 ```
 

@@ -6,6 +6,7 @@ import datetime
 from ..utils.db_save import db_save
 import math
 import json
+import random
 
 
 # register user if email is not present in the users table
@@ -119,6 +120,36 @@ def hotel_listing(params):
     filters['category'] = category_filter
     filters['checkin_features'] = checkin_filter
 
+    front_awsome = {
+        "24/7_Checkin": "faBone",
+        "AC": "faFan",
+        "Attached_Bathroom": "faToilet",
+        "Balcony": "faPersonBooth",
+        "Banquet_Hall":  "faMusic",
+        "Bottled_Water": "faHandHoldingWater",
+        "Card_Payment": "faMoneyBillWave",
+        "Complimentary_BreakFast": "faBreadSlice",
+        "Elevator": "faPersonBooth",
+        "Free_Wifi": "faWifi",
+        "Geyser": "faFire",
+        "Hot_Water": "faHotTub",
+        "King_sized_Bed": "faBed",
+        "Kitchen": "faCheese",
+        "Living_Room": "faRestroom",
+        "Parking_Facility": "faParking",
+        "Pre_Book_Meals": "faCheese",
+        "Public_Bath-Male": "faHotTub",
+        "Queen_sized_Bed": "faBed",
+        "Refrigerator": "faThermometerEmpty",
+        "Seating_Area": "faChair",
+        "Single_Bed": "faBed",
+        "Swimming_Pool": "faHotTub",
+        "TV": "faTv",
+        "Washing_Machine": "faSoap"
+
+    }
+    tags = ["operated by eyo", "premium hotel", "breakfast-included"]
+
     for hotel in data_raw:
         temp_dict = {}
         temp_dict['hotel_id']=hotel['id']
@@ -132,8 +163,14 @@ def hotel_listing(params):
         temp_dict['images'] = {
             "large": json.loads(hotel['images'])['large'].split("#"), "medium": json.loads(hotel['images'])['medium'].split("#"), "thumb": json.loads(hotel['images'])['thumb'].split("#")}
         temp_dict['accomodation_type'] = json.loads(hotel['acc_type'])
-        temp_dict['amenities'] = json.loads(hotel['amenities'])
+        amenities_arr = []
+
+        for item in dict.items(json.loads(hotel['amenities'])[0]):
+            amenities_arr.append(
+                {"label": item[0], "status": item[1], "frot_awsome": front_awsome[item[0]]})
+        temp_dict['amenities'] = amenities_arr
         temp_dict['checkin_features'] = hotel['c_f']
+        temp_dict['tags'] = tags[int(math.floor(random.random() * 3))]
         data.append(temp_dict)
 
     return data, total_pages, total_results, params.get('page') or 1, filters
