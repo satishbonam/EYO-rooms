@@ -3,6 +3,7 @@ import Navbar from "../navigation/navbar";
 import DetailViewContent from "../detailView/DetailViewContent";
 import DetailViewCarusel from "../detailView/detailViewCarusel/DetailViewCarusel";
 import PriceCard from "../detailView/priceCard/PriceCard";
+import DetailViewRecomandation from "./deatilViewRecomandation/DetailViewRecomandation";
 
 export default class DetailView extends Component {
   render() {
@@ -14,6 +15,7 @@ export default class DetailView extends Component {
           <div className="row m-0 ">
             <DetailViewContent />
             <PriceCard />
+            <DetailViewRecomandation />
           </div>
         </div>
       </>
