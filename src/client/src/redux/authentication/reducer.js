@@ -47,6 +47,7 @@ import {
   HANDLE_FILTER_COLLECTIONS,
   HANDLE_PARAMS,
 } from "./actionTypes";
+import { element } from "prop-types";
 
 const initState = {
   isRequest: false,
@@ -393,20 +394,50 @@ const reducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         params: {
-          amenities: state.hotelListData.filters.amenities.map((item) =>
-            item.status ? item.label : ""
+          amenities: state.hotelListData.filters.amenities.reduce(
+            (result, item) => {
+              if (item.status) {
+                result.push(item.label);
+              }
+              return result;
+            },
+            []
           ),
-          collections: state.hotelListData.filters.collections.map((item) =>
-            item.status ? item.label : ""
+          collections: state.hotelListData.filters.collections.reduce(
+            (result, item) => {
+              if (item.status) {
+                result.push(item.label);
+              }
+              return result;
+            },
+            []
           ),
-          accomodation_type: state.hotelListData.filters.accomodation_type.map(
-            (item) => (item.status ? item.label : "")
+          accomodation_type: state.hotelListData.filters.accomodation_type.reduce(
+            (result, item) => {
+              if (item.status) {
+                result.push(item.label);
+              }
+              return result;
+            },
+            []
           ),
-          category: state.hotelListData.filters.category.map((item) =>
-            item.status ? item.label : ""
+          category: state.hotelListData.filters.category.reduce(
+            (result, item) => {
+              if (item.status) {
+                result.push(item.label);
+              }
+              return result;
+            },
+            []
           ),
-          checkin_features: state.hotelListData.filters.checkin_features.map(
-            (item) => (item.status ? item.label : "")
+          checkin_features: state.hotelListData.filters.checkin_features.reduce(
+            (result, item) => {
+              if (item.status) {
+                result.push(item.label);
+              }
+              return result;
+            },
+            []
           ),
         },
       };
