@@ -11,11 +11,11 @@ class ProductList extends Component {
     super(props);
   }
 
-  // componentDidMount = () => {
-  //   const { hotelListingDataRequest, location, token } = this.props;
-
-  //   token && hotelListingDataRequest(location.pathname);
-  // };
+  componentDidMount = () => {
+    const { hotelListingDataRequest, location, token } = this.props;
+      console.log(location)
+       hotelListingDataRequest(location.pathname);
+  };
   shouldComponentUpdate = () => {
     const { hotelListingDataRequest, location, token } = this.props;
 
@@ -26,9 +26,9 @@ class ProductList extends Component {
     const { hotelData, token } = this.props;
     // console.log(hotelData);
 
-    if (!token) {
-      return <Redirect to="/login" />;
-    }
+    // if (!token) {
+    //   return <Redirect to="/login" />;
+    // }
     return (
       <div className="container-fluid p-0">
         <Navbar />

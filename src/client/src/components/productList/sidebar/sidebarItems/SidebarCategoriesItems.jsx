@@ -1,35 +1,44 @@
-import React from "react";
+import React,{useState} from "react";
 import styles from "../../sidebar/sidebar.module.css";
 import {hotelListingDataRequest} from "../../../../redux/authentication/actions"
 import { connect } from "react-redux";
 
- function SidebarCategoriesItems(props) {
- console.log(props)
-  return (
-    <>
-      <div className="row flex-nowrap">
-        <input id={styles.check} type="checkbox" aria-label="Checkbox for following text input" />
-        <div>
-          {" "}
-          <span className="font-weight-bold">OYO Rooms</span> - super affordable stays with essential amentities
+ class SidebarCategoriesItems extends React.Component {
+  constructor(props){
+    super(props)
+    this.state={
+
+    }
+  }
+
+  render(){
+    return (
+      <>
+        <div className="row flex-nowrap">
+          <input id={styles.check} type="checkbox" aria-label="Checkbox for following text input" />
+          <div>
+            {" "}
+            <span className="font-weight-bold">OYO Rooms</span> - super affordable stays with essential amentities
+          </div>
         </div>
-      </div>
-      <div className="row flex-nowrap">
-        <input id={styles.check} type="checkbox" aria-label="Checkbox for following text input" />
-        <div>
-          {" "}
-          <span className="font-weight-bold">OYO Rooms</span> - super affordable stays with essential amentities
+        <div className="row flex-nowrap">
+          <input id={styles.check} type="checkbox" aria-label="Checkbox for following text input" />
+          <div>
+            {" "}
+            <span className="font-weight-bold">OYO Rooms</span> - super affordable stays with essential amentities
+          </div>
         </div>
-      </div>
-      <div className="row flex-nowrap">
-        <input id={styles.check} type="checkbox" aria-label="Checkbox for following text input" />
-        <div>
-          {" "}
-          <span className="font-weight-bold">OYO Rooms</span> - super affordable stays with essential amentities
+        <div className="row flex-nowrap">
+          <input id={styles.check} type="checkbox" aria-label="Checkbox for following text input" />
+          <div>
+            {" "}
+            <span className="font-weight-bold">OYO Rooms</span> - super affordable stays with essential amentities
+          </div>
         </div>
-      </div>
-    </>
-  );
+      </>
+    );
+  }
+  
 }
 
 

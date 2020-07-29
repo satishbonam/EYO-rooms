@@ -14,7 +14,7 @@ import { connect } from "react-redux";
 
     return (
     <>
-      <div class="card mt-5  ">
+      <div class="card mt-5  border-0">
         <div class="row no-gutters" id={styles.imgContainer}>
           <div class="col-md-4">
             <img src={data.images.large[0]} class="card-img" alt="..." id={styles.imageFit} />
