@@ -82,13 +82,12 @@ def bill_data(data):
             selected['discount_price'] = discounted_price
             selected['discount'] = discount
         else:
-            if data.get("membership"):
-                actual_price, discounted_price, savings, discount = calculate_bill(False, data.get('no_of_guests') or 1, data.get(
-                    'no_of_rooms') or 1, select['actual_price'], select['discount_percentage'], select['id'])
-                selected['offer'] = {"membership": False, "savings": savings}
-                selected['actual_price'] = actual_price
-                selected['discount_price'] = discounted_price
-                selected['discount'] = discount
+            actual_price, discounted_price, savings, discount = calculate_bill(False, data.get('no_of_guests') or 1, data.get(
+                'no_of_rooms') or 1, select['actual_price'], select['discount_percentage'], select['id'])
+            selected['offer'] = {"membership": False, "savings": savings}
+            selected['actual_price'] = actual_price
+            selected['discount_price'] = discounted_price
+            selected['discount'] = discount
         selected['check_in'] = data.get('check_in')
         selected['check_out'] = data.get('check_out')
 
