@@ -9,30 +9,37 @@ import { connect } from "react-redux";
 class ProductList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      hotelData: [],
-    };
   }
+  componentDidMount() {
+    let x = document.location.pathname.split("");
+    let path = x.slice(1, x.length).join("");
+    this.props.hotelListingDataRequest(path);
+  }
+  // shouldComponentUpdate(prevProps) {
+  //   const { hotelListingDataRequest, location } = this.props;
+  //   hotelListingDataRequest(location.pathname);
+  //   return location.pathname !== prevProps.location.pathname;
+  // }
 
-  componentDidMount = () => {
-    const { hotelListingDataRequest, hotelData } = this.props;
-    hotelListingDataRequest();
-    this.setState({ hotelData });
-  };
+  // shouldComponentUpdate = () => {
+  //   const { hotelListingDataRequest, location, token } = this.props;
+
+  //   return token && hotelListingDataRequest(location.pathname);
+  // };
 
   render() {
     const { hotelData, token } = this.props;
-    console.log(hotelData);
+    // console.log(hotelData);
 
-    if (!token) {
-      return <Redirect to="/login" />;
-    }
+    // if (!token) {
+    //   return <Redirect to="/login" />;
+    // }
     return (
       <div className="container-fluid p-0">
         <Navbar />
         <div className="row m-0">
-          <Sidebar hotelData={hotelData} />
-          <Contentsection hotelData={hotelData} />
+          <Sidebar url={this.props} />
+          <Contentsection />
         </div>
       </div>
     );
@@ -40,13 +47,13 @@ class ProductList extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  hotelData: state.auth.hotelListData,
   token: state.auth.token,
   user: state.auth.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  hotelListingDataRequest: (payload) => dispatch(hotelListingDataRequest(payload)),
+  hotelListingDataRequest: (payload) =>
+    dispatch(hotelListingDataRequest(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

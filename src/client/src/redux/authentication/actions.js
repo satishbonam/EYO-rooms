@@ -159,6 +159,37 @@ export const hotelListingSuccess = (payload) => ({
 export const hotelListingFailure = () => ({
   type: GET_HOTEL_LISTING_FAILURE,
 });
+// hotel filtering
+
+export const handleFilterAmenities = (payload) => ({
+  type: HANDLE_FILTER_AMENITIES,
+  payload,
+});
+
+export const handleFilterCollection = (payload) => ({
+  type: HANDLE_FILTER_COLLECTIONS,
+  payload,
+});
+
+export const handleFilterCheckin = (payload) => ({
+  type: HANDLE_FILTER_CHECKIN,
+  payload,
+});
+
+export const handleFilterCategory = (payload) => ({
+  type: HANDLE_FILTER_CATEGORY,
+  payload,
+});
+
+export const handleFilterAccomodation = (payload) => ({
+  type: HANDLE_FILTER_ACCOMODATION,
+  payload,
+});
+
+export const handleParams = (payload) => ({
+  type: HANDLE_PARAMS,
+  payload,
+});
 
 
 // hotel enity 

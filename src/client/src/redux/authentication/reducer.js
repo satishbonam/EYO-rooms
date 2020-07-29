@@ -38,7 +38,14 @@ import {
      // hotel bill data
   HOTEL_BILLING_REQUEST,
   HOTEL_BILLING_SUCCESS,
-  HOTEL_BILLING_FAILURE
+  HOTEL_BILLING_FAILURE,
+  // hotel filtering
+  HANDLE_FILTER_AMENITIES,
+  HANDLE_FILTER_ACCOMODATION,
+  HANDLE_FILTER_CATEGORY,
+  HANDLE_FILTER_CHECKIN,
+  HANDLE_FILTER_COLLECTIONS,
+  HANDLE_PARAMS,
 } from "./actionTypes";
 
 const initState = {
@@ -57,7 +64,8 @@ const initState = {
   entityData:undefined,
   billingData:undefined,
   review:undefined,
-  recommendation:undefined
+  recommendation:undefined,
+  params: ""
 };
 
 const reducer = (state = initState, { type, payload }) => {
@@ -294,10 +302,116 @@ const reducer = (state = initState, { type, payload }) => {
         isRequest: false,
         isError: true,
       };
+    // hotel filtering
+    case HANDLE_FILTER_AMENITIES:
+      return {
+        ...state,
+        hotelListData: {
+          ...state.hotelListData,
+          filters: {
+            ...state.hotelListData.filters,
+            amenities: state.hotelListData.filters.amenities.map((item) => {
+              if (item.label === payload.label) {
+                return { label: payload.label, status: !payload.status };
+              }
+              return item;
+            }),
+          },
+        },
+      };
+    case HANDLE_FILTER_ACCOMODATION:
+      return {
+        ...state,
+        hotelListData: {
+          ...state.hotelListData,
+          filters: {
+            ...state.hotelListData.filters,
+            accomodation_type: state.hotelListData.filters.accomodation_type.map(
+              (item) => {
+                if (item.label === payload.label) {
+                  return { label: payload.label, status: !payload.status };
+                }
+                return item;
+              }
+            ),
+          },
+        },
+      };
+    case HANDLE_FILTER_CATEGORY:
+      return {
+        ...state,
+        hotelListData: {
+          ...state.hotelListData,
+          filters: {
+            ...state.hotelListData.filters,
+            category: state.hotelListData.filters.category.map((item) => {
+              if (item.label === payload.label) {
+                return { label: payload.label, status: !payload.status };
+              }
+              return item;
+            }),
+          },
+        },
+      };
+    case HANDLE_FILTER_CHECKIN:
+      return {
+        ...state,
+        hotelListData: {
+          ...state.hotelListData,
+          filters: {
+            ...state.hotelListData.filters,
+            checkin_features: state.hotelListData.filters.checkin_features.map(
+              (item) => {
+                if (item.label === payload.label) {
+                  return { label: payload.label, status: !payload.status };
+                }
+                return item;
+              }
+            ),
+          },
+        },
+      };
+    case HANDLE_FILTER_COLLECTIONS:
+      return {
+        ...state,
+        hotelListData: {
+          ...state.hotelListData,
+          filters: {
+            ...state.hotelListData.filters,
+            collections: state.hotelListData.filters.collections.map((item) => {
+              if (item.label === payload.label) {
+                return { label: payload.label, status: !payload.status };
+              }
+              return item;
+            }),
+          },
+        },
+      };
+    case HANDLE_PARAMS:
 
-      
     default:
-      return state;
+      return {
+        ...state,
+        params: {
+          amenities: state.hotelListData.filters.amenities.map((item) =>
+            item.status ? item.label : ""
+          ),
+          collections: state.hotelListData.filters.collections.map((item) =>
+            item.status ? item.label : ""
+          ),
+          accomodation_type: state.hotelListData.filters.accomodation_type.map(
+            (item) => (item.status ? item.label : "")
+          ),
+          category: state.hotelListData.filters.category.map((item) =>
+            item.status ? item.label : ""
+          ),
+          checkin_features: state.hotelListData.filters.checkin_features.map(
+            (item) => (item.status ? item.label : "")
+          ),
+        },
+      };
+      
+
   }
 };
 
