@@ -37,8 +37,8 @@ class DetailViewCarusel extends Component {
                   <div className="row">
                     <img className="d-block" style={{ width: "45%" }} src={entityData?medium[5]:"/images/bed.webp"} alt="First slide" />
   
-                    <img className="d-block ml-1" style={{ width: "45%" }} src="/images/bed.webp" alt="First slide" />
-                    <img className="d-block ml-1" style={{ width: "9%" }} src="/images/bed.webp" alt="First slide" />
+                    <img className="d-block ml-1" style={{ width: "45%" }} src={entityData?medium[6]:"/images/bed.webp"} alt="First slide" />
+                    <img className="d-block ml-1" style={{ width: "9%" }} src={entityData?medium[7]:"/images/bed.webp"} alt="First slide" />
                   </div>
                 </div>
               </div>

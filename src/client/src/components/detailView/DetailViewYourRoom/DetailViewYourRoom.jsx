@@ -6,6 +6,7 @@ import { faStar , faCheckCircle,faFan, faToilet, faPersonBooth, faMusic,faHandHo
 import {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} from "../../../redux/authentication/actions"
 import {connect} from "react-redux"
 import DetailViewRoomCard from "./DetialViewRoomCard"
+import DetailViewRoomSelected from "./DetailViewRoomSelected";
 
 
  class DetailViewYourRomm extends Component {
@@ -38,12 +39,13 @@ import DetailViewRoomCard from "./DetialViewRoomCard"
             Choose your room
           </div>
   
+          <DetailViewRoomSelected data={rooms} selected={selected}/>
           {
             rooms && rooms.map(ele=>(
-                <DetailViewRoomCard data={ele} selected={selected}/>
+               ele.id !== selected.id?<DetailViewRoomCard data={ele} selected={selected}/>:false
+                
             ))
           }
-          
         </>
       );
     }
