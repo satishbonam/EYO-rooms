@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDoorClosed, faPen, faTags } from "@fortawesome/free-solid-svg-icons";
 // import DateRangePicker from "react-bootstrap-daterangepicker";
 // import "bootstrap/dist/css/bootstrap.css";
-<<<<<<< HEAD
 // import "bootstrap-daterangepicker/daterangepicker.css";
 import {
   hotelEntityDataRequest,
@@ -12,11 +11,6 @@ import {
   hotelReviewDataRequest,
 } from "../../../redux/authentication/actions";
 import { connect } from "react-redux";
-=======
-// import "bootstrap-daterangepicker/daterangepicker.css"; 
-import {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} from "../../../redux/authentication/actions"
-import {connect} from "react-redux"
->>>>>>> e3398f378e5aac01b9b6dbc918fc246ec9ff272a
 
 class PriceCard extends Component {
   constructor(props) {

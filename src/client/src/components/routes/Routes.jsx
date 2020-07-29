@@ -17,7 +17,7 @@ export default class Routes extends Component {
   render() {
     return (
       <>
-        <Route path="/" exact component={ProductList} />
+        <Route path="/" component={ProductList} />
         <Route path="/login" exact component={AuthBannerLogin} />
         <Route path="/loginotp" component={AuthBannerLoginOtp} />
         <Route path="/otpverify" component={AuthBannerOtpVerify} />
