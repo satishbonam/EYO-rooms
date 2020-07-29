@@ -1,26 +1,51 @@
 import React, { Component } from "react";
 import styles from "./PriceCard.module.css";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faDoorClosed, faPen, faTags } from "@fortawesome/free-solid-svg-icons";
-import { faStar ,faDoorClosed,faPen,faTags, faFan,faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking, faThermometerEmpty, faChair, faTv, faSoap} from "@fortawesome/free-solid-svg-icons"
+import DateRangePicker from "react-bootstrap-daterangepicker";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-daterangepicker/daterangepicker.css";
+
+import {
+  faStar,
+  faDoorClosed,
+  faPen,
+  faTags,
+  faFan,
+  faToilet,
+  faPersonBooth,
+  faMusic,
+  faHandHoldingWater,
+  faMoneyBillWave,
+  faBreadSlice,
+  faWifi,
+  faFire,
+  faHotTub,
+  faBed,
+  faCheese,
+  faRestroom,
+  faParking,
+  faThermometerEmpty,
+  faChair,
+  faTv,
+  faSoap,
+} from "@fortawesome/free-solid-svg-icons";
 // import DateRangePicker from "react-bootstrap-daterangepicker";
 // import "bootstrap/dist/css/bootstrap.css";
-// import "bootstrap-daterangepicker/daterangepicker.css"; 
-import {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} from "../../../redux/authentication/actions"
-import {connect} from "react-redux"
+// import "bootstrap-daterangepicker/daterangepicker.css";
+import { hotelEntityDataRequest, hotelBillingDataRequest, hotelReviewDataRequest } from "../../../redux/authentication/actions";
+import { connect } from "react-redux";
 
- class PriceCard extends Component {
+class PriceCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       inputStart: "01/01/2020",
       inputFinish: "01/01/2018",
-      
     };
   }
 
-  handleEvent = (picker, start, end, label) => {
+  handleEvent = (event, picker) => {
     this.setState({
       inputStart: picker.startDate.format("DD/MM/YYYY"),
       inputFinish: picker.endDate.format("DD//MM/YYYY"),
@@ -30,13 +55,11 @@ import {connect} from "react-redux"
 
   render() {
     console.log(this.state);
-    if(this.props.billingData){
-       const  {rooms,selected} = this.props.billingData
-       const  {actual_price,check_in,check_out,discount,discount_price,id,
-        no_of_guests,no_of_rooms,offer,type,size
-      } = selected
-      const {hotelId}= this.props
-      console.log(hotelId,"id")
+    if (this.props.billingData) {
+      const { rooms, selected } = this.props.billingData;
+      const { actual_price, check_in, check_out, discount, discount_price, id, no_of_guests, no_of_rooms, offer, type, size } = selected;
+      const { hotelId } = this.props;
+      console.log(hotelId, "id");
       return (
         <div className="col-5 mt-4 " id={styles.cardContainer}>
           <div className="row sticky-top">
@@ -52,23 +75,25 @@ import {connect} from "react-redux"
               <div class="card-body">
                 <div>
                   <div className="d-flex flex-wrap align-items-center">
-                  <span id={styles.finalPrice}>₹{discount_price}</span>
-                  <span id={styles.discount}>₹{actual_price}</span>
-                  <span id={styles.perOff}>{discount}% off</span>
+                    <span id={styles.finalPrice}>₹{discount_price}</span>
+                    <span id={styles.discount}>₹{actual_price}</span>
+                    <span id={styles.perOff}>{discount}% off</span>
                   </div>
                   <div id={styles.perNight}>inclusive of all taxes</div>
                 </div>
                 <div className="d-flex justify-content-around" id={styles.SecduleContainer}>
-                  {/* <DateRangePicker autoUpdateInput={false} startDate={this.state.inputStart} endDate={this.state.inputFinish} locale={{ format: "DD/MM/YYYY" }} onApply={this.handleEvent} autoApply={true}>
+                  <DateRangePicker autoUpdateInput={false} startDate={this.state.inputStart} endDate={this.state.inputFinish} locale={{ format: "DD/MM/YYYY" }} onApply={this.handleEvent} autoApply={true}>
                     <div>
                       <span>Wed, 12 Aug</span>
                       <span>-</span>
                       <span>Thu, 10 Sep</span>
                     </div>
-                  </DateRangePicker> */}
+                  </DateRangePicker>
                   <div id={styles.divide}></div>
                   <div>
-                    <span>{no_of_guests} Rooms, {no_of_rooms} Guests</span>
+                    <span>
+                      {no_of_guests} Rooms, {no_of_rooms} Guests
+                    </span>
                   </div>
                 </div>
                 <div className="d-flex justify-content-between" id={styles.SecduleContainer}>
@@ -76,7 +101,7 @@ import {connect} from "react-redux"
                     <span>
                       <FontAwesomeIcon icon={faDoorClosed} color="#f0f0f0" size="sm" />
                     </span>
-                <span className="ml-2">{type}</span>
+                    <span className="ml-2">{type}</span>
                   </div>
                   <div>
                     <span>
@@ -94,7 +119,7 @@ import {connect} from "react-redux"
                     </div>
                   </div>
                   <div>
-                <span id={styles.moreOffer}>{offer && offer.membership?"membership":""}</span>
+                    <span id={styles.moreOffer}>{offer && offer.membership ? "membership" : ""}</span>
                   </div>
                 </div>
                 <div className="d-flex justify-content-between mt-4">
@@ -111,7 +136,7 @@ import {connect} from "react-redux"
                     <div id={styles.tax}>(incl. of all taxes)</div>
                   </div>
                   <div>
-                <span id={styles.actualPrice}>₹{discount_price}</span>
+                    <span id={styles.actualPrice}>₹{discount_price}</span>
                   </div>
                 </div>
                 <div className="mt-5">
@@ -133,24 +158,23 @@ import {connect} from "react-redux"
         </div>
       );
     }
-    return "loading..."
+    return "loading...";
   }
 }
 
-
 const mapStateToProps = (state) => ({
   token: state.auth.token,
-    user: state.auth.user,
-    entityData: state.auth.entityData,
-    review: state.auth.review,
-    billingData:state.auth.billingData,
-    hotelId:state.auth.hotelId
+  user: state.auth.user,
+  entityData: state.auth.entityData,
+  review: state.auth.review,
+  billingData: state.auth.billingData,
+  hotelId: state.auth.hotelId,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  hotelEntityDataRequest: (payload) => dispatch(hotelEntityDataRequest(payload)), 
-  hotelBillingDataRequest: (payload) => dispatch(hotelBillingDataRequest(payload)), 
-  hotelReviewDataRequest: (payload) => dispatch(hotelReviewDataRequest(payload)), 
+  hotelEntityDataRequest: (payload) => dispatch(hotelEntityDataRequest(payload)),
+  hotelBillingDataRequest: (payload) => dispatch(hotelBillingDataRequest(payload)),
+  hotelReviewDataRequest: (payload) => dispatch(hotelReviewDataRequest(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PriceCard);
