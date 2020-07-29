@@ -11,7 +11,7 @@ import AuthBannerOtpVerify from "../auth/AuthBannerOtpVerify";
 // import AuthBannerLoginOtp from "../auth/AuthBannerLoginOtp";
 // import AuthBannerSignUp from "../auth/AuthBannerSignUp";
 // import AuthBannerOtpVerify from "../auth/AuthBannerOtpVerify";
-import PaymentMethodCard from "../paymentMethod/paymentMethodCard/PaymentMethodCard"
+import PaymentMethodCard from "../paymentMethod/paymentMethod";
 import DetailView from "../detailView/DetailView";
 
 export default class Routes extends Component {
