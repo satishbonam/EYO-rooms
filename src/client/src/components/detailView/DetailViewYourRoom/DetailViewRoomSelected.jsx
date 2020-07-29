@@ -1,5 +1,6 @@
 
 
+
 import React, { Component } from "react";
 import styles from "./DetailViewYourRoom.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,7 +10,7 @@ import {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} f
 import {connect} from "react-redux"
 
 
- class DetailViewRoomCard extends Component {
+ class DetailViewRoomSelected extends Component {
 
   componentDidMount=()=>{
     const {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} = this.props
@@ -28,6 +29,7 @@ import {connect} from "react-redux"
   
   render() {
     const {data,selected} = this.props
+    const {actual_price,discount_price,discount} = selected
     console.log(data,selected)
     return (
       <>
@@ -40,14 +42,8 @@ import {connect} from "react-redux"
                   <FontAwesomeIcon icon={faStar} color="yellow" size="sm" />
                 </span>
               </div>
-              {
-                selected.id === data.id?(
-                    
-              <div>
-                <span id={styles.selected}>SELECTED CATEGORY</span>
-              </div>
-                ):""
-              }
+              <span id={styles.selected}>SELECTED CATEGORY</span>
+              
             </div>
             <div className="row no-gutters">
               <div className="col-md-8">
@@ -89,17 +85,17 @@ import {connect} from "react-redux"
               <div className="col-md-12 border-top ">
                 <div className="d-flex justify-content-between p-2">
                   <div className="d-flex justify-content-between  align-items-center">
-            <span id={styles.price}>₹{data.actual_price}</span>
-                    <span id={styles.slashPrice}>₹6378</span>
-            <span id={styles.discPrice}>disc. {data.discount_percentage}%</span>
+            <span id={styles.price}>₹{actual_price}</span>
+                <span id={styles.slashPrice}>₹{discount_price}</span>
+            <span id={styles.discPrice}>disc. {discount}%</span>
                   </div>
                   <div>
                     <button id={styles.whiteBtn}>
                       <span className="m-0">
-                        <FontAwesomeIcon icon={faCheckCircle} size="sm" />
+                        <FontAwesomeIcon icon={faCheckCircle} color={"lightgreen"} size="sm" />
                       </span>
-                     
-                          <span>Select</span>
+                      <span>Selected</span>
+                      
                     </button>
                   </div>
                 </div>
@@ -126,4 +122,4 @@ const mapDispatchToProps = (dispatch) => ({
   hotelReviewDataRequest: (payload) => dispatch(hotelReviewDataRequest(payload)), 
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DetailViewRoomCard);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailViewRoomSelected);
