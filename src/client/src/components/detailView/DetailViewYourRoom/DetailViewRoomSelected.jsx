@@ -85,9 +85,9 @@ import {connect} from "react-redux"
               <div className="col-md-12 border-top ">
                 <div className="d-flex justify-content-between p-2">
                   <div className="d-flex justify-content-between  align-items-center">
-            <span id={styles.price}>₹{actual_price}</span>
-                <span id={styles.discPrice}>disc. ₹{discount_price}</span>
-            <span id={styles.discPrice}>disc. {discount}%</span>
+            <span id={styles.price}>₹{discount_price}</span>
+                <span id={styles.slashPrice}> ₹{actual_price}</span>
+            {/* <span id={styles.discPrice}>disc. {discount}%</span> */}
                   </div>
                   <div>
                     <button id={styles.whiteBtn}>

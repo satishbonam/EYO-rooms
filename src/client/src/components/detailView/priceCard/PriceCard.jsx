@@ -49,8 +49,8 @@ import {connect} from "react-redux"
               <div class="card-body">
                 <div>
                   <div className="d-flex flex-wrap align-items-center">
-                  <span id={styles.finalPrice}>₹{actual_price}</span>
-                  <span id={styles.discount}>₹{discount_price}</span>
+                  <span id={styles.finalPrice}>₹{discount_price}</span>
+                  <span id={styles.discount}>₹{actual_price}</span>
                   <span id={styles.perOff}>{discount}% off</span>
                   </div>
                   <div id={styles.perNight}>inclusive of all taxes</div>
@@ -108,7 +108,7 @@ import {connect} from "react-redux"
                     <div id={styles.tax}>(incl. of all taxes)</div>
                   </div>
                   <div>
-                <span id={styles.actualPrice}>₹{actual_price}</span>
+                <span id={styles.actualPrice}>₹{discount_price}</span>
                   </div>
                 </div>
                 <div className="mt-5">

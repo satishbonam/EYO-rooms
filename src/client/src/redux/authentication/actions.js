@@ -366,7 +366,7 @@ export const hotelBillingDataRequest = (payload) => (dispatch) => {
 
 // hotel recommendation
 export const hotelRecommendationDataRequest = (payload) => (dispatch) => {
-  console.log("hotel recomendation calling...", payload);
+  console.log("hotel recommendation calling...", payload);
   dispatch(hotelRecommendationRequest());
 
   return axios

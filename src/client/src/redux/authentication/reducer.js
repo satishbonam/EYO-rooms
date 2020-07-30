@@ -274,6 +274,7 @@ const reducer = (state = initState, { type, payload }) => {
         isRequest: true,
       };
     case HOTEL_RECOMMENDATION_SUCCESS:
+      console.log(payload,"recommendation")
       return {
         ...state,
         isRequest: false,

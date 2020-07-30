@@ -18,6 +18,7 @@ export default class Routes extends Component {
     return (
       <>
         <Route path="/" exact component={ProductList} />
+        <Route path="/:filter" exact component={ProductList} />
         <Route path="/login" exact component={AuthBannerLogin} />
         <Route path="/loginotp" component={AuthBannerLoginOtp} />
         <Route path="/otpverify" component={AuthBannerOtpVerify} />

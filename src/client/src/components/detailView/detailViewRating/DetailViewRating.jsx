@@ -10,7 +10,7 @@ import {connect} from "react-redux"
   
   componentDidMount=()=>{
     const {hotelReviewDataRequest,billingData,entityData} = this.props
-      hotelReviewDataRequest(10)
+      hotelReviewDataRequest(this.props.id)
   }
   render() {
         const {review}  =this.props
