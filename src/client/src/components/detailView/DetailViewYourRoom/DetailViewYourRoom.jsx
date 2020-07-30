@@ -17,8 +17,8 @@ import DetailViewRoomSelected from "./DetailViewRoomSelected";
      hotelBillingDataRequest({
       hotel_id:"10",
       room_id:"1",
-      check_in:"01/01/2020",
-      check_out:"01/01/2020",
+      check_in:"01/08/2020",
+      check_out:"02/08/2020",
       no_of_guests:"2",
       no_of_rooms:"2",
       membership: true

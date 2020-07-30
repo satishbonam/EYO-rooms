@@ -12,6 +12,7 @@ import {connect} from "react-redux"
   componentDidMount=()=>{
     const { hotelRecommendationDataRequest, hotelData } = this.props;
       var para = {};
+      console.log(hotelData,"hotel data")
       hotelData &&
         hotelData.filters.category.forEach((item) => {
           if (item.status && para.category) {
@@ -121,7 +122,8 @@ const mapStateToProps = (state) => ({
     entityData: state.auth.entityData,
     review: state.auth.review,
     billingData:state.auth.billingData,
-    recommendation:state.auth.recommendation
+    recommendation:state.auth.recommendation,
+    hotelData:state.auth.hotelData
 });
 
 const mapDispatchToProps = (dispatch) => ({
