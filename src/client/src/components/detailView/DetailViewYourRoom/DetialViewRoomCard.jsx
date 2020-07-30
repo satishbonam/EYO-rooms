@@ -20,23 +20,29 @@ import {connect} from "react-redux"
 
   componentDidMount=()=>{
     const {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} = this.props
-    // hotelEntityDataRequest(10)
-    //  hotelBillingDataRequest({
-    //   hotel_id:"10",
-    //   room_id:"1",
-    //   check_in:"01/01/2020",
-    //   check_out:"01/01/2020",
-    //   no_of_guests:"2",
-    //   no_of_rooms:"2",
-    //   membership: true
-    // })
     // hotelReviewDataRequest(10)
+  }
+  handleChange=(id)=>{
+    
+    const {data,selected,entityData,hotelId,hotelBillingDataRequest} = this.props
+    const {offer,check_in,check_out,no_of_rooms,no_of_guests} = selected
+    hotelEntityDataRequest(10)
+     hotelBillingDataRequest({
+      hotel_id:hotelId,
+      room_id:id,
+      check_in,
+      check_out,
+      no_of_guests,
+      no_of_rooms,
+      membership: offer.membership
+    })
   }
   
   render() {
     const {data,selected,entityData} = this.props
     console.log(data,selected)
     const {showFontIcon}  =this.state
+    const {handleChange} = this
     console.log(data,selected)
     console.log(entityData,"amenities")
     let amenities = []
@@ -121,7 +127,7 @@ import {connect} from "react-redux"
             <span id={styles.discPrice}>disc. {data.discount_percentage}%</span>
                   </div>
                   <div>
-                    <button id={styles.whiteBtn}>
+                    <button onClick={()=>handleChange(data.id)} id={styles.whiteBtn}>
                       <span className="m-0">
                         <FontAwesomeIcon icon={faCheckCircle} size="sm" />
                       </span>
@@ -144,7 +150,8 @@ const mapStateToProps = (state) => ({
     user: state.auth.user,
     entityData: state.auth.entityData,
     review: state.auth.review,
-    billingData:state.auth.billingData
+    billingData:state.auth.billingData,
+    hotelId:state.auth.hotelId
 });
 
 const mapDispatchToProps = (dispatch) => ({

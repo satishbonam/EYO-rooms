@@ -29,7 +29,19 @@ class Card extends Component {
   render() {
     const { data } = this.props;
     const { changeToEntityPage } = this;
+    console.log(data,"amenities")
+    let amenities = []
+    if(data){
 
+       data.amenities.map(ele=>{
+        if(ele.status){
+          if(amenities.length<3){
+            amenities.push(ele)
+          }
+        }
+
+      })
+    }
     return (
       <>
         <div class="card mt-5 border-0" id={styles.border}>
@@ -62,25 +74,18 @@ class Card extends Component {
                   </div>
                 </div>
                 <div className="col-12 d-flex p-0 mt-2 " id={styles.amenity}>
+                  {
+                    amenities && amenities.map(ele=>(
                   <div id={styles.amenityWrapper}>
                     <span>
                       <FontAwesomeIcon icon={faCheckCircle} />
                     </span>
-                    <span>Recptions</span>
+                    <a target="_blank" href={`/entity/${data.hotel_id}`}>{ele.label}</a>
                   </div>
-                  <div id={styles.amenityWrapper}>
-                    <span>
-                      <FontAwesomeIcon icon={faWifi} />
-                    </span>
-                    <span>Wifi</span>
-                  </div>
-                  <div id={styles.amenityWrapper}>
-                    <span>
-                      <FontAwesomeIcon icon={faCarBattery} />
-                    </span>
-                    <span>Power backup</span>
-                  </div>
-                  <div>+ 11 more</div>
+                    ))
+                  }
+                  <div>
+                    <a target="_blank" href={`/entity/${data.hotel_id}`}>+ 11 more</a></div>
                 </div>
                 <div id={styles.facility}>
                   <span>Included BreakFast</span>
@@ -98,11 +103,11 @@ class Card extends Component {
                     <div id={styles.pernight}>Checking feature-{data.checkin_features}</div>
                   </div>
                   <div className="col-7 d-flex align-items-center justify-content-around p-0">
-                    <Link className="col-6" to={`/entity/${data.hotel_id}`}>
-                      <button target="_blank" id={styles.whilteButton}>
+                    <span className="col-6" >
+                      <a target="_blank" href={`/entity/${data.hotel_id}`} id={styles.whilteButton}>
                         View details
-                      </button>
-                    </Link>
+                      </a>
+                    </span>
                     <div className="col-6">
                       <button id={styles.greenButton}>Book Now</button>
                     </div>

@@ -40,8 +40,9 @@ class PriceCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      inputStart: "01/01/2020",
-      inputFinish: "01/01/2018",
+      inputStart: "01/08/2020",
+      inputFinish: "02/08/2020",
+      checked:true
     };
   }
 
@@ -52,7 +53,22 @@ class PriceCard extends Component {
     });
     // console.log(picker.startDate, start, end, label);
   };
-
+  
+  handleChange=()=>{
+    const { rooms, selected } = this.props.billingData;
+    const { offer,id,no_of_guests,no_of_rooms} = selected
+    const {inputStart,inputFinish} = this.state
+    const {hotelId,hotelBillingDataRequest} = this.props
+     hotelBillingDataRequest({
+      hotel_id:hotelId,
+      room_id:id,
+      check_in:inputStart,
+      check_out:inputFinish,
+      no_of_guests,
+      no_of_rooms,
+      membership: !offer.membership
+    })
+  }
   render() {
     console.log(this.state);
     if (this.props.billingData) {
@@ -60,6 +76,7 @@ class PriceCard extends Component {
       const { actual_price, check_in, check_out, discount, discount_price, id, no_of_guests, no_of_rooms, offer, type, size } = selected;
       const { hotelId } = this.props;
       console.log(hotelId, "id");
+      const {handleChange}  = this
       return (
         <div className="col-5 mt-4 " id={styles.cardContainer}>
           <div className="row sticky-top">
@@ -118,8 +135,8 @@ class PriceCard extends Component {
                       <span id={styles.coupon}>Apply offers</span>
                     </div>
                   </div>
-                  <div>
-                    <input type="checkbox" checked={offer.membership}/>
+                  <div onClick={()=>handleChange()}>
+                    <input  type="checkbox" checked={offer.membership}/>
                     <span id={styles.moreOffer}>membership</span>
                   </div>
                 </div>
