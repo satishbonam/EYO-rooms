@@ -28,7 +28,6 @@ import {connect} from "react-redux"
   };
 
   render() {
-    console.log("amresh");
     console.log(this.state);
     if(this.props.billingData){
        const  {rooms,selected} = this.props.billingData
