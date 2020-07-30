@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import styles from "./PriceCard.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDoorClosed, faPen, faTags } from "@fortawesome/free-solid-svg-icons";
+// import { faDoorClosed, faPen, faTags } from "@fortawesome/free-solid-svg-icons";
+import { faStar ,faDoorClosed,faPen,faTags, faFan,faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking, faThermometerEmpty, faChair, faTv, faSoap} from "@fortawesome/free-solid-svg-icons"
 // import DateRangePicker from "react-bootstrap-daterangepicker";
 // import "bootstrap/dist/css/bootstrap.css";
 // import "bootstrap-daterangepicker/daterangepicker.css"; 
@@ -14,6 +15,7 @@ import {connect} from "react-redux"
     this.state = {
       inputStart: "01/01/2020",
       inputFinish: "01/01/2018",
+    
     };
   }
 

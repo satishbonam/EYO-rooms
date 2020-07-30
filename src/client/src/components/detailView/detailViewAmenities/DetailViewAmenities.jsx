@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import styles from "./DetailViewAmenities.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFan, faWifi, faBed } from "@fortawesome/free-solid-svg-icons";
+// import { faFan, faWifi, faBed } from "@fortawesome/free-solid-svg-icons";
+import { faStar , faFan, faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faCheese, faRestroom,faParking,faBed, faThermometerEmpty, faChair, faTv, faSoap} from "@fortawesome/free-solid-svg-icons"
 import {connect} from "react-redux"
 
  class DetailViewAmenities extends Component {
