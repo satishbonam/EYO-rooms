@@ -90,7 +90,7 @@ import {connect} from "react-redux"
                 <div className="d-flex justify-content-between p-2">
                   <div className="d-flex justify-content-between  align-items-center">
             <span id={styles.price}>₹{data.actual_price}</span>
-                    <span id={styles.slashPrice}>₹6378</span>
+                    {/* <span id={styles.slashPrice}>₹6378</span> */}
             <span id={styles.discPrice}>disc. {data.discount_percentage}%</span>
                   </div>
                   <div>

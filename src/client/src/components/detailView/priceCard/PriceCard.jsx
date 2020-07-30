@@ -34,7 +34,7 @@ import {connect} from "react-redux"
        const  {rooms,selected} = this.props.billingData
        const  {actual_price,check_in,check_out,discount,discount_price,id,
         no_of_guests,no_of_rooms,offer,type,size
-      } = this.props.billingData
+      } = selected
       return (
         <div className="col-5 mt-4 " id={styles.cardContainer}>
           <div className="row sticky-top">
