@@ -41,6 +41,8 @@ import {
   HOTEL_ENTITY_REQUEST,
   HOTEL_ENTITY_SUCCESS,
   HOTEL_ENTITY_FAILURE,
+  // hotel id
+  HOTEL_ID,
   // hotel recommendation
   HOTEL_RECOMMENDATION_REQUEST,
   HOTEL_RECOMMENDATION_SUCCESS,
@@ -162,6 +164,11 @@ export const hotelListingSuccess = (payload) => ({
 export const hotelListingFailure = () => ({
   type: GET_HOTEL_LISTING_FAILURE,
 });
+// hotel id
+export const hotelId = (payload) => ({
+  type: HOTEL_ID,
+  payload
+})
 
 
 // hotel enity
@@ -301,16 +308,17 @@ export const logoutRequest = (payload) => (dispatch) => {
 export const hotelListingDataRequest = (payload) => (dispatch) => {
   console.log("hotel listing calling...", payload);
   dispatch(hotelListingRequest());
-
+  
   return axios
-    .get("/hotel_listing?" + payload, {})
-    .then((data) => {
+  .get("/hotel_listing?" + payload, {})
+  .then((data) => {
       console.log(data);
       dispatch(hotelListingSuccess(data));
     })
     .catch((error) => dispatch(hotelListingFailure(error)));
-};
-
+  };
+  
+  
 export const handleFilterAmenities = (payload) => ({
   type: HANDLE_FILTER_AMENITIES,
   payload,
@@ -345,12 +353,13 @@ export const handleParams = (payload) => ({
 export const hotelEntityDataRequest = (payload) => (dispatch) => {
   console.log("hotel entity calling...", payload);
   dispatch(hotelEntityRequest());
+  dispatch(hotelId(payload));
   return axios
-    .post("/entity", {
-      hotel_id: payload,
-    })
-    .then((data) => dispatch(hotelEntitySuccess(data)))
-    .catch((error) => dispatch(hotelEntityFailure(error)));
+  .post("/entity", {
+    hotel_id: payload,
+  })
+  .then((data) => dispatch(hotelEntitySuccess(data)))
+  .catch((error) => dispatch(hotelEntityFailure(error)));
 };
 // hotel billing  data
 export const hotelBillingDataRequest = (payload) => (dispatch) => {
@@ -366,7 +375,7 @@ export const hotelBillingDataRequest = (payload) => (dispatch) => {
 
 // hotel recommendation
 export const hotelRecommendationDataRequest = (payload) => (dispatch) => {
-  console.log("hotel recomendation calling...", payload);
+  console.log("hotel recommendation calling...", payload);
   dispatch(hotelRecommendationRequest());
 
   return axios

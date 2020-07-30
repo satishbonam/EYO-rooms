@@ -10,11 +10,11 @@ export default class DetailViewContent extends Component {
     return (
       <>
         <div className="col-7  mt-4">
-          <DetailViewDescription />
+          <DetailViewDescription id={this.props.id} />
           <DetailViewAmenities />
           <DetailViewYourRoom />
           <DetailViewMeal />
-          <DetailViewRating />
+          <DetailViewRating id={this.props.id}/>
         </div>
       </>
     );

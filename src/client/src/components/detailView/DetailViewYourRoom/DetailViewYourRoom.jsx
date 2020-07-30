@@ -13,7 +13,7 @@ import DetailViewRoomSelected from "./DetailViewRoomSelected";
 
   componentDidMount=()=>{
     const {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} = this.props
-    hotelEntityDataRequest(10)
+  
      hotelBillingDataRequest({
       hotel_id:"10",
       room_id:"1",

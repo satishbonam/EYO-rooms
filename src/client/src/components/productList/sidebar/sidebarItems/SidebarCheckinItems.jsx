@@ -52,7 +52,7 @@ class SidebarCheckinItems extends React.Component {
         }
       });
     if (prevProps.value !== this.props.value) {
-      this.props.url.history.push("/lisiting/" + build(para));
+      this.props.url.history.push(build(para));
       hotelListingDataRequest(build(para));
     }
   }

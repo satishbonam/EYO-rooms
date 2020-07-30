@@ -11,6 +11,12 @@ import {connect} from "react-redux"
 
 
  class DetailViewRoomSelected extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      showFontIcon:false
+    }
+  }
 
   componentDidMount=()=>{
     const {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} = this.props
@@ -28,9 +34,25 @@ import {connect} from "react-redux"
   }
   
   render() {
-    const {data,selected} = this.props
-    const {actual_price,discount_price,discount} = selected
+    const {data,selected,entityData} = this.props
+    const {actual_price,discount_price,discount,type,size} = selected
+    const {showFontIcon}  =this.state
     console.log(data,selected)
+    console.log(entityData,"amenities")
+    let amenities = []
+    let amenities2 = []
+    if(entityData){
+
+       entityData.amenities.map(ele=>{
+        if(ele.status){
+          amenities2.push(ele)
+        }
+        if(amenities.length<3){
+          amenities.push(ele)
+        }
+
+      })
+    }
     return (
       <>
         
@@ -49,33 +71,36 @@ import {connect} from "react-redux"
               <div className="col-md-8">
                 <div className="card-body p-4">
                   <span className="card-title m-0" id={styles.subHeading}>
-                    {data.type}
+                    {type}
                   </span>
                   <span>
                     {" "}
                     <FontAwesomeIcon icon={faCheckCircle} color="lightgreen" size="lg" />
                   </span>
-                  <div id={styles.roomSize}>Room size: {data.size} sqft</div>
+                  <div id={styles.roomSize}>Room size: {size} sqft</div>
                   <div className="mt-5 ml-0">
+                    
+                    {
+                     !showFontIcon && amenities && amenities.map(ele=>(
                     <span>
                       <span>
                         <FontAwesomeIcon icon={faFan} color="#000" size="sm" />
                       </span>
-                      <span>AC</span>
+                      <span>{ele.label}</span>
                     </span>
+                      ))
+                    }
+                    {
+                     showFontIcon && amenities2 && amenities2.map(ele=>(
                     <span>
                       <span>
-                        <FontAwesomeIcon icon={faTv} color="#000" size="sm" />
+                        <FontAwesomeIcon icon={faFan} color="#000" size="sm" />
                       </span>
-                      <span>AC</span>
+                      <span>{ele.label}</span>
                     </span>
-                    <span>
-                      <span>
-                        <FontAwesomeIcon icon={faBed} color="#000" size="sm" />
-                      </span>
-                      <span>AC</span>
-                    </span>
-                    <span>+ 18 more</span>
+                      ))
+                    }
+                    <span onClick={()=>this.setState({showFontIcon:!showFontIcon})}>+ {!showFontIcon?amenities2.length - amenities.length+"more":"less"}</span>
                   </div>
                 </div>
               </div>
@@ -85,9 +110,9 @@ import {connect} from "react-redux"
               <div className="col-md-12 border-top ">
                 <div className="d-flex justify-content-between p-2">
                   <div className="d-flex justify-content-between  align-items-center">
-            <span id={styles.price}>₹{actual_price}</span>
-                <span id={styles.slashPrice}>₹{discount_price}</span>
-            <span id={styles.discPrice}>disc. {discount}%</span>
+            <span id={styles.price}>₹{discount_price}</span>
+                <span id={styles.slashPrice}> ₹{actual_price}</span>
+            {/* <span id={styles.discPrice}>disc. {discount}%</span> */}
                   </div>
                   <div>
                     <button id={styles.whiteBtn}>

@@ -11,7 +11,7 @@ import {connect} from "react-redux"
 
   componentDidMount=()=>{
     const {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} = this.props
-    hotelEntityDataRequest(10)
+    
     //  hotelBillingDataRequest({
     //   hotel_id:"10",
     //   room_id:"1",
@@ -21,7 +21,9 @@ import {connect} from "react-redux"
     //   no_of_rooms:"2",
     //   membership: true
     // })
-    // hotelReviewDataRequest(10)
+    console.log(this.props.id,"data")
+    hotelEntityDataRequest(this.props.id)
+    
   }
   // shouldComponentUpdate=()=>{
   //   // const {hotelBillingDataRequest,entityData} = this.props
@@ -43,13 +45,13 @@ import {connect} from "react-redux"
             </h1>
             <div className="mr-5 ">
               <div className="d-flex bg-success justify-content-around" id={styles.ratingIcons}>
-                <div>4.5</div>
+                <div>{entityData?entityData.rating:0}</div>
                 <span>
                   <FontAwesomeIcon icon={faStar} color="#fff" size="sm" />
                 </span>
               </div>
               <div id={styles.rating}>
-                <span>176 Ratings</span>
+                <span>{entityData?entityData.no_of_ratings:0} Ratings</span>
               </div>
             </div>
           </div>
@@ -74,6 +76,7 @@ import {connect} from "react-redux"
             </div>
             <div>
               <span id={styles.DesDetail}>
+                {/* {entityData.description} */}
                 The COVID19 pandemic has made us all understand the importance of sanitization and not take it for granted. Rest assured, we have reached out to our partners to uphold the highest standards of sanitation and safety.
               </span>
             </div>

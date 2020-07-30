@@ -1,7 +1,35 @@
 import React, { Component } from "react";
 import styles from "./PriceCard.module.css";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDoorClosed, faPen, faTags } from "@fortawesome/free-solid-svg-icons";
+import DateRangePicker from "react-bootstrap-daterangepicker";
+import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-daterangepicker/daterangepicker.css";
+
+import {
+  faStar,
+  faDoorClosed,
+  faPen,
+  faTags,
+  faFan,
+  faToilet,
+  faPersonBooth,
+  faMusic,
+  faHandHoldingWater,
+  faMoneyBillWave,
+  faBreadSlice,
+  faWifi,
+  faFire,
+  faHotTub,
+  faBed,
+  faCheese,
+  faRestroom,
+  faParking,
+  faThermometerEmpty,
+  faChair,
+  faTv,
+  faSoap,
+} from "@fortawesome/free-solid-svg-icons";
 // import DateRangePicker from "react-bootstrap-daterangepicker";
 // import "bootstrap/dist/css/bootstrap.css";
 // import "bootstrap-daterangepicker/daterangepicker.css";
@@ -21,7 +49,7 @@ class PriceCard extends Component {
     };
   }
 
-  handleEvent = (picker, start, end, label) => {
+  handleEvent = (event, picker) => {
     this.setState({
       inputStart: picker.startDate.format("DD/MM/YYYY"),
       inputFinish: picker.endDate.format("DD//MM/YYYY"),
@@ -30,7 +58,6 @@ class PriceCard extends Component {
   };
 
   render() {
-    console.log("amresh");
     console.log(this.state);
     if (this.props.billingData) {
       const { rooms, selected } = this.props.billingData;
@@ -46,7 +73,9 @@ class PriceCard extends Component {
         offer,
         type,
         size,
-      } = this.props.billingData;
+      } = selected;
+      const { hotelId } = this.props;
+      console.log(hotelId, "id");
       return (
         <div className="col-5 mt-4 " id={styles.cardContainer}>
           <div className="row sticky-top">
@@ -62,8 +91,8 @@ class PriceCard extends Component {
               <div class="card-body">
                 <div>
                   <div className="d-flex flex-wrap align-items-center">
-                    <span id={styles.finalPrice}>₹{actual_price}</span>
-                    <span id={styles.discount}>₹{discount_price}</span>
+                    <span id={styles.finalPrice}>₹{discount_price}</span>
+                    <span id={styles.discount}>₹{actual_price}</span>
                     <span id={styles.perOff}>{discount}% off</span>
                   </div>
                   <div id={styles.perNight}>inclusive of all taxes</div>
@@ -72,13 +101,20 @@ class PriceCard extends Component {
                   className="d-flex justify-content-around"
                   id={styles.SecduleContainer}
                 >
-                  {/* <DateRangePicker autoUpdateInput={false} startDate={this.state.inputStart} endDate={this.state.inputFinish} locale={{ format: "DD/MM/YYYY" }} onApply={this.handleEvent} autoApply={true}>
+                  <DateRangePicker
+                    autoUpdateInput={false}
+                    startDate={this.state.inputStart}
+                    endDate={this.state.inputFinish}
+                    locale={{ format: "DD/MM/YYYY" }}
+                    onApply={this.handleEvent}
+                    autoApply={true}
+                  >
                     <div>
                       <span>Wed, 12 Aug</span>
                       <span>-</span>
                       <span>Thu, 10 Sep</span>
                     </div>
-                  </DateRangePicker> */}
+                  </DateRangePicker>
                   <div id={styles.divide}></div>
                   <div>
                     <span>
@@ -116,13 +152,12 @@ class PriceCard extends Component {
                           size="sm"
                         />
                       </span>
-                      <span id={styles.coupon}>Apply coupon</span>
+                      <span id={styles.coupon}>Apply offers</span>
                     </div>
                   </div>
                   <div>
-                    <span id={styles.moreOffer}>
-                      {offer && offer.membership ? "membership" : ""}
-                    </span>
+                    <input type="checkbox" checked={offer.membership} />
+                    <span id={styles.moreOffer}>membership</span>
                   </div>
                 </div>
                 <div className="d-flex justify-content-between mt-4">
@@ -141,12 +176,14 @@ class PriceCard extends Component {
                     <div id={styles.tax}>(incl. of all taxes)</div>
                   </div>
                   <div>
-                    <span id={styles.actualPrice}>₹{actual_price}</span>
+                    <span id={styles.actualPrice}>₹{discount_price}</span>
                   </div>
                 </div>
                 <div className="mt-5">
                   <button>
-                    <span>Continue to Book</span>
+                    <Link to={`/entity/${hotelId}/payment`}>
+                      Continue to Book
+                    </Link>
                   </button>
                 </div>
                 <div className="mt-2" id={styles.policy}>
@@ -176,6 +213,7 @@ const mapStateToProps = (state) => ({
   entityData: state.auth.entityData,
   review: state.auth.review,
   billingData: state.auth.billingData,
+  hotelId: state.auth.hotelId,
 });
 
 const mapDispatchToProps = (dispatch) => ({

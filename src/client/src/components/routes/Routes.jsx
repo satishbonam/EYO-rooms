@@ -11,6 +11,7 @@ import AuthBannerOtpVerify from "../auth/AuthBannerOtpVerify";
 // import AuthBannerLoginOtp from "../auth/AuthBannerLoginOtp";
 // import AuthBannerSignUp from "../auth/AuthBannerSignUp";
 // import AuthBannerOtpVerify from "../auth/AuthBannerOtpVerify";
+import PaymentMethodCard from "../paymentMethod/paymentMethod";
 import DetailView from "../detailView/DetailView";
 import PaymentGateway from "../paymentMethod/PaymentGateway";
 import paymentMethodCard from "../paymentMethod/paymentMethodCard/PaymentMethodCard";
@@ -19,9 +20,8 @@ export default class Routes extends Component {
   render() {
     return (
       <>
-        <Route path="/" component={paymentMethodCard} />
-        {/* <Route path="/" component={PaymentGateway} /> */}
-        {/* <Route path="/" component={ProductList} /> */}
+        <Route path="/" exact component={ProductList} />
+        <Route path="/:filter" exact component={ProductList} />
         <Route path="/login" exact component={AuthBannerLogin} />
         <Route path="/loginotp" component={AuthBannerLoginOtp} />
         <Route path="/otpverify" component={AuthBannerOtpVerify} />
@@ -32,6 +32,7 @@ export default class Routes extends Component {
         {/* <Route path="/loginotp" component={AuthBannerLoginOtp} /> */}
         {/* <Route path="/otpverify" component={AuthBannerOtpVerify} /> */}
         {/* <Route path="/signup" component={AuthBannerSignUp} /> */}
+        <Route path="/entity/:id/payment" component={PaymentMethodCard} />
       </>
     );
   }
