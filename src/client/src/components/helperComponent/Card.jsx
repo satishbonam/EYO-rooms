@@ -90,8 +90,8 @@ class Card extends Component {
                 <div className="d-flex mt-3 ">
                   <div className="col-5 p-0">
                     <div>
-                      <span id={styles.price}>&#8377; {Math.floor(data.rooms[0].actual_price)}</span>
-                      <span id={styles.slashPrice}>&#8377; {Math.floor(data.rooms[0].discounted_price)}</span>
+                      <span id={styles.price}>&#8377; {Math.floor(data.rooms[0].actual_price) - Math.floor((Number(data.rooms[0].actual_price)*Number(data.rooms[0].discount_percentage))/100)}</span>
+                      <span id={styles.slashPrice}>&#8377; {Math.floor(data.rooms[0].actual_price)}</span>
                       <span id={styles.percentage}>{Math.floor(data.rooms[0].discount_percentage)} % off</span>
                     </div>
                     <div id={styles.pernight}>per room per night</div>

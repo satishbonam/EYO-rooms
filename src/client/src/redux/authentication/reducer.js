@@ -72,7 +72,6 @@ const initState = {
   billingData: undefined,
   review: undefined,
   recommendation: undefined,
-  params: "",
   
 };
 
@@ -299,12 +298,12 @@ const reducer = (state = initState, { type, payload }) => {
       };
     // hotel review
     case HOTEL_REVIEW_REQUEST:
-      console.log(payload);
       return {
         ...state,
         isRequest: true,
       };
-    case HOTEL_REVIEW_SUCCESS:
+      case HOTEL_REVIEW_SUCCESS:
+        console.log(payload);
       return {
         ...state,
         isRequest: false,

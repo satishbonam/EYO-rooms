@@ -8,8 +8,18 @@ import {connect} from "react-redux"
  class DetailViewAmenities extends Component {
 
    render() {
-  
+    let amenities = []
     const {entityData} = this.props
+    console.log(entityData,"amenities")
+    if(entityData){
+
+       entityData.amenities.map(ele=>{
+        if(ele.status){
+          amenities.push(ele)
+        }
+      })
+    }
+    console.log(amenities)
     // let amenities = []
     // if(entityData){
 
