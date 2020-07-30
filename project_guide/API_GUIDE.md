@@ -237,7 +237,6 @@
     "no_of_ratings":""
     "description":""
     "amenities":""
-    "hotel_policy":""
 }
 ```
 

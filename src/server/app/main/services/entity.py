@@ -13,11 +13,11 @@ from..utils.calculate_bill import calculate_bill
 # register user if email is not present in the users table
 def entity(data):
 
-    query = "select h.name as name,h.images->>'$[0]' as images,h.rooms->>'$' as rooms,created_at,updated_at, h.collection->>'$[0]' as collection,c.name as category,c.tag as tag,h.accomodation_type->>'$[0]' as acc_type,h.amenities as amenities,checkin_features as c_f from hotel as h join category as c on h.category_id=c.id WHERE h.id=%d" % (
+    query = "select h.name as name,h.description as description,h.images->>'$[0]' as images,h.rooms->>'$' as rooms,created_at,updated_at, h.collection->>'$[0]' as collection,c.name as category,c.tag as tag,h.accomodation_type->>'$[0]' as acc_type,h.amenities as amenities,checkin_features as c_f from hotel as h join category as c on h.category_id=c.id WHERE h.id=%d" % (
         data['hotel_id'])
 
     count_query = 'select count(r.id) as count, AVG(r.rating) as avg_rating from reviews as r join user as u on r.user_id = u.id WHERE r.hotel_id = %d' % (
-        payload['hotel_id'])
+        data['hotel_id'])
 
     query = query + ';'
     count_query = count_query + ';'
@@ -28,12 +28,42 @@ def entity(data):
         avg_rating = row['avg_rating']
 
     data_raw = db.engine.execute(query)
+    front_awsome = {
+        "24/7_Checkin": "faBone",
+        "AC": "faFan",
+        "Attached_Bathroom": "faToilet",
+        "Balcony": "faPersonBooth",
+        "Banquet_Hall":  "faMusic",
+        "Bottled_Water": "faHandHoldingWater",
+        "Card_Payment": "faMoneyBillWave",
+        "Complimentary_BreakFast": "faBreadSlice",
+        "Elevator": "faPersonBooth",
+        "Free_Wifi": "faWifi",
+        "Geyser": "faFire",
+        "Hot_Water": "faHotTub",
+        "King_sized_Bed": "faBed",
+        "Kitchen": "faCheese",
+        "Living_Room": "faRestroom",
+        "Parking_Facility": "faParking",
+        "Pre_Book_Meals": "faCheese",
+        "Public_Bath-Male": "faHotTub",
+        "Queen_sized_Bed": "faBed",
+        "Refrigerator": "faThermometerEmpty",
+        "Seating_Area": "faChair",
+        "Single_Bed": "faBed",
+        "Swimming_Pool": "faHotTub",
+        "TV": "faTv",
+        "Washing_Machine": "faSoap"
 
+    }
     data = []
 
     for hotel in data_raw:
         temp_dict = {}
         temp_dict['name'] = hotel['name']
+        temp_dict['no_of_ratings'] = str(no_of_ratings)
+        temp_dict['description'] = hotel['description']
+        temp_dict['rating'] = str(avg_rating)
         temp_dict['created_at'] = str(hotel['created_at'])
         temp_dict['updated_at'] = str(hotel['updated_at'])
         temp_dict['rooms'] = json.loads(hotel['rooms'])
@@ -43,7 +73,11 @@ def entity(data):
         temp_dict['images'] = {
             "large": json.loads(hotel['images'])['large'].split("#"), "medium": json.loads(hotel['images'])['medium'].split("#"), "thumb": json.loads(hotel['images'])['thumb'].split("#")}
         temp_dict['accomodation_type'] = json.loads(hotel['acc_type'])
-        temp_dict['amenities'] = json.loads(hotel['amenities'])
+        amenities_arr = []
+        for item in dict.items(json.loads(hotel['amenities'])[0]):
+            amenities_arr.append(
+                {"label": item[0], "status": item[1], "frot_awsome": front_awsome[item[0]]})
+        temp_dict['amenities'] = amenities_arr
         temp_dict['checkin_features'] = hotel['c_f']
         data.append(temp_dict)
 
@@ -71,6 +105,8 @@ def bill_data(data):
 
     if select:
         selected['id'] = select['id']
+        selected['type'] = select['type']
+        selected['size'] = select['size']
         selected['rooms_available'] = select['max_rooms']
         selected['no_of_rooms'] = data.get('no_of_rooms') or 1
         selected['no_of_guests'] = data.get('no_of_guests') or 1
@@ -82,18 +118,19 @@ def bill_data(data):
             selected['discount_price'] = discounted_price
             selected['discount'] = discount
         else:
-            if data.get("membership"):
-                actual_price, discounted_price, savings, discount = calculate_bill(False, data.get('no_of_guests') or 1, data.get(
-                    'no_of_rooms') or 1, select['actual_price'], select['discount_percentage'], select['id'])
-                selected['offer'] = {"membership": False, "savings": savings}
-                selected['actual_price'] = actual_price
-                selected['discount_price'] = discounted_price
-                selected['discount'] = discount
+            actual_price, discounted_price, savings, discount = calculate_bill(False, data.get('no_of_guests') or 1, data.get(
+                'no_of_rooms') or 1, select['actual_price'], select['discount_percentage'], select['id'])
+            selected['offer'] = {"membership": False, "savings": savings}
+            selected['actual_price'] = actual_price
+            selected['discount_price'] = discounted_price
+            selected['discount'] = discount
         selected['check_in'] = data.get('check_in')
         selected['check_out'] = data.get('check_out')
 
     else:
         selected['id'] = default['id']
+        selected['type'] = select['type']
+        selected['size'] = select['size']
         selected['rooms_available'] = default['max_rooms']
         selected['no_of_rooms'] = data.get('no_of_rooms') or 1
         selected['no_of_guests'] = data.get('no_of_guests') or 1

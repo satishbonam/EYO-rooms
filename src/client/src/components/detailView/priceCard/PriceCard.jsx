@@ -5,11 +5,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar ,faDoorClosed,faPen,faTags, faFan,faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking, faThermometerEmpty, faChair, faTv, faSoap} from "@fortawesome/free-solid-svg-icons"
 // import DateRangePicker from "react-bootstrap-daterangepicker";
 // import "bootstrap/dist/css/bootstrap.css";
-// import "bootstrap-daterangepicker/daterangepicker.css"; 
-import {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} from "../../../redux/authentication/actions"
-import {connect} from "react-redux"
+// import "bootstrap-daterangepicker/daterangepicker.css";
+import {
+  hotelEntityDataRequest,
+  hotelBillingDataRequest,
+  hotelReviewDataRequest,
+} from "../../../redux/authentication/actions";
+import { connect } from "react-redux";
 
- class PriceCard extends Component {
+class PriceCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,7 +31,6 @@ import {connect} from "react-redux"
     // console.log(picker.startDate, start, end, label);
   };
 
-  
   render() {
     console.log("amresh");
     console.log(this.state);
@@ -53,8 +56,18 @@ import {connect} from "react-redux"
                 </div>
                 <div id={styles.perNight}>inclusive of all taxes</div>
               </div>
-              <div className="d-flex justify-content-around" id={styles.SecduleContainer}>
-                {/* <DateRangePicker autoUpdateInput={false} startDate={this.state.inputStart} endDate={this.state.inputFinish} locale={{ format: "DD/MM/YYYY" }} onApply={this.handleEvent} autoApply={true}>
+              <div
+                className="d-flex justify-content-around"
+                id={styles.SecduleContainer}
+              >
+                {/* <DateRangePicker
+                  autoUpdateInput={false}
+                  startDate={this.state.inputStart}
+                  endDate={this.state.inputFinish}
+                  locale={{ format: "DD/MM/YYYY" }}
+                  onApply={this.handleEvent}
+                  autoApply={true}
+                >
                   <div>
                     <span>Wed, 12 Aug</span>
                     <span>-</span>
@@ -66,10 +79,17 @@ import {connect} from "react-redux"
                   <span>3 Rooms, 3 Guests</span>
                 </div>
               </div>
-              <div className="d-flex justify-content-between" id={styles.SecduleContainer}>
+              <div
+                className="d-flex justify-content-between"
+                id={styles.SecduleContainer}
+              >
                 <div>
                   <span>
-                    <FontAwesomeIcon icon={faDoorClosed} color="#f0f0f0" size="sm" />
+                    <FontAwesomeIcon
+                      icon={faDoorClosed}
+                      color="#f0f0f0"
+                      size="sm"
+                    />
                   </span>
                   <span className="ml-2">Classice (2X)</span>
                 </div>
@@ -83,7 +103,11 @@ import {connect} from "react-redux"
                 <div>
                   <div>
                     <span>
-                      <FontAwesomeIcon icon={faTags} color="#f5a623" size="sm" />
+                      <FontAwesomeIcon
+                        icon={faTags}
+                        color="#f5a623"
+                        size="sm"
+                      />
                     </span>
                     <span id={styles.coupon}>Apply coupon</span>
                   </div>
@@ -111,7 +135,10 @@ import {connect} from "react-redux"
                 <div className="mt-3">Cancellation Policy</div>
                 <div>Follow safety measures advised at the hotel</div>
                 <div>
-                  <span className="text-secondary mt-3">By proceeding, you agree to our</span> Guest Policies.
+                  <span className="text-secondary mt-3">
+                    By proceeding, you agree to our
+                  </span>{" "}
+                  Guest Policies.
                 </div>
               </div>
             </div>
@@ -122,19 +149,21 @@ import {connect} from "react-redux"
   }
 }
 
-
 const mapStateToProps = (state) => ({
   token: state.auth.token,
-    user: state.auth.user,
-    entityData: state.auth.entityData,
-    review: state.auth.review,
-    billingData:state.auth.billingData
+  user: state.auth.user,
+  entityData: state.auth.entityData,
+  review: state.auth.review,
+  billingData: state.auth.billingData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  hotelEntityDataRequest: (payload) => dispatch(hotelEntityDataRequest(payload)), 
-  hotelBillingDataRequest: (payload) => dispatch(hotelBillingDataRequest(payload)), 
-  hotelReviewDataRequest: (payload) => dispatch(hotelReviewDataRequest(payload)), 
+  hotelEntityDataRequest: (payload) =>
+    dispatch(hotelEntityDataRequest(payload)),
+  hotelBillingDataRequest: (payload) =>
+    dispatch(hotelBillingDataRequest(payload)),
+  hotelReviewDataRequest: (payload) =>
+    dispatch(hotelReviewDataRequest(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PriceCard);
