@@ -1,74 +1,47 @@
 import React, { Component } from "react";
 import styles from "./card.module.css";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faStar,
-  faCheckCircle,
-  faWifi,
-  faCarBattery,
-} from "@fortawesome/free-solid-svg-icons";
-import { hotelListingDataRequest ,hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} from "../../redux/authentication/actions";
+import { faStar, faCheckCircle, faWifi, faCarBattery } from "@fortawesome/free-solid-svg-icons";
+import { hotelListingDataRequest, hotelEntityDataRequest, hotelBillingDataRequest, hotelReviewDataRequest } from "../../redux/authentication/actions";
 import { connect } from "react-redux";
-import {Redirect} from "react-router-dom"
+import { Redirect } from "react-router-dom";
 class Card extends Component {
-
-  changeToEntityPage=(id)=>{
-    console.log("calling entity page",id)
-    const {hotelEntityDataRequest,hotelBillingDataRequest, history} =  this.props
-
+  changeToEntityPage = (id) => {
+    console.log("calling entity page", id);
+    const { hotelEntityDataRequest, hotelBillingDataRequest, history } = this.props;
 
     // hotelEntityDataRequest(id)
 
-      hotelBillingDataRequest({
-      hotel_id:id,
-      room_id:"1",
-      check_in:"01/01/2020",
-      check_out:"01/01/2020",
-      no_of_guests:"2",
-      no_of_rooms:"2",
-      membership: true
-    })
-    
+    hotelBillingDataRequest({
+      hotel_id: id,
+      room_id: "1",
+      check_in: "01/01/2020",
+      check_out: "01/01/2020",
+      no_of_guests: "2",
+      no_of_rooms: "2",
+      membership: true,
+    });
+
     // <Redirect to={`/entity/${id}`}/>
-  }
+  };
 
   render() {
     const { data } = this.props;
-    const {changeToEntityPage} =  this
+    const { changeToEntityPage } = this;
 
     return (
       <>
         <div class="card mt-5 border-0" id={styles.border}>
           <div class="row no-gutters" id={styles.imgContainer}>
             <div class="col-md-4  h-100">
-              <img
-                src={data.images.large[0]}
-                class="card-img"
-                alt="..."
-                id={styles.imageFit}
-              />
+              <img src={data.images.large[0]} class="card-img" alt="..." id={styles.imageFit} />
             </div>
             <div className="col-1 d-flex flex-column justify-content-center h-100">
-              <img
-                src={data.images.thumb[0]}
-                class="card-img p-1 h-25"
-                alt=""
-              />
-              <img
-                src={data.images.thumb[1]}
-                class="card-img p-1 h-25"
-                alt=""
-              />
-              <img
-                src={data.images.thumb[2]}
-                class="card-img p-1 h-25"
-                alt=""
-              />
-              <img
-                src={data.images.thumb[3]}
-                class="card-img p-1 h-25"
-                alt=""
-              />
+              <img src={data.images.thumb[0]} class="card-img p-1 h-25" alt="" />
+              <img src={data.images.thumb[1]} class="card-img p-1 h-25" alt="" />
+              <img src={data.images.thumb[2]} class="card-img p-1 h-25" alt="" />
+              <img src={data.images.thumb[3]} class="card-img p-1 h-25" alt="" />
             </div>
             <div class="col-md-7">
               <div class="card-body" id={styles.cardBody}>
@@ -77,7 +50,7 @@ class Card extends Component {
                 </h5>
                 <div id={styles.location}> kolkata , kolkata </div>
                 <div className="mt-3">
-                  <div className="col-4 p-0" id={styles.ratingContainer}>
+                  <div className="col-5 p-0" id={styles.ratingContainer}>
                     <span id={styles.rating}>
                       <span className="text-white">4.7</span>
                       <span>
@@ -114,27 +87,25 @@ class Card extends Component {
                   <span>santised stay</span>
                   <span>operated by Eyo</span>
                 </div>
-                <div className="d-flex justify-content-between mt-3 ">
-                  <div>
+                <div className="d-flex mt-3 ">
+                  <div className="col-5 p-0">
                     <div>
-                      <span id={styles.price}>
-                        $ {data.rooms[0].actual_price}
-                      </span>
-                      <span id={styles.slashPrice}>
-                        $ {data.rooms[0].discounted_price}
-                      </span>
-                      <span id={styles.percentage}>
-                        {data.rooms[0].discount_percentage} % off
-                      </span>
+                      <span id={styles.price}>&#8377; {Math.floor(data.rooms[0].actual_price)}</span>
+                      <span id={styles.slashPrice}>&#8377; {Math.floor(data.rooms[0].discounted_price)}</span>
+                      <span id={styles.percentage}>{Math.floor(data.rooms[0].discount_percentage)} % off</span>
                     </div>
                     <div id={styles.pernight}>per room per night</div>
-                    <div id={styles.pernight}>
-                      Checking feature-{data.checkin_features}
-                    </div>
+                    <div id={styles.pernight}>Checking feature-{data.checkin_features}</div>
                   </div>
-                  <div>
-                    <a href={`/entity/${data.hotel_id}`} target="_blank" id={styles.whilteButton}>View details</a>
-                    <button id={styles.greenButton}>Book Now</button>
+                  <div className="col-7 d-flex align-items-center justify-content-around p-0">
+                    <Link className="col-6" to={`/entity/${data.hotel_id}`}>
+                      <button target="_blank" id={styles.whilteButton}>
+                        View details
+                      </button>
+                    </Link>
+                    <div className="col-6">
+                      <button id={styles.greenButton}>Book Now</button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -146,18 +117,17 @@ class Card extends Component {
   }
 }
 
-
 const mapStateToProps = (state) => ({
   token: state.auth.token,
-    user: state.auth.user,
-    entityData: state.auth.entityData,
-    review: state.auth.review
+  user: state.auth.user,
+  entityData: state.auth.entityData,
+  review: state.auth.review,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  hotelEntityDataRequest: (payload) => dispatch(hotelEntityDataRequest(payload)), 
-  hotelBillingDataRequest: (payload) => dispatch(hotelBillingDataRequest(payload)), 
-  hotelReviewDataRequest: (payload) => dispatch(hotelReviewDataRequest(payload)), 
+  hotelEntityDataRequest: (payload) => dispatch(hotelEntityDataRequest(payload)),
+  hotelBillingDataRequest: (payload) => dispatch(hotelBillingDataRequest(payload)),
+  hotelReviewDataRequest: (payload) => dispatch(hotelReviewDataRequest(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Card);

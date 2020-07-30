@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import ToggleButton from "../../helperComponent/toggleButton";
 import styles from "./contentSectionHeader.module.css";
-import {hotelListingDataRequest} from "../../../redux/authentication/actions"
+import { hotelListingDataRequest } from "../../../redux/authentication/actions";
 import { connect } from "react-redux";
 
-
- class contentSectionHeader extends Component {
+class contentSectionHeader extends Component {
   render() {
     if(this.props.hotelData){
       const {total_results} = this.props.hotelData
@@ -39,10 +38,8 @@ import { connect } from "react-redux";
   }
 }
 
-
-
 const mapStateToProps = (state) => ({
-  hotelData :state.auth.hotelListData
+  hotelData: state.auth.hotelListData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
