@@ -41,6 +41,8 @@ import {
   HOTEL_ENTITY_REQUEST,
   HOTEL_ENTITY_SUCCESS,
   HOTEL_ENTITY_FAILURE,
+  // hotel id
+  HOTEL_ID,
   // hotel recommendation
   HOTEL_RECOMMENDATION_REQUEST,
   HOTEL_RECOMMENDATION_SUCCESS,
@@ -162,6 +164,11 @@ export const hotelListingSuccess = (payload) => ({
 export const hotelListingFailure = () => ({
   type: GET_HOTEL_LISTING_FAILURE,
 });
+// hotel id
+export const hotelId = (payload) => ({
+  type: HOTEL_ID,
+  payload
+})
 
 
 // hotel enity
@@ -310,6 +317,7 @@ export const hotelListingDataRequest = (payload) => (dispatch) => {
     })
     .catch((error) => dispatch(hotelListingFailure(error)));
 };
+
 
 export const handleFilterAmenities = (payload) => ({
   type: HANDLE_FILTER_AMENITIES,

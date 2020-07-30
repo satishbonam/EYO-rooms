@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styles from "./PriceCard.module.css";
+import {Link} from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faDoorClosed, faPen, faTags } from "@fortawesome/free-solid-svg-icons";
 import { faStar ,faDoorClosed,faPen,faTags, faFan,faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking, faThermometerEmpty, faChair, faTv, faSoap} from "@fortawesome/free-solid-svg-icons"
@@ -34,6 +35,7 @@ import {connect} from "react-redux"
        const  {actual_price,check_in,check_out,discount,discount_price,id,
         no_of_guests,no_of_rooms,offer,type,size
       } = selected
+      const {hotelId}= this.props
       return (
         <div className="col-5 mt-4 " id={styles.cardContainer}>
           <div className="row sticky-top">
@@ -113,7 +115,7 @@ import {connect} from "react-redux"
                 </div>
                 <div className="mt-5">
                   <button>
-                    <span>Continue to Book</span>
+                    <Link to={`/entity/${hotelId}/payment`}>Continue to Book</Link>
                   </button>
                 </div>
                 <div className="mt-2" id={styles.policy}>
@@ -140,7 +142,8 @@ const mapStateToProps = (state) => ({
     user: state.auth.user,
     entityData: state.auth.entityData,
     review: state.auth.review,
-    billingData:state.auth.billingData
+    billingData:state.auth.billingData,
+    hotelId:state.auth.hotelId
 });
 
 const mapDispatchToProps = (dispatch) => ({

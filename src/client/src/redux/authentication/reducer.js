@@ -27,6 +27,9 @@ import {
   HOTEL_ENTITY_REQUEST,
   HOTEL_ENTITY_SUCCESS,
   HOTEL_ENTITY_FAILURE,
+  // hotel id
+  HOTEL_ID,
+  
   // hotel recommendation
   HOTEL_RECOMMENDATION_REQUEST,
   HOTEL_RECOMMENDATION_SUCCESS,
@@ -64,11 +67,13 @@ const initState = {
   params: "",
   otpGenerate: false,
   hotelListData: undefined,
+  hotelId:undefined,
   entityData: undefined,
   billingData: undefined,
   review: undefined,
   recommendation: undefined,
   params: "",
+  
 };
 
 const reducer = (state = initState, { type, payload }) => {
@@ -248,6 +253,12 @@ const reducer = (state = initState, { type, payload }) => {
         isRequest: false,
         isError: true,
       };
+      // hotel id
+      case HOTEL_ID:
+        return {
+        ...state,
+        hotelId:payload
+        };
     // hotel bill data
     case HOTEL_BILLING_REQUEST:
       return {

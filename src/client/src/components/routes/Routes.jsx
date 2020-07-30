@@ -11,6 +11,7 @@ import AuthBannerOtpVerify from "../auth/AuthBannerOtpVerify";
 // import AuthBannerLoginOtp from "../auth/AuthBannerLoginOtp";
 // import AuthBannerSignUp from "../auth/AuthBannerSignUp";
 // import AuthBannerOtpVerify from "../auth/AuthBannerOtpVerify";
+import PaymentMethodCard from "../paymentMethod/paymentMethodCard/PaymentMethodCard"
 import DetailView from "../detailView/DetailView";
 
 export default class Routes extends Component {
@@ -29,6 +30,7 @@ export default class Routes extends Component {
         {/* <Route path="/loginotp" component={AuthBannerLoginOtp} /> */}
         {/* <Route path="/otpverify" component={AuthBannerOtpVerify} /> */}
         {/* <Route path="/signup" component={AuthBannerSignUp} /> */}
+        <Route path="/entity/:id/payment" component={PaymentMethodCard} />
       </>
     );
   }

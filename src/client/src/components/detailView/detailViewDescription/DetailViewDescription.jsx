@@ -3,7 +3,7 @@ import styles from "./DetailViewDescription.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar , faFan, faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking, faThermometerEmpty, faChair, faTv, faSoap} from "@fortawesome/free-solid-svg-icons"
-import {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} from "../../../redux/authentication/actions"
+import {hotelEntityDataRequest,hotelId,hotelBillingDataRequest,hotelReviewDataRequest} from "../../../redux/authentication/actions"
 import {connect} from "react-redux"
 
  class DetailViewDescription extends Component {
@@ -23,6 +23,7 @@ import {connect} from "react-redux"
     // })
     console.log(this.props.id,"data")
     hotelEntityDataRequest(this.props.id)
+    hotelId(this.props.id)
   }
   // shouldComponentUpdate=()=>{
   //   // const {hotelBillingDataRequest,entityData} = this.props
