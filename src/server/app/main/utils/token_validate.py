@@ -11,7 +11,6 @@ def token_validate(auth_token):
     # Checking for blacklisted token
     query = BlacklistTokenModel.query.filter(
         BlacklistTokenModel.token == auth_token).first()
-
     if query == None:
 
         token_data = jwt.decode(auth_token, key)

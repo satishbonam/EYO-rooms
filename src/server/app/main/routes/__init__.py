@@ -3,7 +3,8 @@ from flask_restful import Api
 from flask import Flask, request, Blueprint
 from .Authentication import Register, LoginOtpGenerate, UserLogin, LoginOtpVerify, OauthLogin, UserLogout
 from .Listing import HotelListing
-from.Entity import Entity, BillData, Recommendations, Reviews
+from .Entity import Entity, BillData, Recommendations, Reviews
+from .Payment import PaymentInitialize
 
 
 api_blueprint = Blueprint('api', __name__)
@@ -28,6 +29,7 @@ def add_resources(app):
     api.add_resource(BillData, '/bill_data')
     api.add_resource(Recommendations, '/recommendations')
     api.add_resource(Reviews, '/reviews')
+    api.add_resource(PaymentInitialize, '/payment')
 
 
 def register_blueprints(app):

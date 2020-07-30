@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import styles from "./DetailViewRating.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle, faStar } from "@fortawesome/free-solid-svg-icons";
+// import { faCheckCircle, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar,faCheckCircle , faFan, faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking, faThermometerEmpty, faChair, faTv, faSoap} from "@fortawesome/free-solid-svg-icons"
 import {hotelReviewDataRequest} from "../../../redux/authentication/actions"
 import {connect} from "react-redux"
 
