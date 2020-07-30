@@ -36,6 +36,7 @@ import {connect} from "react-redux"
         no_of_guests,no_of_rooms,offer,type,size
       } = selected
       const {hotelId}= this.props
+      console.log(hotelId,"id")
       return (
         <div className="col-5 mt-4 " id={styles.cardContainer}>
           <div className="row sticky-top">
