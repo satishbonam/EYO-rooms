@@ -11,6 +11,13 @@ import {connect} from "react-redux"
 
  class DetailViewRoomCard extends Component {
 
+  constructor(props){
+    super(props);
+    this.state={
+      showFontIcon:false
+    }
+  }
+
   componentDidMount=()=>{
     const {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} = this.props
     // hotelEntityDataRequest(10)
@@ -27,8 +34,25 @@ import {connect} from "react-redux"
   }
   
   render() {
-    const {data,selected} = this.props
+    const {data,selected,entityData} = this.props
     console.log(data,selected)
+    const {showFontIcon}  =this.state
+    console.log(data,selected)
+    console.log(entityData,"amenities")
+    let amenities = []
+    let amenities2 = []
+    if(entityData){
+
+       entityData.amenities.map(ele=>{
+        if(ele.status){
+          amenities2.push(ele)
+        }
+        if(amenities.length<3){
+          amenities.push(ele)
+        }
+
+      })
+    }
     return (
       <>
         
@@ -40,14 +64,14 @@ import {connect} from "react-redux"
                   <FontAwesomeIcon icon={faStar} color="yellow" size="sm" />
                 </span>
               </div>
-              {
+              {/* {
                 selected.id === data.id?(
                     
               <div>
                 <span id={styles.selected}>SELECTED CATEGORY</span>
               </div>
                 ):""
-              }
+              } */}
             </div>
             <div className="row no-gutters">
               <div className="col-md-8">
@@ -61,25 +85,28 @@ import {connect} from "react-redux"
                   </span>
                   <div id={styles.roomSize}>Room size: {data.size} sqft</div>
                   <div className="mt-5 ml-0">
+                  {
+                     !showFontIcon && amenities && amenities.map(ele=>(
                     <span>
                       <span>
                         <FontAwesomeIcon icon={faFan} color="#000" size="sm" />
                       </span>
-                      <span>AC</span>
+                      <span>{ele.label}</span>
                     </span>
+                      ))
+                    }
+                    {
+                     showFontIcon && amenities2 && amenities2.map(ele=>(
                     <span>
                       <span>
-                        <FontAwesomeIcon icon={faTv} color="#000" size="sm" />
+                        <FontAwesomeIcon icon={faFan} color="#000" size="sm" />
                       </span>
-                      <span>AC</span>
+                      <span>{ele.label}</span>
                     </span>
-                    <span>
-                      <span>
-                        <FontAwesomeIcon icon={faBed} color="#000" size="sm" />
-                      </span>
-                      <span>AC</span>
-                    </span>
-                    <span>+ 18 more</span>
+                      ))
+                    }
+                    <span onClick={()=>this.setState({showFontIcon:!showFontIcon})}>+ {!showFontIcon?amenities2.length - amenities.length+"more":"less"}</span>
+                 
                   </div>
                 </div>
               </div>

@@ -115,11 +115,12 @@ class PriceCard extends Component {
                       <span>
                         <FontAwesomeIcon icon={faTags} color="#f5a623" size="sm" />
                       </span>
-                      <span id={styles.coupon}>Apply coupon</span>
+                      <span id={styles.coupon}>Apply offers</span>
                     </div>
                   </div>
                   <div>
-                    <span id={styles.moreOffer}>{offer && offer.membership ? "membership" : ""}</span>
+                    <input type="checkbox" checked={offer.membership}/>
+                    <span id={styles.moreOffer}>membership</span>
                   </div>
                 </div>
                 <div className="d-flex justify-content-between mt-4">
