@@ -125,21 +125,21 @@ class Card extends Component {
                 <div className="d-flex mt-3 ">
                   <div className="col-5 p-0">
                     <div>
-<<<<<<< HEAD
                       <span id={styles.price}>
-                        &#8377; {Math.floor(data.rooms[0].actual_price)}
+                        &#8377;{" "}
+                        {Math.floor(data.rooms[0].actual_price) -
+                          Math.floor(
+                            (Number(data.rooms[0].actual_price) *
+                              Number(data.rooms[0].discount_percentage)) /
+                              100
+                          )}
                       </span>
                       <span id={styles.slashPrice}>
-                        &#8377; {Math.floor(data.rooms[0].discounted_price)}
+                        &#8377; {Math.floor(data.rooms[0].actual_price)}
                       </span>
                       <span id={styles.percentage}>
                         {Math.floor(data.rooms[0].discount_percentage)} % off
                       </span>
-=======
-                      <span id={styles.price}>&#8377; {Math.floor(data.rooms[0].actual_price) - Math.floor((Number(data.rooms[0].actual_price)*Number(data.rooms[0].discount_percentage))/100)}</span>
-                      <span id={styles.slashPrice}>&#8377; {Math.floor(data.rooms[0].actual_price)}</span>
-                      <span id={styles.percentage}>{Math.floor(data.rooms[0].discount_percentage)} % off</span>
->>>>>>> 51c4fb5a4aa82289d48c088b4b3cb4d18f142420
                     </div>
                     <div id={styles.pernight}>per room per night</div>
                     <div id={styles.pernight}>

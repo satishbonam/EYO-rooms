@@ -167,9 +167,8 @@ export const hotelListingFailure = () => ({
 // hotel id
 export const hotelId = (payload) => ({
   type: HOTEL_ID,
-  payload
-})
-
+  payload,
+});
 
 // hotel enity
 export const hotelEntityRequest = (payload) => ({
@@ -255,7 +254,7 @@ export const loginRequestWithPassword = (payload) => (dispatch) => {
 export const loginRequestWithOtp = (payload) => (dispatch) => {
   dispatch(saveUserMobile(payload));
   dispatch(loginOtpRequest());
-  console.log(payload);
+  console.log(payload, "otp request");
   return axios
     .post("/login/otp_generate", {
       ...payload,
@@ -308,17 +307,16 @@ export const logoutRequest = (payload) => (dispatch) => {
 export const hotelListingDataRequest = (payload) => (dispatch) => {
   console.log("hotel listing calling...", payload);
   dispatch(hotelListingRequest());
-  
+
   return axios
-  .get("/hotel_listing?" + payload, {})
-  .then((data) => {
+    .get("/hotel_listing?" + payload, {})
+    .then((data) => {
       console.log(data);
       dispatch(hotelListingSuccess(data));
     })
     .catch((error) => dispatch(hotelListingFailure(error)));
-  };
-  
-  
+};
+
 export const handleFilterAmenities = (payload) => ({
   type: HANDLE_FILTER_AMENITIES,
   payload,
@@ -355,11 +353,11 @@ export const hotelEntityDataRequest = (payload) => (dispatch) => {
   dispatch(hotelEntityRequest());
   dispatch(hotelId(payload));
   return axios
-  .post("/entity", {
-    hotel_id: payload,
-  })
-  .then((data) => dispatch(hotelEntitySuccess(data)))
-  .catch((error) => dispatch(hotelEntityFailure(error)));
+    .post("/entity", {
+      hotel_id: payload,
+    })
+    .then((data) => dispatch(hotelEntitySuccess(data)))
+    .catch((error) => dispatch(hotelEntityFailure(error)));
 };
 // hotel billing  data
 export const hotelBillingDataRequest = (payload) => (dispatch) => {

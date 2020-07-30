@@ -76,7 +76,7 @@ def user_login(data):
                 }
 
             token = jwt.encode(payload, key)
-            return flag, token.decode(), {"email": str(data_raw.email), "name": str(data_raw.name)}
+            return flag, token.decode(), {"email": str(data_raw.email), "name": str(data_raw.name), "mobile": str(data_raw.mobile)}
 
         else:
             return flag, "", ""
@@ -134,7 +134,7 @@ def otp_verify(data):
             }
             token = jwt.encode(payload, key)
 
-            return flag, token.decode(), {"email": str(data_user.email), "name": str(data_user.name)}
+            return flag, token.decode(), {"email": str(data_user.email), "name": str(data_user.name), "mobile": str(data_raw.mobile)}
 
         else:
             return flag, "", ""
@@ -173,7 +173,7 @@ def oauth_login(data):
             }
             token = jwt.encode(payload, key)
 
-            return flag, token.decode(), {"email": str(data_raw.email), "name": str(data_raw.name)}
+            return flag, token.decode(), {"email": str(data_raw.email), "name": str(data_raw.name), "mobile": str(data_raw.mobile)}
 
         else:
             return flag, "", ""
@@ -200,7 +200,7 @@ def oauth_login(data):
             }
             token = jwt.encode(payload, key)
 
-            return True, token.decode(), {"email": str(data_registered.email), "name": str(data_registered.name)}
+            return True, token.decode(), {"email": str(data_registered.email), "name": str(data_registered.name), "mobile": str(data_registered.mobile)}
         else:
             return False, "", ""
 

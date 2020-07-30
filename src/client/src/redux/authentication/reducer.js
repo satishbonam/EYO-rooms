@@ -29,7 +29,7 @@ import {
   HOTEL_ENTITY_FAILURE,
   // hotel id
   HOTEL_ID,
-  
+
   // hotel recommendation
   HOTEL_RECOMMENDATION_REQUEST,
   HOTEL_RECOMMENDATION_SUCCESS,
@@ -53,6 +53,7 @@ import {
 import { element } from "prop-types";
 
 const initState = {
+  isAuth: false,
   isRequest: false,
   isOtp: false,
   isLogin: false,
@@ -68,12 +69,11 @@ const initState = {
   params: "",
   otpGenerate: false,
   hotelListData: undefined,
-  hotelId:undefined,
+  hotelId: undefined,
   entityData: undefined,
   billingData: undefined,
   review: undefined,
   recommendation: undefined,
-  
 };
 
 const reducer = (state = initState, { type, payload }) => {
@@ -118,6 +118,7 @@ const reducer = (state = initState, { type, payload }) => {
         token: payload.token,
         user: payload.user_data,
         isLogin: payload.status,
+        isAuth: true,
       };
     case USER_LOGIN_PASS_FAILURE:
       return {
@@ -163,6 +164,7 @@ const reducer = (state = initState, { type, payload }) => {
         message: payload.msg,
         token: payload.token,
         user: payload.user_data,
+        isAuth: true,
       };
     case USER_OTP_VERIFY_FAILURE:
       return {
@@ -183,6 +185,7 @@ const reducer = (state = initState, { type, payload }) => {
         message: payload.msg,
         token: payload.token,
         user: payload.user_data,
+        isAuth: true,
       };
     case USER_OAUTH_FAILURE:
       return {
@@ -203,6 +206,7 @@ const reducer = (state = initState, { type, payload }) => {
         isLogout: payload.status,
         token: null,
         user: null,
+        isAuth: false,
       };
     case USER_LOGOUT_FAILURE:
       return {
@@ -241,7 +245,7 @@ const reducer = (state = initState, { type, payload }) => {
         isRequest: true,
       };
     case HOTEL_ENTITY_SUCCESS:
-      console.log(payload,"entity success");
+      console.log(payload, "entity success");
       return {
         ...state,
         isRequest: false,
@@ -253,12 +257,12 @@ const reducer = (state = initState, { type, payload }) => {
         isRequest: false,
         isError: true,
       };
-      // hotel id
-      case HOTEL_ID:
-        return {
+    // hotel id
+    case HOTEL_ID:
+      return {
         ...state,
-        hotelId:payload
-        };
+        hotelId: payload,
+      };
     // hotel bill data
     case HOTEL_BILLING_REQUEST:
       return {
@@ -285,7 +289,7 @@ const reducer = (state = initState, { type, payload }) => {
         isRequest: true,
       };
     case HOTEL_RECOMMENDATION_SUCCESS:
-      console.log(payload,"recommendation")
+      console.log(payload, "recommendation");
       return {
         ...state,
         isRequest: false,
@@ -303,8 +307,8 @@ const reducer = (state = initState, { type, payload }) => {
         ...state,
         isRequest: true,
       };
-      case HOTEL_REVIEW_SUCCESS:
-        console.log(payload);
+    case HOTEL_REVIEW_SUCCESS:
+      console.log(payload);
       return {
         ...state,
         isRequest: false,
