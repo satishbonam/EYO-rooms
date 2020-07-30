@@ -37,18 +37,16 @@ class Card extends Component {
     console.log(mapView);
 
     const { changeToEntityPage } = this;
-    console.log(data,"amenities")
-    let amenities = []
-    if(data){
-
-       data.amenities.map(ele=>{
-        if(ele.status){
-          if(amenities.length<3){
-            amenities.push(ele)
+    console.log(data, "amenities");
+    let amenities = [];
+    if (data) {
+      data.amenities.map((ele) => {
+        if (ele.status) {
+          if (amenities.length < 3) {
+            amenities.push(ele);
           }
         }
-
-      })
+      });
     }
     return (
       <>
@@ -85,18 +83,22 @@ class Card extends Component {
                   </div>
                 </div>
                 <div className="col-12 d-flex p-0 mt-2 " id={styles.amenity}>
-                  {
-                    amenities && amenities.map(ele=>(
+                  {amenities &&
+                    amenities.map((ele) => (
+                      <div id={styles.amenityWrapper}>
+                        <span>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </span>
+                        <a target="_blank" href={`/entity/${data.hotel_id}`}>
+                          {ele.label}
+                        </a>
+                      </div>
+                    ))}
                   <div id={styles.amenityWrapper}>
-                    <span>
-                      <FontAwesomeIcon icon={faCheckCircle} />
-                    </span>
-                    <a target="_blank" href={`/entity/${data.hotel_id}`}>{ele.label}</a>
+                    <a target="_blank" href={`/entity/${data.hotel_id}`}>
+                      + 11 more
+                    </a>
                   </div>
-                    ))
-                  }
-                  <div>
-                    <a target="_blank" href={`/entity/${data.hotel_id}`}>+ 11 more</a></div>
                 </div>
                 <div id={styles.facility}>
                   <span>Included BreakFast</span>
@@ -106,7 +108,7 @@ class Card extends Component {
                 <div className="d-flex mt-3 ">
                   <div className={` ${increseCol} p-0`}>
                     <div>
-                      <span id={styles.price}>&#8377; {Math.floor(data.rooms[0].actual_price) - Math.floor((Number(data.rooms[0].actual_price)*Number(data.rooms[0].discount_percentage))/100)}</span>
+                      <span id={styles.price}>&#8377; {Math.floor(data.rooms[0].actual_price) - Math.floor((Number(data.rooms[0].actual_price) * Number(data.rooms[0].discount_percentage)) / 100)}</span>
                       <span id={styles.slashPrice}>&#8377; {Math.floor(data.rooms[0].actual_price)}</span>
                       <span id={styles.percentage}>{Math.floor(data.rooms[0].discount_percentage)} % off</span>
                     </div>
@@ -114,7 +116,7 @@ class Card extends Component {
                     {/* <div id={styles.pernight}>Checking feature-{data.checkin_features}</div> */}
                   </div>
                   <div className="col-7 d-flex align-items-center justify-content-around p-0">
-                    <span className="col-6" >
+                    <span className="col-6">
                       <a target="_blank" href={`/entity/${data.hotel_id}`} id={styles.whilteButton}>
                         View details
                       </a>

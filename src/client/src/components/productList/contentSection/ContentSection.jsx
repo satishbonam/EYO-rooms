@@ -47,9 +47,7 @@ class ContentSection extends Component {
             <GoogleMap />
           </div>
         </div>
-        <ContentHeader />
         {/* <AutocompleteForm/> */}
-        {hotelData && hotelData.status && hotelData.data.map((ele) => <Card data={ele} key={ele.name} />)}
       </div>
     );
   }
