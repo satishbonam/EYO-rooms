@@ -1,16 +1,11 @@
 import React, { Component } from "react";
 import styles from "./PaymentMethodCard.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-<<<<<<< HEAD
-// import { faDoorClosed, faStar, faCalendar } from "@fortawesome/free-solid-svg-icons";
-import { faStar , faFan, faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub,faCheese, faRestroom,faParking,faBed, faThermometerEmpty, faChair, faTv, faSoap} from "@fortawesome/free-solid-svg-icons"
-=======
 import {
   faDoorClosed,
   faStar,
   faCalendar,
 } from "@fortawesome/free-solid-svg-icons";
->>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
 
 export default class PaymentMethodCard extends Component {
   render() {

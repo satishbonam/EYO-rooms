@@ -2,10 +2,6 @@ import React, { Component } from "react";
 import styles from "./PriceCard.module.css";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-<<<<<<< HEAD
-// import { faDoorClosed, faPen, faTags } from "@fortawesome/free-solid-svg-icons";
-import { faStar ,faDoorClosed,faPen,faTags, faFan,faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking, faThermometerEmpty, faChair, faTv, faSoap} from "@fortawesome/free-solid-svg-icons"
-=======
 import DateRangePicker from "react-bootstrap-daterangepicker";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-daterangepicker/daterangepicker.css";
@@ -34,7 +30,6 @@ import {
   faTv,
   faSoap,
 } from "@fortawesome/free-solid-svg-icons";
->>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
 // import DateRangePicker from "react-bootstrap-daterangepicker";
 // import "bootstrap/dist/css/bootstrap.css";
 // import "bootstrap-daterangepicker/daterangepicker.css";
@@ -49,15 +44,9 @@ class PriceCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-<<<<<<< HEAD
-      inputStart: "01/01/2020",
-      inputFinish: "01/01/2018",
-    
-=======
       inputStart: "01/08/2020",
       inputFinish: "02/08/2020",
       checked: true,
->>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
     };
   }
 

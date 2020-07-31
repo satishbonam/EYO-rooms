@@ -2,11 +2,6 @@ import React, { Component } from "react";
 import styles from "./DetailViewDescription.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faStar } from "@fortawesome/free-solid-svg-icons";
-<<<<<<< HEAD
-import { faStar , faFan, faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking, faThermometerEmpty, faChair, faTv, faSoap} from "@fortawesome/free-solid-svg-icons"
-import {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} from "../../../redux/authentication/actions"
-import {connect} from "react-redux"
-=======
 import {
   faStar,
   faFan,
@@ -30,7 +25,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { hotelEntityDataRequest, hotelBillingDataRequest, hotelReviewDataRequest } from "../../../redux/authentication/actions";
 import { connect } from "react-redux";
->>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
 
 class DetailViewDescription extends Component {
   componentDidMount = () => {
@@ -57,13 +51,8 @@ class DetailViewDescription extends Component {
   //   // },1000)
   // }
   render() {
-<<<<<<< HEAD
-    const {entityData,billingData,review} = this.props
-    console.log(entityData,billingData,review)
-=======
     const { entityData, billingData, review } = this.props;
     console.log(entityData, billingData, review);
->>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
     return (
       <>
         <div className="col-12 px-3">

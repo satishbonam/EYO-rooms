@@ -1,13 +1,6 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faStar } from "@fortawesome/free-solid-svg-icons";
-<<<<<<< HEAD
-import { faStar , faFan, faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking, faThermometerEmpty, faChair, faTv, faSoap} from "@fortawesome/free-solid-svg-icons"
-import styles from "./DetailViewRecomandation.module.css";
-
-export default class DetailViewRecomandation extends Component {
-  render() {
-=======
 import {
   faStar,
   faFan,
@@ -86,7 +79,6 @@ class DetailViewRecomandation extends Component {
 
   render() {
     console.log(this.props.recommendation);
->>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
     return (
       <div className="container-fluid my-5">
         <div className=" col-12 ">
@@ -97,11 +89,6 @@ class DetailViewRecomandation extends Component {
           </div>
           <div className="row">
             {[
-<<<<<<< HEAD
-              { heading: "OYO 29781 Radhika Ex", subHeading: "Some quick example text to build o", rating: "4", icon: faStar, review: "134", val: "Very Good", price: "1389", off: "46%" },
-              { heading: "OYO 29781 Radhika Ex", subHeading: "Some quick example text to build o", rating: "4", icon: faStar, review: "134", val: "Very Good", price: "1389", off: "46%" },
-              { heading: "OYO 29781 Radhika Ex", subHeading: "Some quick example text to build o", rating: "4", icon: faStar, review: "134", val: "Very Good", price: "1389", off: "46%" },
-=======
               {
                 heading: "OYO 29781 Radhika Ex",
                 subHeading: "Some quick example text to build o",
@@ -132,7 +119,6 @@ class DetailViewRecomandation extends Component {
                 price: "1389",
                 off: "46%",
               },
->>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
             ].map((elem) => {
               return (
                 <div className="col-3 ">
@@ -142,26 +128,16 @@ class DetailViewRecomandation extends Component {
                       <h2 className="text-truncate" id={styles.heading}>
                         {elem.heading}
                       </h2>
-<<<<<<< HEAD
-                      <p className="card-text text-truncate" id={styles.subHeading}>
-=======
                       <p
                         className="card-text text-truncate"
                         id={styles.subHeading}
                       >
->>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
                         {elem.subHeading}
                       </p>
                       <div>
                         <span id={styles.icon}>
                           {elem.rating}
                           <span>
-<<<<<<< HEAD
-                            <FontAwesomeIcon icon={elem.icon} color="#fff" size="sm" />
-                          </span>
-                        </span>
-                        <span id={styles.review}>({elem.review} • reviews) Very Good</span>
-=======
                             <FontAwesomeIcon
                               icon={elem.icon}
                               color="#fff"
@@ -172,7 +148,6 @@ class DetailViewRecomandation extends Component {
                         <span id={styles.review}>
                           ({elem.review} • reviews) Very Good
                         </span>
->>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
                       </div>
                       <div>
                         <span id={styles.price}>₹ {elem.price}</span>
@@ -193,8 +168,6 @@ class DetailViewRecomandation extends Component {
     );
   }
 }
-<<<<<<< HEAD
-=======
 
 const mapStateToProps = (state) => ({
   token: state.auth.token,
@@ -215,4 +188,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(DetailViewRecomandation);
->>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
