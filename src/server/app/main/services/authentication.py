@@ -75,8 +75,8 @@ def user_login(data):
                     "exp_datetime": str(datetime.datetime.utcnow() + datetime.timedelta(days=1))
                 }
 
-            token = jwt.encode(payload, key)
-            return flag, token.decode(), {"email": str(data_raw.email), "name": str(data_raw.name), "mobile": str(data_raw.mobile)}
+            token = jwt.encode(payload, key, algorithm="HS256")
+            return flag, token.decode('utf-8'), {"email": str(data_raw.email), "name": str(data_raw.name), "mobile": str(data_raw.mobile)}
 
         else:
             return flag, "", ""
@@ -132,9 +132,9 @@ def otp_verify(data):
                 "created_at": str(datetime.datetime.utcnow()),
                 "exp_datetime": str(datetime.datetime.utcnow() + datetime.timedelta(days=1))
             }
-            token = jwt.encode(payload, key)
+            token = jwt.encode(payload, key, algorithm="HS256")
 
-            return flag, token.decode(), {"email": str(data_user.email), "name": str(data_user.name), "mobile": str(data_raw.mobile)}
+            return flag, token.decode('utf-8'), {"email": str(data_user.email), "name": str(data_user.name), "mobile": str(data_raw.mobile)}
 
         else:
             return flag, "", ""
@@ -171,9 +171,9 @@ def oauth_login(data):
                 "created_at": str(datetime.datetime.utcnow()),
                 "exp_datetime": str(datetime.datetime.utcnow() + datetime.timedelta(days=1))
             }
-            token = jwt.encode(payload, key)
+            token = jwt.encode(payload, key, algorithm="HS256")
 
-            return flag, token.decode(), {"email": str(data_raw.email), "name": str(data_raw.name), "mobile": str(data_raw.mobile)}
+            return flag, token.decode('utf-8'), {"email": str(data_raw.email), "name": str(data_raw.name), "mobile": str(data_raw.mobile)}
 
         else:
             return flag, "", ""
@@ -198,9 +198,9 @@ def oauth_login(data):
                 "created_at": str(datetime.datetime.utcnow()),
                 "exp_datetime": str(datetime.datetime.utcnow() + datetime.timedelta(days=1))
             }
-            token = jwt.encode(payload, key)
+            token = jwt.encode(payload, key, algorithm="HS256")
 
-            return True, token.decode(), {"email": str(data_registered.email), "name": str(data_registered.name), "mobile": str(data_registered.mobile)}
+            return True, token.decode('utf-8'), {"email": str(data_registered.email), "name": str(data_registered.name), "mobile": str(data_registered.mobile)}
         else:
             return False, "", ""
 
