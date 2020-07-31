@@ -12,7 +12,7 @@ class ContentSection extends Component {
     return (
       <div className="col-9">
         <ContentHeader />
-        {/* <AutocompleteForm/> */}
+        <AutocompleteForm/>
         {hotelData && hotelData.status && hotelData.data.map((ele) => <Card data={ele} key={ele.name} />)}
       </div>
     );

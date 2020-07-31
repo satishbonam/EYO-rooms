@@ -45,7 +45,7 @@ import {connect} from "react-redux"
             </h1>
             <div className="mr-5 ">
               <div className="d-flex bg-success justify-content-around" id={styles.ratingIcons}>
-                <div>{entityData?entityData.rating:0}</div>
+                <div>{entityData?Number(entityData.rating).toFixed(1):0}</div>
                 <span>
                   <FontAwesomeIcon icon={faStar} color="#fff" size="sm" />
                 </span>
