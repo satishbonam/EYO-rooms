@@ -13,7 +13,8 @@ def token_validate(auth_token):
         BlacklistTokenModel.token == auth_token).first()
     if query == None:
 
-        token_data = jwt.decode(auth_token, key, algorithm="HS256", 'utf-8')
+        token_data = jwt.decode(auth_token.encode(), key,
+                                'utf-8', algorithm="HS256")
 
         if datetime.datetime.strptime(token_data['exp_datetime'], '%Y-%m-%d %H:%M:%S.%f') >= datetime.datetime.utcnow():
             return True, token_data

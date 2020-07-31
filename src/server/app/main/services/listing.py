@@ -1,4 +1,5 @@
 from ..models.HotelListingModel import HotelCategoryModel, HotelModel
+from ..models.LocationModel import LocationModel
 from app.main.models import db
 from config import key
 import jwt
@@ -29,10 +30,11 @@ def hotel_listing(params):
     checkin_filter = [{"status": False, "label": "Pay at Hotel"}, {
         "status": False, "label": "Pay later"}, {"status": False, "label": "Pay Online"}]
 
-    query = "select h.id as id,h.name as name,h.images->>'$[0]' as images,h.rooms->>'$' as rooms,created_at,updated_at, h.collection->>'$[0]' as collection,c.name as category,c.tag as tag,h.accomodation_type->>'$[0]' as acc_type,h.amenities as amenities,checkin_features as c_f from hotel as h join category as c on h.category_id=c.id WHERE"
+    query = "select (6371*acos(cos(radians(%f))*cos(radians(l.lat))*cos(radians(l.lon)-radians(%f))+sin(radians(%f))*sin(radians(l.lat)))) as dist,l.address as ad,l.lat as lat,l.lon as lon,h.id as id,h.name as name,h.images->>'$[0]' as images,h.rooms->>'$' as rooms,created_at,updated_at, h.collection->>'$[0]' as collection,c.name as category,c.tag as tag,h.accomodation_type->>'$[0]' as acc_type,h.amenities as amenities,checkin_features as c_f from hotel as h join category as c on h.category_id=c.id left join locations as l on h.id=l.hotel_id  WHERE" % (
+        float(params['lat']), float(params['lon']), float(params['lat']))
 
-    base_query = "select h.collection->>'$[0]' as collection,c.name as category,c.tag as tag,h.accomodation_type->>'$[0]' as acc_type,h.amenities as amenities,checkin_features as c_f from hotel as h join category as c on h.category_id=c.id limit 1"
-    count_query = 'select count(h.id) from hotel as h join category as c on h.category_id=c.id WHERE'
+    count_query = "select  count(h.id) from hotel as h join category as c on h.category_id = c.id left join locations as l on h.id = l.hotel_id where (6371*acos(cos(radians(%f))*cos(radians(l.lat))*cos(radians(l.lon)-radians(%f))+sin(radians(%f))*sin(radians(l.lat))))<20 AND" % (
+        float(params['lat']), float(params['lon']), float(params['lat']))
 
     if params.get('collections'):
         collections = params.getlist("collections")
@@ -90,6 +92,8 @@ def hotel_listing(params):
     count_query = count_query.strip('AND')
     count_query = count_query.strip('WHERE')
 
+    query = query + ' having dist<20'
+
     if params.get('page'):
         page = params.get('page')
         offset = (int(page)-1)*per_page
@@ -100,15 +104,14 @@ def hotel_listing(params):
 
     query = query + ';'
     count_query = count_query + ';'
+    print(query)
     count_raw = db.engine.execute(count_query)
 
     for row in count_raw:
         total_results = row[0]
         total_pages = int(math.ceil((row[0]/per_page)))
 
-    # print(query)
     data_raw = db.engine.execute(query)
-    data_base = db.engine.execute(base_query)
 
     # print(data_raw)
 
@@ -153,6 +156,8 @@ def hotel_listing(params):
     for hotel in data_raw:
         temp_dict = {}
         temp_dict['hotel_id']=hotel['id']
+        temp_dict['location'] = {"lat": hotel['lat'], "lon": hotel['lon']}
+        temp_dict['address'] = hotel['ad']
         temp_dict['name'] = hotel['name']
         temp_dict['hotel_id'] = hotel['id']
         temp_dict['created_at'] = str(hotel['created_at'])
@@ -162,7 +167,7 @@ def hotel_listing(params):
         temp_dict['category'] = {
             "name": hotel['category'], "tag": hotel['tag']}
         temp_dict['images'] = {
-            "large": json.loads(hotel['images'])['large'].split("#"), "medium": json.loads(hotel['images'])['medium'].split("#"), "thumb": json.loads(hotel['images'])['thumb'].split("#")}
+            "large": json.loads(hotel['images'])['large'].split("#"), "medium": json.loads(hotel['images'])['medium'].split("#"), "thumb": json.loads(hotel['images'])['thumb'].split("#"), "random": json.loads(hotel['images'])['all'].split("|")}
         temp_dict['accomodation_type'] = json.loads(hotel['acc_type'])
         amenities_arr = []
 

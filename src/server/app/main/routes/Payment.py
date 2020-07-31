@@ -22,13 +22,13 @@ class PaymentInitialize(Resource):
     @classmethod
     def post(self):
         auth_token = request.headers.get('x-amzn-oidc-data')
-        print(auth_token,"auth_token")
         payload = PaymentInitialize.parser.parse_args()
 
         flag_token, token_data = token_validate(auth_token)
 
         if flag_token:
             flag_request, data = payment_initialize(payload, token_data)
+
             if flag_request:
                 return {"status": True, "data": data}
             else:
