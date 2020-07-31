@@ -31,6 +31,11 @@ import { loadData } from "../../../redux/authentication/localStorage";
 class DetailViewRecomandation extends Component {
   componentDidMount = () => {
     const { hotelRecommendationDataRequest } = this.props;
+    console.log(
+      "remocemdation..............................................",
+      this.props
+    );
+    const hotelId = window.location.pathname.split("/")[2];
     const hotelData = loadData("hotelListData");
     var para = {};
     hotelData &&
@@ -74,7 +79,10 @@ class DetailViewRecomandation extends Component {
         }
       });
     let params = build(para);
-    hotelRecommendationDataRequest(params);
+    hotelRecommendationDataRequest({
+      params: params,
+      hotel_id: hotelId,
+    });
   };
 
   render() {
@@ -173,6 +181,7 @@ const mapStateToProps = (state) => ({
   token: state.auth.token,
   user: state.auth.user,
   entityData: state.auth.entityData,
+  hotelId: state.auth.hotelId,
   review: state.auth.review,
   billingData: state.auth.billingData,
   recommendation: state.auth.recommendation,

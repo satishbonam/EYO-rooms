@@ -65,7 +65,7 @@ class PaymentMethodDetail extends Component {
                     <form>
                       <div class="row">
                         <div class="col-6">
-                          <label for="inputAddress">Name</label>
+                          <label for="inputName">Name</label>
                           <input
                             type="text"
                             class="form-control"
@@ -83,7 +83,7 @@ class PaymentMethodDetail extends Component {
                           />
                         </div>
                         <div class="col-6 mt-3">
-                          <label for="inputAddress">Mobile Number</label>
+                          <label for="inputMobile">Mobile Number</label>
                           <input
                             name="mobile"
                             onChange={handleChange}

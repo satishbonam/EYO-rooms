@@ -377,11 +377,13 @@ export const hotelBillingDataRequest = (payload) => (dispatch) => {
 
 // hotel recommendation
 export const hotelRecommendationDataRequest = (payload) => (dispatch) => {
-  console.log("hotel recommendation calling...", payload);
+  console.log("hotel recommendation calling...", typeof payload.hotel_id);
   dispatch(hotelRecommendationRequest());
 
   return axios
-    .get("/recommendations?" + payload, {})
+    .post("/recommendations?" + payload.params, {
+      hotel_id: Number(payload.hotel_id),
+    })
     .then((data) => {
       console.log(data);
       dispatch(hotelRecommendationSuccess(data));
