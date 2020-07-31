@@ -4,7 +4,7 @@ import Card from "../../helperComponent/Card";
 import GoogleMap from "../../helperComponent/ShowMap";
 import { hotelListingDataRequest } from "../../../redux/authentication/actions";
 import { connect } from "react-redux";
-import AutocompleteForm from "../../home/AutocompleteForm";
+// import AutocompleteForm from "../../home/AutocompleteForm";
 
 class ContentSection extends Component {
   constructor(props) {
@@ -38,10 +38,7 @@ class ContentSection extends Component {
 
     return (
       <div className="col-9">
-        <ContentHeader handleToggle={this.handleMapView}  />
-        <AutocompleteForm/>
-        {hotelData && hotelData.status && hotelData.data.map((ele) => <Card data={ele} key={ele.name} />)}
-        {/* <ContentHeader /> */}
+        <ContentHeader handleToggle={this.handleMapView} />
         <div className="col-12 d-flex" style={{ ...this.state.divStyle }}>
           <div className={mapCardClass} style={{ ...scroll }}>
             {hotelData && hotelData.status && hotelData.data.map((ele, index) => <Card data={ele} key={index} mapView={mapView} />)}
@@ -50,6 +47,7 @@ class ContentSection extends Component {
             <GoogleMap />
           </div>
         </div>
+        {/* <AutocompleteForm/> */}
       </div>
     );
   }

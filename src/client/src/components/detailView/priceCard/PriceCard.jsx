@@ -33,7 +33,11 @@ import {
 // import DateRangePicker from "react-bootstrap-daterangepicker";
 // import "bootstrap/dist/css/bootstrap.css";
 // import "bootstrap-daterangepicker/daterangepicker.css";
-import { hotelEntityDataRequest, hotelBillingDataRequest, hotelReviewDataRequest } from "../../../redux/authentication/actions";
+import {
+  hotelEntityDataRequest,
+  hotelBillingDataRequest,
+  hotelReviewDataRequest,
+} from "../../../redux/authentication/actions";
 import { connect } from "react-redux";
 
 class PriceCard extends Component {
@@ -42,7 +46,7 @@ class PriceCard extends Component {
     this.state = {
       inputStart: "01/08/2020",
       inputFinish: "02/08/2020",
-      checked:true
+      checked: true,
     };
   }
 
@@ -52,44 +56,56 @@ class PriceCard extends Component {
       inputFinish: picker.endDate.format("DD/MM/YYYY"),
     });
     const { rooms, selected } = this.props.billingData;
-    const { offer,id,no_of_guests,no_of_rooms} = selected
-    const {inputStart,inputFinish} = this.state
-    const {hotelId,hotelBillingDataRequest} = this.props
-     hotelBillingDataRequest({
-      hotel_id:hotelId,
-      room_id:id,
-      check_in:inputStart,
-      check_out:inputFinish,
+    const { offer, id, no_of_guests, no_of_rooms } = selected;
+    const { inputStart, inputFinish } = this.state;
+    const { hotelId, hotelBillingDataRequest } = this.props;
+    hotelBillingDataRequest({
+      hotel_id: hotelId,
+      room_id: id,
+      check_in: inputStart,
+      check_out: inputFinish,
       no_of_guests,
       no_of_rooms,
-      membership: offer.membership
-    })
+      membership: offer.membership,
+    });
     // console.log(picker.startDate, start, end, label);
   };
-  
-  handleChange=()=>{
+
+  handleChange = () => {
     const { rooms, selected } = this.props.billingData;
-    const { offer,id,no_of_guests,no_of_rooms} = selected
-    const {inputStart,inputFinish} = this.state
-    const {hotelId,hotelBillingDataRequest} = this.props
-     hotelBillingDataRequest({
-      hotel_id:hotelId,
-      room_id:id,
-      check_in:inputStart,
-      check_out:inputFinish,
+    const { offer, id, no_of_guests, no_of_rooms } = selected;
+    const { inputStart, inputFinish } = this.state;
+    const { hotelId, hotelBillingDataRequest } = this.props;
+    hotelBillingDataRequest({
+      hotel_id: hotelId,
+      room_id: id,
+      check_in: inputStart,
+      check_out: inputFinish,
       no_of_guests,
       no_of_rooms,
-      membership: !offer.membership
-    })
-  }
+      membership: !offer.membership,
+    });
+  };
   render() {
     console.log(this.state);
     if (this.props.billingData) {
       const { rooms, selected } = this.props.billingData;
-      const { actual_price, check_in, check_out, discount, discount_price, id, no_of_guests, no_of_rooms, offer, type, size } = selected;
+      const {
+        actual_price,
+        check_in,
+        check_out,
+        discount,
+        discount_price,
+        id,
+        no_of_guests,
+        no_of_rooms,
+        offer,
+        type,
+        size,
+      } = selected;
       const { hotelId } = this.props;
       console.log(hotelId, "id");
-      const {handleChange}  = this
+      const { handleChange } = this;
       return (
         <div className="col-5 mt-4 " id={styles.cardContainer}>
           <div className="row sticky-top">
@@ -111,8 +127,18 @@ class PriceCard extends Component {
                   </div>
                   <div id={styles.perNight}>inclusive of all taxes</div>
                 </div>
-                <div className="d-flex justify-content-around" id={styles.SecduleContainer}>
-                  <DateRangePicker autoUpdateInput={false} startDate={this.state.inputStart} endDate={this.state.inputFinish} locale={{ format: "DD/MM/YYYY" }} onApply={this.handleEvent} autoApply={true}>
+                <div
+                  className="d-flex justify-content-around"
+                  id={styles.SecduleContainer}
+                >
+                  <DateRangePicker
+                    autoUpdateInput={false}
+                    startDate={this.state.inputStart}
+                    endDate={this.state.inputFinish}
+                    locale={{ format: "DD/MM/YYYY" }}
+                    onApply={this.handleEvent}
+                    autoApply={true}
+                  >
                     <div>
                       <span>{check_in}</span>
                       <span>-</span>
@@ -126,10 +152,17 @@ class PriceCard extends Component {
                     </span>
                   </div>
                 </div>
-                <div className="d-flex justify-content-between" id={styles.SecduleContainer}>
+                <div
+                  className="d-flex justify-content-between"
+                  id={styles.SecduleContainer}
+                >
                   <div>
                     <span>
-                      <FontAwesomeIcon icon={faDoorClosed} color="#f0f0f0" size="sm" />
+                      <FontAwesomeIcon
+                        icon={faDoorClosed}
+                        color="#f0f0f0"
+                        size="sm"
+                      />
                     </span>
                     <span className="ml-2">{type}</span>
                   </div>
@@ -143,13 +176,17 @@ class PriceCard extends Component {
                   <div>
                     <div>
                       <span>
-                        <FontAwesomeIcon icon={faTags} color="#f5a623" size="sm" />
+                        <FontAwesomeIcon
+                          icon={faTags}
+                          color="#f5a623"
+                          size="sm"
+                        />
                       </span>
                       <span id={styles.coupon}>Apply offers</span>
                     </div>
                   </div>
-                  <div onClick={()=>handleChange()}>
-                    <input  type="checkbox" checked={offer.membership}/>
+                  <div onClick={() => handleChange()}>
+                    <input type="checkbox" checked={offer.membership} />
                     <span id={styles.moreOffer}>membership</span>
                   </div>
                 </div>
@@ -158,7 +195,9 @@ class PriceCard extends Component {
                     <div id={styles.totalPrice}>Savings</div>
                   </div>
                   <div>
-                    <span id={styles.actualPrice}>₹{offer && offer.savings}</span>
+                    <span id={styles.actualPrice}>
+                      ₹{offer && offer.savings}
+                    </span>
                   </div>
                 </div>
                 <div className="d-flex justify-content-between mt-4">
@@ -172,7 +211,9 @@ class PriceCard extends Component {
                 </div>
                 <div className="mt-5">
                   <button>
-                    <Link to={`/entity/${hotelId}/payment`}>Continue to Book</Link>
+                    <Link to={`/entity/${hotelId}/payment`}>
+                      Continue to Book
+                    </Link>
                   </button>
                 </div>
                 <div className="mt-2" id={styles.policy}>
@@ -180,7 +221,10 @@ class PriceCard extends Component {
                   <div className="mt-3">Cancellation Policy</div>
                   <div>Follow safety measures advised at the hotel</div>
                   <div>
-                    <span className="text-secondary mt-3">By proceeding, you agree to our</span> Guest Policies.
+                    <span className="text-secondary mt-3">
+                      By proceeding, you agree to our
+                    </span>{" "}
+                    Guest Policies.
                   </div>
                 </div>
               </div>
@@ -203,9 +247,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  hotelEntityDataRequest: (payload) => dispatch(hotelEntityDataRequest(payload)),
-  hotelBillingDataRequest: (payload) => dispatch(hotelBillingDataRequest(payload)),
-  hotelReviewDataRequest: (payload) => dispatch(hotelReviewDataRequest(payload)),
+  hotelEntityDataRequest: (payload) =>
+    dispatch(hotelEntityDataRequest(payload)),
+  hotelBillingDataRequest: (payload) =>
+    dispatch(hotelBillingDataRequest(payload)),
+  hotelReviewDataRequest: (payload) =>
+    dispatch(hotelReviewDataRequest(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PriceCard);

@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import styles from "./DetailViewYourRoom.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faStar, faCheckCircle, faFan, faTv, faBed } from "@fortawesome/free-solid-svg-icons";
-import { faStar ,faCheckCircle, faFan,  faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking,faThermometerEmpty, faChair, faTv, faSoap} from "@fortawesome/free-solid-svg-icons"
+import { faStar ,faCheckCircle, faFan,  faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking,faThermometerEmpty, faChair, faTv, faSoap, faBold, faBone, faDotCircle, faTags, faPen} from "@fortawesome/free-solid-svg-icons"
 import {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} from "../../../redux/authentication/actions"
 import {connect} from "react-redux"
 
@@ -37,12 +37,72 @@ import {connect} from "react-redux"
       membership: offer.membership
     })
   }
+
   
+  findFontawesome=(ele)=>{
+    let fa = [faStar,faPen,faTags ,faCheckCircle, faFan,  faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking,faThermometerEmpty, faChair, faTv, faSoap]
+    switch(ele){
+      case "faFan":
+        return faFan
+      case "faWifi":
+        return faWifi
+      case "faFire":
+        return faFire
+      case "faTv":
+        return faTv
+      case "faBreadSlice":
+        return faBreadSlice
+      case "faToilet":
+        return faToilet
+      case "faHotTub":
+        return faHotTub
+      case "faParking":
+        return faParking
+      case "faSoap":
+        return faSoap
+      case "faBed":
+        return faBed
+      case "faCheese":
+        return faCheese
+      case "faHandHoldingWater":
+        return faHandHoldingWater
+      case "faChair":
+        return faChair
+      case "faThermometerEmpty":
+        return faThermometerEmpty
+      case "faMoneyBillWave":
+        return faMoneyBillWave
+      case "faMusic":
+        return faMusic
+      case "faHandHoldingWater":
+        return faHandHoldingWater
+      case "faBone":
+        return faBone
+      case "faRestroom":
+        return faRestroom
+      case "faStar":
+        return faStar
+      case "faDoorClosed":
+        return this.faDoorClosed
+      case "faPen":
+        return faPen
+      case "faTags":
+        return faTags
+      case "faCheckCircle":
+        return faCheckCircle
+      case "faPersonBooth":
+        return faPersonBooth
+      default:
+        return faDotCircle
+    }
+  }
+  
+
   render() {
     const {data,selected,entityData} = this.props
     console.log(data,selected)
     const {showFontIcon}  =this.state
-    const {handleChange} = this
+    const {handleChange,findFontawesome} = this
     console.log(data,selected)
     console.log(entityData,"amenities")
     let amenities = []
@@ -91,7 +151,7 @@ import {connect} from "react-redux"
                      !showFontIcon && amenities && amenities.map(ele=>(
                     <span>
                       <span>
-                        <FontAwesomeIcon icon={faFan} color="#000" size="sm" />
+                        <FontAwesomeIcon icon={findFontawesome(ele.frot_awsome)} color="#000" size="sm" />
                       </span>
                       <span>{ele.label}</span>
                     </span>
@@ -99,9 +159,10 @@ import {connect} from "react-redux"
                     }
                     {
                      showFontIcon && amenities2 && amenities2.map(ele=>(
+                        
                     <span>
                       <span>
-                        <FontAwesomeIcon icon={faFan} color="#000" size="sm" />
+                        <FontAwesomeIcon icon={findFontawesome(ele.frot_awsome)} color="#000" size="sm" />
                       </span>
                       <span>{ele.label}</span>
                     </span>

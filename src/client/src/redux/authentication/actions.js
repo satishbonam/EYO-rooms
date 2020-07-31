@@ -55,6 +55,10 @@ import {
   HOTEL_BILLING_REQUEST,
   HOTEL_BILLING_SUCCESS,
   HOTEL_BILLING_FAILURE,
+  //razorpay request
+  RAZORPAY_REQUEST_FAILURE,
+  RAZORPAY_REQUEST_REQUEST,
+  RAZORPAY_REQUEST_SUCCESS,
 } from "./actionTypes";
 
 // import axiosInstance from "../../utils/axiosInterceptor";
@@ -167,9 +171,8 @@ export const hotelListingFailure = () => ({
 // hotel id
 export const hotelId = (payload) => ({
   type: HOTEL_ID,
-  payload
-})
-
+  payload,
+});
 
 // hotel enity
 export const hotelEntityRequest = (payload) => ({
@@ -255,7 +258,7 @@ export const loginRequestWithPassword = (payload) => (dispatch) => {
 export const loginRequestWithOtp = (payload) => (dispatch) => {
   dispatch(saveUserMobile(payload));
   dispatch(loginOtpRequest());
-  console.log(payload);
+  console.log(payload, "otp request");
   return axios
     .post("/login/otp_generate", {
       ...payload,
@@ -308,17 +311,16 @@ export const logoutRequest = (payload) => (dispatch) => {
 export const hotelListingDataRequest = (payload) => (dispatch) => {
   console.log("hotel listing calling...", payload);
   dispatch(hotelListingRequest());
-  
+
   return axios
-  .get("/hotel_listing?" + payload, {})
-  .then((data) => {
+    .get("/hotel_listing?" + payload, {})
+    .then((data) => {
       console.log(data);
       dispatch(hotelListingSuccess(data));
     })
     .catch((error) => dispatch(hotelListingFailure(error)));
-  };
-  
-  
+};
+
 export const handleFilterAmenities = (payload) => ({
   type: HANDLE_FILTER_AMENITIES,
   payload,
@@ -355,11 +357,11 @@ export const hotelEntityDataRequest = (payload) => (dispatch) => {
   dispatch(hotelEntityRequest());
   dispatch(hotelId(payload));
   return axios
-  .post("/entity", {
-    hotel_id: payload,
-  })
-  .then((data) => dispatch(hotelEntitySuccess(data)))
-  .catch((error) => dispatch(hotelEntityFailure(error)));
+    .post("/entity", {
+      hotel_id: payload,
+    })
+    .then((data) => dispatch(hotelEntitySuccess(data)))
+    .catch((error) => dispatch(hotelEntityFailure(error)));
 };
 // hotel billing  data
 export const hotelBillingDataRequest = (payload) => (dispatch) => {
@@ -401,4 +403,38 @@ export const hotelReviewDataRequest = (payload) => (dispatch) => {
       dispatch(hotelReviewSuccess(data));
     })
     .catch((error) => dispatch(hotelReviewFailure(error)));
+};
+
+//razor pay request
+export const razorpayRequestRequest = (payload) => ({
+  type: RAZORPAY_REQUEST_REQUEST,
+  payload,
+});
+
+export const razorpayRequestSuccess = (payload) => ({
+  type: RAZORPAY_REQUEST_SUCCESS,
+  payload,
+});
+
+export const razorpayRequestFailure = (payload) => ({
+  type: RAZORPAY_REQUEST_FAILURE,
+  payload,
+});
+
+export const razorpayRequest = (payload) => (dispatch) => {
+  dispatch(razorpayRequestRequest());
+  return axios
+    .post(
+      "/payment_request",
+      {
+        ...payload.data,
+      },
+      {
+        headers: {
+          auth_token: payload.token,
+        },
+      }
+    )
+    .then((res) => dispatch(razorpayRequestSuccess(res)))
+    .catch((err) => dispatch(razorpayRequestFailure(err)));
 };
