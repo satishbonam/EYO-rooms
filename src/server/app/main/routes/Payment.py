@@ -9,6 +9,7 @@ from ..utils.token_validate import token_validate
 
 # POST route to register
 class PaymentInitialize(Resource):
+    print("called payment")
     parser = reqparse.RequestParser()
     parser.add_argument('check_in', type=str, required=True)
     parser.add_argument('check_out', type=str, required=True)
@@ -20,7 +21,8 @@ class PaymentInitialize(Resource):
 
     @classmethod
     def post(self):
-        auth_token = request.headers.get('auth_token')
+        auth_token = request.headers.get('x-amzn-oidc-data')
+        print(auth_token,"auth_token")
         payload = PaymentInitialize.parser.parse_args()
 
         flag_token, token_data = token_validate(auth_token)

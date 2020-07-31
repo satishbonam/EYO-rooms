@@ -15,6 +15,7 @@ import uuid
 
 # initialize payment
 def payment_initialize(payload, token_data):
+    print(token_data,"token data")
     try:
         new_transc = TransactionsModel(hotel_id=payload.get('hotel_id', "hotel_id"),
                                        room_id=payload.get(
