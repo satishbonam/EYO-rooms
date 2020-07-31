@@ -45,6 +45,10 @@
 #amenityWrapper > span {
   margin: 3px;
 }
+#amenityWrapper > a {
+  text-decoration: none;
+  color: #000;
+}
 #facility > span {
   margin: 3px;
   font-weight: 600;
@@ -70,27 +74,18 @@
   color: #222;
   border-radius: 2px !important;
   border: 1px solid #222;
+  padding: 9px;
+  text-decoration: none;
 }
 #greenButton {
   background-color: #1ab64f;
   color: #fff;
   border-radius: 2px !important;
   border: 1px solid #1ab64f;
+  /* padding: 9px; */
+  padding: 9px 4px 9px 4px;
 }
 
-button {
-  margin: 5px;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 1.25em;
-  text-align: center;
-  outline: none;
-  padding: 8px 16px;
-  width: auto;
-  -ms-flex-item-align: end;
-  align-self: flex-end;
-  white-space: nowrap;
-}
 #price {
   margin-right: 8px;
   font-size: 24px;

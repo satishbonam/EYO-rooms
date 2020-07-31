@@ -154,6 +154,7 @@ def hotel_listing(params):
         temp_dict = {}
         temp_dict['hotel_id']=hotel['id']
         temp_dict['name'] = hotel['name']
+        temp_dict['hotel_id'] = hotel['id']
         temp_dict['created_at'] = str(hotel['created_at'])
         temp_dict['updated_at'] = str(hotel['updated_at'])
         temp_dict['rooms'] = json.loads(hotel['rooms'])

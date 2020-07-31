@@ -41,6 +41,8 @@ import {
   HOTEL_ENTITY_REQUEST,
   HOTEL_ENTITY_SUCCESS,
   HOTEL_ENTITY_FAILURE,
+  // hotel id
+  HOTEL_ID,
   // hotel recommendation
   HOTEL_RECOMMENDATION_REQUEST,
   HOTEL_RECOMMENDATION_SUCCESS,
@@ -53,6 +55,10 @@ import {
   HOTEL_BILLING_REQUEST,
   HOTEL_BILLING_SUCCESS,
   HOTEL_BILLING_FAILURE,
+  //razorpay request
+  RAZORPAY_REQUEST_FAILURE,
+  RAZORPAY_REQUEST_REQUEST,
+  RAZORPAY_REQUEST_SUCCESS,
 } from "./actionTypes";
 
 // import axiosInstance from "../../utils/axiosInterceptor";
@@ -162,7 +168,11 @@ export const hotelListingSuccess = (payload) => ({
 export const hotelListingFailure = () => ({
   type: GET_HOTEL_LISTING_FAILURE,
 });
-
+// hotel id
+export const hotelId = (payload) => ({
+  type: HOTEL_ID,
+  payload,
+});
 
 // hotel enity
 export const hotelEntityRequest = (payload) => ({
@@ -248,7 +258,7 @@ export const loginRequestWithPassword = (payload) => (dispatch) => {
 export const loginRequestWithOtp = (payload) => (dispatch) => {
   dispatch(saveUserMobile(payload));
   dispatch(loginOtpRequest());
-  console.log(payload);
+  console.log(payload, "otp request");
   return axios
     .post("/login/otp_generate", {
       ...payload,
@@ -345,6 +355,7 @@ export const handleParams = (payload) => ({
 export const hotelEntityDataRequest = (payload) => (dispatch) => {
   console.log("hotel entity calling...", payload);
   dispatch(hotelEntityRequest());
+  dispatch(hotelId(payload));
   return axios
     .post("/entity", {
       hotel_id: payload,
@@ -366,7 +377,7 @@ export const hotelBillingDataRequest = (payload) => (dispatch) => {
 
 // hotel recommendation
 export const hotelRecommendationDataRequest = (payload) => (dispatch) => {
-  console.log("hotel recomendation calling...", payload);
+  console.log("hotel recommendation calling...", payload);
   dispatch(hotelRecommendationRequest());
 
   return axios
@@ -392,4 +403,38 @@ export const hotelReviewDataRequest = (payload) => (dispatch) => {
       dispatch(hotelReviewSuccess(data));
     })
     .catch((error) => dispatch(hotelReviewFailure(error)));
+};
+
+//razor pay request
+export const razorpayRequestRequest = (payload) => ({
+  type: RAZORPAY_REQUEST_REQUEST,
+  payload,
+});
+
+export const razorpayRequestSuccess = (payload) => ({
+  type: RAZORPAY_REQUEST_SUCCESS,
+  payload,
+});
+
+export const razorpayRequestFailure = (payload) => ({
+  type: RAZORPAY_REQUEST_FAILURE,
+  payload,
+});
+
+export const razorpayRequest = (payload) => (dispatch) => {
+  dispatch(razorpayRequestRequest());
+  return axios
+    .post(
+      "/payment_request",
+      {
+        ...payload.data,
+      },
+      {
+        headers: {
+          auth_token: payload.token,
+        },
+      }
+    )
+    .then((res) => dispatch(razorpayRequestSuccess(res)))
+    .catch((err) => dispatch(razorpayRequestFailure(err)));
 };

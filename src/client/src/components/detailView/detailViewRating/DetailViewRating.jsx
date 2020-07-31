@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import styles from "./DetailViewRating.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle, faStar } from "@fortawesome/free-solid-svg-icons";
+// import { faCheckCircle, faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar,faCheckCircle , faFan, faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking, faThermometerEmpty, faChair, faTv, faSoap} from "@fortawesome/free-solid-svg-icons"
 import {hotelReviewDataRequest} from "../../../redux/authentication/actions"
 import {connect} from "react-redux"
 
@@ -9,7 +10,7 @@ import {connect} from "react-redux"
   
   componentDidMount=()=>{
     const {hotelReviewDataRequest,billingData,entityData} = this.props
-      hotelReviewDataRequest(10)
+      hotelReviewDataRequest(this.props.id)
   }
   render() {
         const {review}  =this.props

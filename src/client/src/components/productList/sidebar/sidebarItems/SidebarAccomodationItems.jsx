@@ -8,19 +8,54 @@ import { connect } from "react-redux";
 import { build } from "search-params";
 
 class SidebarAccomodationItems extends React.Component {
-  handleRoute = () => {
-    const {
-      hotelListingDataRequest,
-      hotelData,
-      handleParams,
-      params,
-    } = this.props;
-    hotelData && handleParams();
-    setTimeout(() => {
-      this.props.url.history.push(build(params));
-      hotelListingDataRequest(build(params));
-    }, 50);
-  };
+  componentDidUpdate(prevProps) {
+    const { hotelListingDataRequest, hotelData } = this.props;
+    var para = {};
+    hotelData &&
+      hotelData.filters.category.forEach((item) => {
+        if (item.status && para.category) {
+          para["category"].push(item.label);
+        } else if (item.status) {
+          para["category"] = [item.label];
+        }
+      });
+    hotelData &&
+      hotelData.filters.collections.forEach((item) => {
+        if (item.status && para.collections) {
+          para["collections"].push(item.label);
+        } else if (item.status) {
+          para["collections"] = [item.label];
+        }
+      });
+    hotelData &&
+      hotelData.filters.accomodation_type.forEach((item) => {
+        if (item.status && para.accomodation_type) {
+          para["accomodation_type"].push(item.label);
+        } else if (item.status) {
+          para["accomodation_type"] = [item.label];
+        }
+      });
+    hotelData &&
+      hotelData.filters.amenities.forEach((item) => {
+        if (item.status && para.amenities) {
+          para["amenities"].push(item.label);
+        } else if (item.status) {
+          para["amenities"] = [item.label];
+        }
+      });
+    hotelData &&
+      hotelData.filters.checkin_features.forEach((item) => {
+        if (item.status && para.checkin_features) {
+          para["checkin_features"].push(item.label);
+        } else if (item.status) {
+          para["checkin_features"] = [item.label];
+        }
+      });
+    if (prevProps.value !== this.props.value) {
+      this.props.url.history.push(build(para));
+      hotelListingDataRequest(build(para));
+    }
+  }
   render() {
     const {
       label,
@@ -29,7 +64,6 @@ class SidebarAccomodationItems extends React.Component {
       hotelListingDataRequest,
       value,
     } = this.props;
-    const { handleRoute } = this;
     return (
       <>
         <div>
@@ -38,9 +72,6 @@ class SidebarAccomodationItems extends React.Component {
               id={styles.check}
               type="checkbox"
               checked={value}
-              onClick={() => {
-                handleRoute();
-              }}
               aria-label="Checkbox for following text input"
             />
             <span>{label}</span>

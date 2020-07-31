@@ -1,14 +1,39 @@
 import React, { Component } from "react";
 import styles from "./DetailViewAmenities.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFan, faWifi, faBed } from "@fortawesome/free-solid-svg-icons";
+// import { faFan, faWifi, faBed } from "@fortawesome/free-solid-svg-icons";
+import { faStar , faFan, faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faCheese, faRestroom,faParking,faBed, faThermometerEmpty, faChair, faTv, faSoap} from "@fortawesome/free-solid-svg-icons"
 import {connect} from "react-redux"
 
  class DetailViewAmenities extends Component {
 
+  constructor(props){
+    super(props);
+    this.state={
+      showFontIcon:false
+    }
+  }
+
    render() {
-  
+    let amenities = []
+    let amenities2 = []
     const {entityData} = this.props
+    const {showFontIcon}  =this.state
+    console.log(entityData,"amenities")
+    if(entityData){
+
+       entityData.amenities.map(ele=>{
+        if(ele.status){
+          amenities2.push(ele)
+        }
+        if(amenities.length<6){
+          amenities.push(ele)
+
+        }
+
+      })
+    }
+    console.log(amenities, typeof faFan)
     // let amenities = []
     // if(entityData){
 
@@ -25,26 +50,30 @@ import {connect} from "react-redux"
             Amenities
           </div>
           <div className="d-flex justify-content-around flex-wrap" id={styles.container}>
-            {[
-              { icon: faFan, tool: "AC" },
-              { icon: faWifi, tool: "Wifi" },
-              { icon: faBed, tool: "AC" },
-              { icon: faBed, tool: "AC" },
-              { icon: faFan, tool: "AC" },
-              { icon: faWifi, tool: "AC" },
-            ].map((elem) => {
+          {!showFontIcon && amenities && amenities.map((elem) => {
               console.log(elem);
               return (
                 <div className="col-4">
                   <span>
-                    <FontAwesomeIcon icon={elem.icon} color="#000" size="lg" />
+                    <FontAwesomeIcon icon={elem.frot_awsome} color="#000" size="lg" />
                   </span>
-                  <span>{elem.tool}</span>
+                  <span>{elem.label}</span>
+                </div>
+              );
+            })}
+          {showFontIcon && amenities2 && amenities2.map((elem) => {
+              console.log(elem);
+              return (
+                <div className="col-4">
+                  <span>
+                    <FontAwesomeIcon icon={faFan} color="#000" size="lg" />
+                  </span>
+                  <span>{elem.label}</span>
                 </div>
               );
             })}
           </div>
-          <div className=" mx-4 mt-3" id={styles.showMore}>
+          <div onClick={()=>this.setState({showFontIcon:!showFontIcon})} className=" mx-4 mt-3" id={styles.showMore}>
             Show More
           </div>
         </div>

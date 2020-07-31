@@ -32,6 +32,11 @@
   margin-right: 8px;
   color: #6d787d;
 }
+#discPrice {
+  margin-right: 8px;
+  color: #df2020;
+  font-weight: bold;
+}
 #whiteBtn {
   font-size: 12px;
   font-weight: bold;

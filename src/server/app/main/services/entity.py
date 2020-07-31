@@ -105,6 +105,7 @@ def bill_data(data):
 
     if select:
         selected['id'] = select['id']
+        selected['hotel_id'] = data['hotel_id']
         selected['type'] = select['type']
         selected['size'] = select['size']
         selected['rooms_available'] = select['max_rooms']
@@ -129,6 +130,7 @@ def bill_data(data):
 
     else:
         selected['id'] = default['id']
+        selected['hotel_id'] = data['hotel_id']
         selected['type'] = select['type']
         selected['size'] = select['size']
         selected['rooms_available'] = default['max_rooms']
