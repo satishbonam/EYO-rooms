@@ -82,6 +82,7 @@ import {connect} from "react-redux"
                     
                     {
                      !showFontIcon && amenities && amenities.map(ele=>(
+
                     <span>
                       <span>
                         <FontAwesomeIcon icon={faFan} color="#000" size="sm" />
@@ -100,7 +101,7 @@ import {connect} from "react-redux"
                     </span>
                       ))
                     }
-                    <span onClick={()=>this.setState({showFontIcon:!showFontIcon})}>+ {!showFontIcon?amenities2.length - amenities.length+"more":"less"}</span>
+                    <span onClick={()=>this.setState({showFontIcon:!showFontIcon})}> {!showFontIcon?amenities2.length - amenities.length+"more +":"-less"}</span>
                   </div>
                 </div>
               </div>

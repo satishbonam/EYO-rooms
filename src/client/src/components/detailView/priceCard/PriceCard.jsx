@@ -49,8 +49,21 @@ class PriceCard extends Component {
   handleEvent = (event, picker) => {
     this.setState({
       inputStart: picker.startDate.format("DD/MM/YYYY"),
-      inputFinish: picker.endDate.format("DD//MM/YYYY"),
+      inputFinish: picker.endDate.format("DD/MM/YYYY"),
     });
+    const { rooms, selected } = this.props.billingData;
+    const { offer,id,no_of_guests,no_of_rooms} = selected
+    const {inputStart,inputFinish} = this.state
+    const {hotelId,hotelBillingDataRequest} = this.props
+     hotelBillingDataRequest({
+      hotel_id:hotelId,
+      room_id:id,
+      check_in:inputStart,
+      check_out:inputFinish,
+      no_of_guests,
+      no_of_rooms,
+      membership: offer.membership
+    })
     // console.log(picker.startDate, start, end, label);
   };
   
@@ -101,9 +114,9 @@ class PriceCard extends Component {
                 <div className="d-flex justify-content-around" id={styles.SecduleContainer}>
                   <DateRangePicker autoUpdateInput={false} startDate={this.state.inputStart} endDate={this.state.inputFinish} locale={{ format: "DD/MM/YYYY" }} onApply={this.handleEvent} autoApply={true}>
                     <div>
-                      <span>Wed, 12 Aug</span>
+                      <span>{check_in}</span>
                       <span>-</span>
-                      <span>Thu, 10 Sep</span>
+                      <span>{check_out}</span>
                     </div>
                   </DateRangePicker>
                   <div id={styles.divide}></div>

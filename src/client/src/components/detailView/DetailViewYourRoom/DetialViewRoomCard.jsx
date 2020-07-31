@@ -65,11 +65,11 @@ import {connect} from "react-redux"
         <div className="px-4">
           <div className="card mb-3 w-100">
             <div className="d-flex" id={styles.header}>
-              <div className="m-0">
+              {/* <div className="m-0">
                 <span id={styles.off}>
                   <FontAwesomeIcon icon={faStar} color="yellow" size="sm" />
                 </span>
-              </div>
+              </div> */}
               {/* {
                 selected.id === data.id?(
                     
@@ -84,10 +84,6 @@ import {connect} from "react-redux"
                 <div className="card-body p-4">
                   <span className="card-title m-0" id={styles.subHeading}>
                     {data.type}
-                  </span>
-                  <span>
-                    {" "}
-                    <FontAwesomeIcon icon={faCheckCircle} color="lightgreen" size="lg" />
                   </span>
                   <div id={styles.roomSize}>Room size: {data.size} sqft</div>
                   <div className="mt-5 ml-0">
@@ -111,7 +107,7 @@ import {connect} from "react-redux"
                     </span>
                       ))
                     }
-                    <span onClick={()=>this.setState({showFontIcon:!showFontIcon})}>+ {!showFontIcon?amenities2.length - amenities.length+"more":"less"}</span>
+                    <span onClick={()=>this.setState({showFontIcon:!showFontIcon})}> {!showFontIcon?amenities2.length - amenities.length+"more +":"-less"}</span>
                  
                   </div>
                 </div>
