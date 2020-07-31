@@ -29,7 +29,7 @@ import {
   HOTEL_ENTITY_FAILURE,
   // hotel id
   HOTEL_ID,
-  
+
   // hotel recommendation
   HOTEL_RECOMMENDATION_REQUEST,
   HOTEL_RECOMMENDATION_SUCCESS,
@@ -49,9 +49,16 @@ import {
   HANDLE_FILTER_CHECKIN,
   HANDLE_FILTER_COLLECTIONS,
   HANDLE_PARAMS,
+  //razorpay request
+  RAZORPAY_REQUEST_FAILURE,
+  RAZORPAY_REQUEST_REQUEST,
+  RAZORPAY_REQUEST_SUCCESS,
 } from "./actionTypes";
+import { element } from "prop-types";
+import { saveData } from "../authentication/localStorage";
 
 const initState = {
+  isAuth: false,
   isRequest: false,
   isOtp: false,
   isLogin: false,
@@ -67,12 +74,14 @@ const initState = {
   params: "",
   otpGenerate: false,
   hotelListData: undefined,
-  hotelId:undefined,
+  hotelId: undefined,
   entityData: undefined,
   billingData: undefined,
   review: undefined,
   recommendation: undefined,
-  
+  razor: undefined,
+  payment: false,
+  isloading: false,
 };
 
 const reducer = (state = initState, { type, payload }) => {
@@ -117,6 +126,7 @@ const reducer = (state = initState, { type, payload }) => {
         token: payload.token,
         user: payload.user_data,
         isLogin: payload.status,
+        isAuth: true,
       };
     case USER_LOGIN_PASS_FAILURE:
       return {
@@ -162,6 +172,7 @@ const reducer = (state = initState, { type, payload }) => {
         message: payload.msg,
         token: payload.token,
         user: payload.user_data,
+        isAuth: true,
       };
     case USER_OTP_VERIFY_FAILURE:
       return {
@@ -182,6 +193,7 @@ const reducer = (state = initState, { type, payload }) => {
         message: payload.msg,
         token: payload.token,
         user: payload.user_data,
+        isAuth: true,
       };
     case USER_OAUTH_FAILURE:
       return {
@@ -202,6 +214,7 @@ const reducer = (state = initState, { type, payload }) => {
         isLogout: payload.status,
         token: null,
         user: null,
+        isAuth: false,
       };
     case USER_LOGOUT_FAILURE:
       return {
@@ -222,6 +235,7 @@ const reducer = (state = initState, { type, payload }) => {
         isRequest: true,
       };
     case GET_HOTEL_LISTING_SUCCESS:
+      saveData("hotelListData", payload);
       return {
         ...state,
         isRequest: false,
@@ -240,7 +254,7 @@ const reducer = (state = initState, { type, payload }) => {
         isRequest: true,
       };
     case HOTEL_ENTITY_SUCCESS:
-      console.log(payload,"entity success");
+      console.log(payload, "entity success");
       return {
         ...state,
         isRequest: false,
@@ -252,12 +266,12 @@ const reducer = (state = initState, { type, payload }) => {
         isRequest: false,
         isError: true,
       };
-      // hotel id
-      case HOTEL_ID:
-        return {
+    // hotel id
+    case HOTEL_ID:
+      return {
         ...state,
-        hotelId:payload
-        };
+        hotelId: payload,
+      };
     // hotel bill data
     case HOTEL_BILLING_REQUEST:
       return {
@@ -277,18 +291,18 @@ const reducer = (state = initState, { type, payload }) => {
         isRequest: false,
         isError: true,
       };
-    // hotel recoomedation
+    // hotel recommendation
     case HOTEL_RECOMMENDATION_REQUEST:
       return {
         ...state,
         isRequest: true,
       };
     case HOTEL_RECOMMENDATION_SUCCESS:
-      console.log(payload,"recommendation")
+      console.log(payload, "recommendation data");
       return {
         ...state,
         isRequest: false,
-        recommendation: payload,
+        recommendation: payload.data,
       };
     case HOTEL_RECOMMENDATION_FAILURE:
       return {
@@ -302,8 +316,8 @@ const reducer = (state = initState, { type, payload }) => {
         ...state,
         isRequest: true,
       };
-      case HOTEL_REVIEW_SUCCESS:
-        console.log(payload);
+    case HOTEL_REVIEW_SUCCESS:
+      console.log(payload);
       return {
         ...state,
         isRequest: false,
@@ -404,24 +418,71 @@ const reducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         params: {
-          amenities: state.hotelListData.filters.amenities.map((item) =>
-            item.status ? item.label : ""
+          amenities: state.hotelListData.filters.amenities.reduce(
+            (result, item) => {
+              if (item.status) {
+                result.push(item.label);
+              }
+              return result;
+            },
+            []
           ),
-          collections: state.hotelListData.filters.collections.map((item) =>
-            item.status ? item.label : ""
+          collections: state.hotelListData.filters.collections.reduce(
+            (result, item) => {
+              if (item.status) {
+                result.push(item.label);
+              }
+              return result;
+            },
+            []
           ),
-          accomodation_type: state.hotelListData.filters.accomodation_type.map(
-            (item) => (item.status ? item.label : "")
+          accomodation_type: state.hotelListData.filters.accomodation_type.reduce(
+            (result, item) => {
+              if (item.status) {
+                result.push(item.label);
+              }
+              return result;
+            },
+            []
           ),
-          category: state.hotelListData.filters.category.map((item) =>
-            item.status ? item.label : ""
+          category: state.hotelListData.filters.category.reduce(
+            (result, item) => {
+              if (item.status) {
+                result.push(item.label);
+              }
+              return result;
+            },
+            []
           ),
-          checkin_features: state.hotelListData.filters.checkin_features.map(
-            (item) => (item.status ? item.label : "")
+          checkin_features: state.hotelListData.filters.checkin_features.reduce(
+            (result, item) => {
+              if (item.status) {
+                result.push(item.label);
+              }
+              return result;
+            },
+            []
           ),
         },
       };
+    case RAZORPAY_REQUEST_REQUEST:
+      return {
+        ...state,
+        isloading: true,
+      };
 
+    case RAZORPAY_REQUEST_SUCCESS:
+      return {
+        ...state,
+        razor: payload.data,
+        isloading: false,
+      };
+
+    case RAZORPAY_REQUEST_FAILURE:
+      return {
+        ...state,
+        isloading: false,
+      };
     default:
       return state;
   }

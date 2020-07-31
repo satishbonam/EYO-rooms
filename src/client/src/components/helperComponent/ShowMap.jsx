@@ -1,85 +1,77 @@
-import React, { Component } from "react";
-import { Map, InfoWindow, Marker, GoogleApiWrapper ,Polyline} from "google-maps-react";
 
-export class ShowMap extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showingInfoWindow: false,
-      activeMarker: {},
-      selectedPlace: {},
-    };
-  }
 
-  onMarkerClick = (props, marker, e) => {
-    this.setState({
-      selectedPlace: props,
-      activeMarker: marker,
-    });
-  };
+import React,{useState} from 'react'
+import {
+    withScriptjs,
+    withGoogleMap,
+    GoogleMap,
+    Marker,
+    InfoWindow
+  } from "react-google-maps";
 
-  renderTrucks = () => {
-    // if (this.props.list == undefined) {
-    //   return;
-    // }
-
-    return[
-      
-      <Marker
-      name={'Dolores park'}
-   title={'The marker`s title will appear as a tooltip.'}
-   onClick={(props, marker, e) => this.onMarkerClick(props, marker, e)} 
-      position={{lat: 37.759703, lng: -122.428093}} />,
-   
-        <Marker
-      title={'The marker`s title will appear as a tooltip.'}
-      onClick={(props, marker, e) => this.onMarkerClick(props, marker, e)} 
-      name={'SOMA'}
-      position={{lat: 37.778519, lng: -122.405640}} />,
-   
-        <Marker
-        onClick={(props, marker, e) => this.onMarkerClick(props, marker, e)} 
-      title={'The marker`s title will appear as a tooltip.'}
-      name={'SOncdsdjcsnd'}
-      position={{lat: 42.02, lng: -77.01}} />
-    ]
-  };
-  
-  render() {
-    
-   
-    var points = [
-        { lat: 42.02, lng: -77.01 },
-        { lat: 42.03, lng: -77.02 },
-        { lat: 41.03, lng: -77.04 },
-        { lat: 42.05, lng: -77.02 }
-    ]
-    var bounds = new this.props.google.maps.LatLngBounds();
-    for (var i = 0; i < points.length; i++) {
-      bounds.extend(points[i]);
+  var points = [
+    { lat: 19.155001, lng: 72.849998, name:"hotel cacajaca", key:1 },
+    { lat: 15.2993, lng: 74.1240,name:"Juncus brachycarpus Engelm.",key:2},
+    { lat: 18.5408, lng: 73.8913,name:"Gossypianthus lanuginosus (Poir.) Moq.",key:3 },
+    { lat:12.9141, lng: 74.8560,name:"Bartonia paniculata (Michx.) Muhl." ,key:4}
+]
+class map extends React.Component{
+    constructor(props){
+        super(props)
+        this.state={
+            select:null
+        }
     }
-    return (
-      <Map google={this.props.google} zoom={5} >
-      {/* <Marker name="amresh location" position={{ lat: 19.07, lng: 72.20 }} />
-      <Marker name="amresh location" position={{ lat: 16.07, lng: 72.20 }} /> */}
-    
-        {/* <Marker onClick={(props, marker, e) => this.onMarkerClick(props, marker, e)} name={"Current location"} /> */}
-        {this.renderTrucks()}
-        {/* <Polyline
-          path={triangleCoords}
-          strokeColor="#0000FF"
-          strokeOpacity={0.8}
-          strokeWeight={2} /> */}
-        <InfoWindow onClose={this.onInfoWindowClose}>
-          <div>
-            <h1>{this.state.selectedPlace.name}</h1>
-          </div>
-        </InfoWindow>
-      </Map>
-    );
-  }
-}
+    render(){
 
-export default GoogleApiWrapper({
-  apiKey: "AIzaSyCcS0j7hDpSs-F4xDi2q6AkTD_sWqECR9M",
-})(ShowMap);
+        return(
+            <>
+                <GoogleMap
+                    defaultZoom={5}
+                    defaultCenter={{ lat: 20.5937, lng: 78.9629 }}>
+                        {
+                            points.map(ele=>(
+                                <Marker key={ele.key} position={{ lat: ele.lat, lng: ele.lng }}
+                                    onClick={()=>{
+                                        this.setState({select:ele})
+                                    }}
+                                    icon={{
+                                        url:"https://i.pinimg.com/600x315/5e/51/0c/5e510c69169756774ee36eea82da3a1a.jpg",
+                                        scaledSize:new window.google.maps.Size(40,40),
+                                    }}
+                                    // label="2000"
+                                />
+                            ))
+                        }
+                        {
+                            this.state.select && (
+                                <InfoWindow
+                                 position={{ lat: this.state.select.lat, lng: this.state.select.lng }}
+                                  onCloseClick={()=>this.setState({select:null})}>
+                                      <div>
+
+                                      <h2>{this.state.select.name}</h2>
+                                      <h6>{this.state.select.name}</h6>
+                                      </div>
+                                </InfoWindow>
+                            )
+                        }
+                </GoogleMap>
+            </>
+        )
+    }
+    
+}
+const WrappedMap = withScriptjs(withGoogleMap(map))
+
+export default function Map(){
+    return(
+        <>
+            <WrappedMap googleMapURL={"https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyCcS0j7hDpSs-F4xDi2q6AkTD_sWqECR9M"}
+            loadingElement={<div style={{ height: `100%` }} />}
+            containerElement={<div style={{ height: `600px` }} />}
+            mapElement={<div style={{ height: `100%` }} />}
+            />
+        </>
+    )
+}

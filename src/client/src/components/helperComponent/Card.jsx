@@ -4,14 +4,23 @@ import MapViewCss from "./CardSmall.module.css";
 import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar, faCheckCircle, faWifi, faCarBattery } from "@fortawesome/free-solid-svg-icons";
-import { hotelListingDataRequest, hotelEntityDataRequest, hotelBillingDataRequest, hotelReviewDataRequest } from "../../redux/authentication/actions";
+import { faStar ,faCheckCircle, faFan,  faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking,faThermometerEmpty, faChair, faTv, faSoap, faBold, faBone, faDotCircle, faTags, faPen} from "@fortawesome/free-solid-svg-icons"
+import {
+  hotelListingDataRequest,
+  hotelEntityDataRequest,
+  hotelBillingDataRequest,
+  hotelReviewDataRequest,
+} from "../../redux/authentication/actions";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 class Card extends Component {
   changeToEntityPage = (id) => {
     console.log("calling entity page", id);
-    const { hotelEntityDataRequest, hotelBillingDataRequest, history } = this.props;
+    const {
+      hotelEntityDataRequest,
+      hotelBillingDataRequest,
+      history,
+    } = this.props;
 
     // hotelEntityDataRequest(id)
 
@@ -28,15 +37,72 @@ class Card extends Component {
     // <Redirect to={`/entity/${id}`}/>
   };
 
+  
+  findFontawesome=(ele)=>{
+    let fa = [faStar,faPen,faTags ,faCheckCircle, faFan,  faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking,faThermometerEmpty, faChair, faTv, faSoap]
+    switch(ele){
+      case "faFan":
+        return faFan
+      case "faWifi":
+        return faWifi
+      case "faFire":
+        return faFire
+      case "faTv":
+        return faTv
+      case "faBreadSlice":
+        return faBreadSlice
+      case "faToilet":
+        return faToilet
+      case "faHotTub":
+        return faHotTub
+      case "faParking":
+        return faParking
+      case "faSoap":
+        return faSoap
+      case "faBed":
+        return faBed
+      case "faCheese":
+        return faCheese
+      case "faHandHoldingWater":
+        return faHandHoldingWater
+      case "faChair":
+        return faChair
+      case "faThermometerEmpty":
+        return faThermometerEmpty
+      case "faMoneyBillWave":
+        return faMoneyBillWave
+      case "faMusic":
+        return faMusic
+      case "faHandHoldingWater":
+        return faHandHoldingWater
+      case "faBone":
+        return faBone
+      case "faRestroom":
+        return faRestroom
+      case "faStar":
+        return faStar
+      case "faDoorClosed":
+        return this.faDoorClosed
+      case "faPen":
+        return faPen
+      case "faTags":
+        return faTags
+      case "faCheckCircle":
+        return faCheckCircle
+      case "faPersonBooth":
+        return faPersonBooth
+      default:
+        return faDotCircle
+    }
+  }
+  
   render() {
     let { data, mapView } = this.props;
 
     let increseCol = mapView ? "col-12" : "col-5";
     let styles = mapView ? MapViewCss : nonMapViewCss;
 
-    console.log(mapView);
-
-    const { changeToEntityPage } = this;
+    const { changeToEntityPage,findFontawesome } = this;
     console.log(data, "amenities");
     let amenities = [];
     if (data) {
@@ -54,20 +120,44 @@ class Card extends Component {
           <div class="row no-gutters" id={styles.imgContainer}>
             <div class="col-md-4  h-100">
               {" "}
-              <img src={data.images.large[0]} class="card-img" alt="..." id={styles.imageFit} />
+              <img
+                src={data.images.large[0]}
+                class="card-img"
+                alt="..."
+                id={styles.imageFit}
+              />
             </div>
-            <div className=" col-1 d-flex flex-column justify-content-center h-100" id={styles.hide}>
+            <div
+              className=" col-1 d-flex flex-column justify-content-center h-100"
+              id={styles.hide}
+            >
               <>
-                <img src={data.images.thumb[0]} class="card-img p-1 h-25" alt="" />
-                <img src={data.images.thumb[1]} class="card-img p-1 h-25" alt="" />
-                <img src={data.images.thumb[2]} class="card-img p-1 h-25" alt="" />
-                <img src={data.images.thumb[3]} class="card-img p-1 h-25" alt="" />
+                <img
+                  src={data.images.thumb[0]}
+                  class="card-img p-1 h-25"
+                  alt=""
+                />
+                <img
+                  src={data.images.thumb[1]}
+                  class="card-img p-1 h-25"
+                  alt=""
+                />
+                <img
+                  src={data.images.thumb[2]}
+                  class="card-img p-1 h-25"
+                  alt=""
+                />
+                <img
+                  src={data.images.thumb[3]}
+                  class="card-img p-1 h-25"
+                  alt=""
+                />
               </>
             </div>
             <div class="col-md-7">
               <div class="card-body" id={styles.cardBody}>
                 <h5 class="card-title m-0 text-truncate" id={styles.cardTitle}>
-                  {data.name}
+                  <a target="_blank" href={`/entity/${data.hotel_id}`}>{data.name}</a>
                 </h5>
                 <div id={styles.location}> kolkata , kolkata </div>
                 <div className="mt-3">
@@ -87,7 +177,7 @@ class Card extends Component {
                     amenities.map((ele) => (
                       <div id={styles.amenityWrapper}>
                         <span>
-                          <FontAwesomeIcon icon={faCheckCircle} />
+                          <FontAwesomeIcon icon={findFontawesome(ele.frot_awsome)} />
                         </span>
                         <a target="_blank" href={`/entity/${data.hotel_id}`}>
                           {ele.label}
@@ -108,16 +198,32 @@ class Card extends Component {
                 <div className="d-flex mt-3 ">
                   <div className={` ${increseCol} p-0`}>
                     <div>
-                      <span id={styles.price}>&#8377; {Math.floor(data.rooms[0].actual_price) - Math.floor((Number(data.rooms[0].actual_price) * Number(data.rooms[0].discount_percentage)) / 100)}</span>
-                      <span id={styles.slashPrice}>&#8377; {Math.floor(data.rooms[0].actual_price)}</span>
-                      <span id={styles.percentage}>{Math.floor(data.rooms[0].discount_percentage)} % off</span>
+                      <span id={styles.price}>
+                        &#8377;{" "}
+                        {Math.floor(data.rooms[0].actual_price) -
+                          Math.floor(
+                            (Number(data.rooms[0].actual_price) *
+                              Number(data.rooms[0].discount_percentage)) /
+                              100
+                          )}
+                      </span>
+                      <span id={styles.slashPrice}>
+                        &#8377; {Math.floor(data.rooms[0].actual_price)}
+                      </span>
+                      <span id={styles.percentage}>
+                        {Math.floor(data.rooms[0].discount_percentage)} % off
+                      </span>
                     </div>
                     <div id={styles.pernight}>per room per night</div>
                     {/* <div id={styles.pernight}>Checking feature-{data.checkin_features}</div> */}
                   </div>
                   <div className="col-7 d-flex align-items-center justify-content-around p-0">
                     <span className="col-6">
-                      <a target="_blank" href={`/entity/${data.hotel_id}`} id={styles.whilteButton}>
+                      <a
+                        target="_blank"
+                        href={`/entity/${data.hotel_id}`}
+                        id={styles.whilteButton}
+                      >
                         View details
                       </a>
                     </span>
@@ -143,9 +249,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  hotelEntityDataRequest: (payload) => dispatch(hotelEntityDataRequest(payload)),
-  hotelBillingDataRequest: (payload) => dispatch(hotelBillingDataRequest(payload)),
-  hotelReviewDataRequest: (payload) => dispatch(hotelReviewDataRequest(payload)),
+  hotelEntityDataRequest: (payload) =>
+    dispatch(hotelEntityDataRequest(payload)),
+  hotelBillingDataRequest: (payload) =>
+    dispatch(hotelBillingDataRequest(payload)),
+  hotelReviewDataRequest: (payload) =>
+    dispatch(hotelReviewDataRequest(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Card);

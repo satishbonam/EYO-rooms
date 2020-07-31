@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styles from "./DetailViewAmenities.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faFan, faWifi, faBed } from "@fortawesome/free-solid-svg-icons";
-import { faStar , faFan, faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faCheese, faRestroom,faParking,faBed, faThermometerEmpty, faChair, faTv, faSoap} from "@fortawesome/free-solid-svg-icons"
+import { faStar ,faCheckCircle, faFan,  faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking,faThermometerEmpty, faChair, faTv, faSoap, faBold, faBone, faDotCircle, faTags, faPen} from "@fortawesome/free-solid-svg-icons"
 import {connect} from "react-redux"
 
  class DetailViewAmenities extends Component {
@@ -14,11 +14,72 @@ import {connect} from "react-redux"
     }
   }
 
+   
+  findFontawesome=(ele)=>{
+    let fa = [faStar,faPen,faTags ,faCheckCircle, faFan,  faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking,faThermometerEmpty, faChair, faTv, faSoap]
+    switch(ele){
+      case "faFan":
+        return faFan
+      case "faWifi":
+        return faWifi
+      case "faFire":
+        return faFire
+      case "faTv":
+        return faTv
+      case "faBreadSlice":
+        return faBreadSlice
+      case "faToilet":
+        return faToilet
+      case "faHotTub":
+        return faHotTub
+      case "faParking":
+        return faParking
+      case "faSoap":
+        return faSoap
+      case "faBed":
+        return faBed
+      case "faCheese":
+        return faCheese
+      case "faBed":
+        return faBed
+      case "faHandHoldingWater":
+        return faHandHoldingWater
+      case "faChair":
+        return faChair
+      case "faThermometerEmpty":
+        return faThermometerEmpty
+      case "faMoneyBillWave":
+        return faMoneyBillWave
+      case "faMusic":
+        return faMusic
+      case "faHandHoldingWater":
+        return faHandHoldingWater
+      case "faBone":
+        return faBone
+      case "faRestroom":
+        return faRestroom
+      case "faStar":
+        return faStar
+      case "faDoorClosed":
+        return this.faDoorClosed
+      case "faPen":
+        return faPen
+      case "faTags":
+        return faTags
+      case "faCheckCircle":
+        return faCheckCircle
+      case "faPersonBooth":
+        return faPersonBooth
+      default:
+        return faDotCircle
+    }
+  }
    render() {
     let amenities = []
     let amenities2 = []
     const {entityData} = this.props
     const {showFontIcon}  =this.state
+    const {findFontawesome} =  this
     console.log(entityData,"amenities")
     if(entityData){
 
@@ -55,7 +116,7 @@ import {connect} from "react-redux"
               return (
                 <div className="col-4">
                   <span>
-                    <FontAwesomeIcon icon={elem.frot_awsome} color="#000" size="lg" />
+                    <FontAwesomeIcon icon={findFontawesome(elem.frot_awsome)} color="#000" size="lg" />
                   </span>
                   <span>{elem.label}</span>
                 </div>
@@ -66,7 +127,7 @@ import {connect} from "react-redux"
               return (
                 <div className="col-4">
                   <span>
-                    <FontAwesomeIcon icon={faFan} color="#000" size="lg" />
+                    <FontAwesomeIcon icon={findFontawesome(elem.frot_awsome)} color="#000" size="lg" />
                   </span>
                   <span>{elem.label}</span>
                 </div>
@@ -74,7 +135,7 @@ import {connect} from "react-redux"
             })}
           </div>
           <div onClick={()=>this.setState({showFontIcon:!showFontIcon})} className=" mx-4 mt-3" id={styles.showMore}>
-            Show More
+            {showFontIcon?"Show Less":"Show More"}
           </div>
         </div>
       </div>
