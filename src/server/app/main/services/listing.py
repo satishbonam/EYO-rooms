@@ -11,7 +11,7 @@ import random
 
 
 # register user if email is not present in the users table
-def hotel_listing(params):
+def hotel_listing(params, payload):
     per_page = 20
 
     amenities_filter = [{"status": False, "label": "Parking_Facility"}, {"status": False, "label": "Seating_Area"}, {"status": False, "label": "Balcony"}, {"status": False, "label": "Attached_Bathroom"}, {"status": False, "label": "AC"}, {"status": False, "label": "Complimentary_BreakFast"}, {"status": False, "label": "Banquet_Hall"}, {"status": False, "label": "Hot_Water"}, {"status": False, "label": "Card_Payment"}, {"status": False, "label": "Kitchen"}, {
@@ -30,10 +30,10 @@ def hotel_listing(params):
         "status": False, "label": "Pay later"}, {"status": False, "label": "Pay Online"}]
 
     query = "select (6371*acos(cos(radians(%f))*cos(radians(l.lat))*cos(radians(l.lon)-radians(%f))+sin(radians(%f))*sin(radians(l.lat)))) as dist,l.address as ad,l.lat as lat,l.lon as lon,h.id as id,h.name as name,h.images->>'$[0]' as images,h.rooms->>'$' as rooms,created_at,updated_at, h.collection->>'$[0]' as collection,c.name as category,c.tag as tag,h.accomodation_type->>'$[0]' as acc_type,h.amenities as amenities,checkin_features as c_f from hotel as h join category as c on h.category_id=c.id left join locations as l on h.id=l.hotel_id  WHERE" % (
-        float(params['lat']), float(params['lon']), float(params['lat']))
+        float(payload['lat']), float(payload['lon']), float(payload['lat']))
 
     count_query = "select  count(h.id) from hotel as h join category as c on h.category_id = c.id left join locations as l on h.id = l.hotel_id where (6371*acos(cos(radians(%f))*cos(radians(l.lat))*cos(radians(l.lon)-radians(%f))+sin(radians(%f))*sin(radians(l.lat))))<20 AND" % (
-        float(params['lat']), float(params['lon']), float(params['lat']))
+        float(payload['lat']), float(payload['lon']), float(payload['lat']))
 
     if params.get('collections'):
         collections = params.getlist("collections")
@@ -93,8 +93,8 @@ def hotel_listing(params):
 
     query = query + ' having dist<20'
 
-    if params.get('page'):
-        page = params.get('page')
+    if payload.get('page'):
+        page = payload.get('page')
         offset = (int(page)-1)*per_page
         current_items = int(page)*per_page
         query = query + " Limit %d, %d" % (offset, per_page)
@@ -173,10 +173,8 @@ def hotel_listing(params):
             amenities_arr.append(
                 {"label": item[0], "status": item[1], "frot_awsome": front_awsome[item[0]]})
         temp_dict['amenities'] = amenities_arr
-        temp_dict['location'] = {"lat": params.get('lat') or "12.9716", "lon":params('lon') or "77.5946"}
-        temp_dict['page'] = params.get('page') or 1
         temp_dict['checkin_features'] = hotel['c_f']
         temp_dict['tags'] = tags[int(math.floor(random.random() * 3))]
         data.append(temp_dict)
 
-    return data, total_pages, total_results, params.get('page') or 1, filters
+    return data, total_pages, total_results, payload.get('page') or 1, filters

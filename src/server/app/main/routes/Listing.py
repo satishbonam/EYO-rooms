@@ -10,11 +10,16 @@ from ..utils.token_validate import token_validate
 # POST route to register
 class HotelListing(Resource):
     parser = reqparse.RequestParser()
+    parser.add_argument("lat", type=str, required=True)
+    parser.add_argument("lon", type=str, required=True)
+    parser.add_argument("page", type=int, required=False)
 
     @classmethod
-    def get(self):
+    def post(self):
         params = request.args
-        data, total_pages, total_results, page, filters = hotel_listing(params)
+        data_post = HotelListing.parser.parse_args()
+        data, total_pages, total_results, page, filters = hotel_listing(
+            params, data_post)
 
         if data:
             return {"status": True, "page": page, "data": data, "total_pages": total_pages, "total_results": total_results, "filters": filters}
