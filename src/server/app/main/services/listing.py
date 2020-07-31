@@ -173,6 +173,8 @@ def hotel_listing(params):
             amenities_arr.append(
                 {"label": item[0], "status": item[1], "frot_awsome": front_awsome[item[0]]})
         temp_dict['amenities'] = amenities_arr
+        temp_dict['location'] = {"lat": params.get('lat') or "12.9716", "lon":params('lon') or "77.5946"}
+        temp_dict['page'] = params.get('page') or 1
         temp_dict['checkin_features'] = hotel['c_f']
         temp_dict['tags'] = tags[int(math.floor(random.random() * 3))]
         data.append(temp_dict)
