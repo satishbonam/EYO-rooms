@@ -185,4 +185,4 @@ const mapDispatchToProps = (dispatch) => ({
 // //   hotelReviewDataRequest: (payload) => dispatch(hotelReviewDataRequest(payload)),
 // });
 
-// export default connect(mapStateToProps, mapDispatchToProps)(AutocompleteForm);
+export default connect(mapStateToProps, mapDispatchToProps)(AutocompleteForm);

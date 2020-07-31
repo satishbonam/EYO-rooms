@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faStar } from "@fortawesome/free-solid-svg-icons";
@@ -27,14 +26,6 @@ import styles from "./DetailViewRecomandation.module.css";
 import { hotelRecommendationDataRequest } from "../../../redux/authentication/actions";
 import { build } from "search-params";
 import { connect } from "react-redux";
-<<<<<<< HEAD
-
-class DetailViewRecomandation extends Component {
-  componentDidMount = () => {
-    const { hotelRecommendationDataRequest, hotelData } = this.props;
-    var para = {};
-    console.log(hotelData, "hotel data");
-=======
 import { loadData } from "../../../redux/authentication/localStorage";
 
 class DetailViewRecomandation extends Component {
@@ -42,7 +33,6 @@ class DetailViewRecomandation extends Component {
     const { hotelRecommendationDataRequest } = this.props;
     const hotelData = loadData("hotelListData");
     var para = {};
->>>>>>> f05356895c1854d5e5e01970a7767d0539be31c0
     hotelData &&
       hotelData.filters.category.forEach((item) => {
         if (item.status && para.category) {
@@ -84,31 +74,23 @@ class DetailViewRecomandation extends Component {
         }
       });
     let params = build(para);
-<<<<<<< HEAD
     console.log(params);
-=======
->>>>>>> f05356895c1854d5e5e01970a7767d0539be31c0
     hotelRecommendationDataRequest(params);
   };
 
   render() {
     console.log(this.props.recommendation);
-<<<<<<< HEAD
-=======
 
-    const {recommendation} =  this.props
-    let recommend = []
-    if(recommendation){
-      recommendation.map(ele=>{
-       
-        if(recommend.length<4){
-          recommend.push(ele)
+    const { recommendation } = this.props;
+    let recommend = [];
+    if (recommendation) {
+      recommendation.map((ele) => {
+        if (recommend.length < 4) {
+          recommend.push(ele);
         }
-
-      })
+      });
     }
-    
->>>>>>> f05356895c1854d5e5e01970a7767d0539be31c0
+
     return (
       <div className="container-fluid my-5">
         <div className=" col-12 ">
@@ -118,57 +100,41 @@ class DetailViewRecomandation extends Component {
             </div>
           </div>
           <div className="row">
-            {recommend && recommend.map((elem) =>
-             {
-               
-              return (
-                <div className="col-3 p-0" style={{ paddingLeft: "5px" }}>
-                  <div className="card w-100">
-                    <img className="card-img-top" src="/images/bed.webp" />
-                    <div className="card-body">
-                      <h2 className="text-truncate" id={styles.heading}>
-                        {elem.name}
-                      </h2>
-                      <p
-                        className="card-text text-truncate"
-                        id={styles.subHeading}
-                      >
-                        {/* {elem.subHeading} */}
-                      </p>
-                      <div>
-                        <span id={styles.icon}>
-                          {elem.rating}
-                          <span>
-                            <FontAwesomeIcon
-                              icon={elem.icon}
-                              color="#fff"
-                              size="sm"
-                            />
+            {recommend &&
+              recommend.map((elem) => {
+                return (
+                  <div className="col-3 p-0" style={{ paddingLeft: "5px" }}>
+                    <div className="card w-100">
+                      <img className="card-img-top" src="/images/bed.webp" />
+                      <div className="card-body">
+                        <h2 className="text-truncate" id={styles.heading}>
+                          {elem.name}
+                        </h2>
+                        <p className="card-text text-truncate" id={styles.subHeading}>
+                          {/* {elem.subHeading} */}
+                        </p>
+                        <div>
+                          <span id={styles.icon}>
+                            {elem.rating}
+                            <span>
+                              <FontAwesomeIcon icon={elem.icon} color="#fff" size="sm" />
+                            </span>
                           </span>
-                        </span>
-                        <span id={styles.review}>
-                          ({elem.no_of_ratings} • reviews) Very Good
-                        </span>
-                      </div>
-                      <div>
-                        <span id={styles.price}>₹ {Math.floor(elem.rooms[0].actual_price) -
-                          Math.floor(
-                            (Number(elem.rooms[0].actual_price) *
-                              Number(elem.rooms[0].discount_percentage)) /
-                              100
-                          )}
-                        </span>
-                        <span id={styles.slashed}>₹ {elem.rooms[0].actual_price}</span>
-                        <span id={styles.off}>{elem.rooms[0].discount_percentage} off</span>
-                      </div>
-                      <div id={styles.perNight}>
-                        <span>per room per night</span>{" "}
+                          <span id={styles.review}>({elem.no_of_ratings} • reviews) Very Good</span>
+                        </div>
+                        <div>
+                          <span id={styles.price}>₹ {Math.floor(elem.rooms[0].actual_price) - Math.floor((Number(elem.rooms[0].actual_price) * Number(elem.rooms[0].discount_percentage)) / 100)}</span>
+                          <span id={styles.slashed}>₹ {elem.rooms[0].actual_price}</span>
+                          <span id={styles.off}>{elem.rooms[0].discount_percentage} off</span>
+                        </div>
+                        <div id={styles.perNight}>
+                          <span>per room per night</span>{" "}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
         </div>
       </div>
@@ -187,18 +153,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-<<<<<<< HEAD
   hotelRecommendationDataRequest: (payload) => dispatch(hotelRecommendationDataRequest(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailViewRecomandation);
-=======
-  hotelRecommendationDataRequest: (payload) =>
-    dispatch(hotelRecommendationDataRequest(payload)),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(DetailViewRecomandation);
->>>>>>> f05356895c1854d5e5e01970a7767d0539be31c0

@@ -39,12 +39,6 @@ class ContentSection extends Component {
     return (
       <div className="col-9">
         <ContentHeader handleToggle={this.handleMapView} />
-<<<<<<< HEAD
-        {/* <AutocompleteForm /> */}
-        {hotelData && hotelData.status && hotelData.data.map((ele) => <Card data={ele} key={ele.name} />)}
-        {/* <ContentHeader /> */}
-=======
->>>>>>> f05356895c1854d5e5e01970a7767d0539be31c0
         <div className="col-12 d-flex" style={{ ...this.state.divStyle }}>
           <div className={mapCardClass} style={{ ...scroll }}>
             {hotelData && hotelData.status && hotelData.data.map((ele, index) => <Card data={ele} key={index} mapView={mapView} />)}

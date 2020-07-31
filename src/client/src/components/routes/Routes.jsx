@@ -39,7 +39,7 @@ export default class Routes extends Component {
           {/* <Route path="/loginotp" component={AuthBannerLoginOtp} /> */}
           {/* <Route path="/otpverify" component={AuthBannerOtpVerify} /> */}
           {/* <Route path="/signup" component={AuthBannerSignUp} /> */}
-          <Route path="/entity/:id/payment" exact component={PaymentMethodCard} />
+          <Route path="/entity/:id/payment" exact component={paymentMethod} />
         </Switch>
       </>
     );
