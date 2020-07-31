@@ -4,7 +4,6 @@ import math
 # type1-linear,type2-+10%,type3=+10%
 # 2-110,3-120
 def calculate_bill(membership, guests, rooms, price, discount, id):
-    print(rooms)
     price = float(price)
     discount = float(discount)
     total_cost = 0
@@ -16,7 +15,6 @@ def calculate_bill(membership, guests, rooms, price, discount, id):
             if guests > 1:
                 total_cost += price*(110/100.0)
                 guests -= 2
-                print(total_cost)
             else:
                 total_cost += (price)
                 guests -= 1
@@ -33,7 +31,6 @@ def calculate_bill(membership, guests, rooms, price, discount, id):
                 guests -= 1
 
     delta_price, dis_price = calPrice(total_cost, discount)
-    print(total_cost)
     if membership:
         savings, bill_price = calPrice(dis_price, 5)
         return math.floor(total_cost),  math.floor(bill_price),  math.floor(savings),  math.floor(((total_cost - bill_price) / total_cost) * 100)
@@ -43,6 +40,3 @@ def calculate_bill(membership, guests, rooms, price, discount, id):
 
 def calPrice(price, discount):
     return (discount/100.0)*price, price-(discount/100.0)*price
-
-
-print(calculate_bill(False, 3, 2, 100, 10, 3))

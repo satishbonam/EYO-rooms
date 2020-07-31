@@ -9,7 +9,11 @@ class DetailViewCarusel extends Component {
     
     if(this.props.entityData){
       const {entityData,billingData,review} = this.props
+<<<<<<< HEAD
       const {large} = entityData.images
+=======
+      const {medium} = entityData.images
+>>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
       console.log(entityData,billingData,review)
 
       return (
@@ -19,26 +23,45 @@ class DetailViewCarusel extends Component {
               <div className="carousel-inner">
                 <div className="carousel-item active ">
                   <div className="row">
+<<<<<<< HEAD
                     <img className="d-block" style={{ width: "45%" }} src={entityData?large[0]:"/images/bed.webp"} alt="First slide" />
   
                     <img className="d-block ml-1" style={{ width: "45%" }} src={entityData?large[1]:"/images/bed.webp"} alt="First slide" />
                     <img className="d-block ml-1" style={{ width: "9%" }} src={entityData?large[2]:"/images/bed.webp"} alt="First slide" />
+=======
+                    <img className="d-block" style={{ width: "45%" }} src={entityData?medium[0]:"/images/bed.webp"} alt="First slide" />
+  
+                    <img className="d-block ml-1" style={{ width: "45%" }} src={entityData?medium[1]:"/images/bed.webp"} alt="First slide" />
+                    <img className="d-block ml-1" style={{ width: "9%" }} src={entityData?medium[2]:"/images/bed.webp"} alt="First slide" />
+>>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
                   </div>
                 </div>
                 <div className="carousel-item ">
                   <div className="row">
                     <img className="d-block" style={{ width: "45%" }} src="/images/bed.webp" alt="First slide" />
   
+<<<<<<< HEAD
                     <img className="d-block ml-1" style={{ width: "45%" }} src={entityData?large[3]:"/images/bed.webp"} alt="First slide" />
                     <img className="d-block ml-1" style={{ width: "9%" }} src={entityData?large[4]:"/images/bed.webp"} alt="First slide" />
+=======
+                    <img className="d-block ml-1" style={{ width: "45%" }} src={entityData?medium[3]:"/images/bed.webp"} alt="First slide" />
+                    <img className="d-block ml-1" style={{ width: "9%" }} src={entityData?medium[4]:"/images/bed.webp"} alt="First slide" />
+>>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
                   </div>
                 </div>
                 <div className="carousel-item ">
                   <div className="row">
+<<<<<<< HEAD
                     <img className="d-block" style={{ width: "45%" }} src={entityData?large[5]:"/images/bed.webp"} alt="First slide" />
   
                     <img className="d-block ml-1" style={{ width: "45%" }} src="/images/bed.webp" alt="First slide" />
                     <img className="d-block ml-1" style={{ width: "9%" }} src="/images/bed.webp" alt="First slide" />
+=======
+                    <img className="d-block" style={{ width: "45%" }} src={entityData?medium[5]:"/images/bed.webp"} alt="First slide" />
+  
+                    <img className="d-block ml-1" style={{ width: "45%" }} src={entityData?medium[6]:"/images/bed.webp"} alt="First slide" />
+                    <img className="d-block ml-1" style={{ width: "9%" }} src={entityData?medium[7]:"/images/bed.webp"} alt="First slide" />
+>>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
                   </div>
                 </div>
               </div>

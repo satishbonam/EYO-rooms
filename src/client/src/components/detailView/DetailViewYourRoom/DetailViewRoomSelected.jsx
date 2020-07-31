@@ -1,5 +1,6 @@
 
 
+
 import React, { Component } from "react";
 import styles from "./DetailViewYourRoom.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,9 +10,14 @@ import {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} f
 import {connect} from "react-redux"
 
 
- class DetailViewRoomCard extends Component {
+ class DetailViewRoomSelected extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      showFontIcon:false
+    }
+  }
 
-<<<<<<< HEAD
   componentDidMount=()=>{
     const {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} = this.props
     // hotelEntityDataRequest(10)
@@ -28,41 +34,9 @@ import {connect} from "react-redux"
   }
   
   render() {
-    const {data,selected} = this.props
-    console.log(data)
-=======
-  constructor(props){
-    super(props);
-    this.state={
-      showFontIcon:false
-    }
-  }
-
-  componentDidMount=()=>{
-    const {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} = this.props
-    // hotelReviewDataRequest(10)
-  }
-  handleChange=(id)=>{
-    
-    const {data,selected,entityData,hotelId,hotelBillingDataRequest} = this.props
-    const {offer,check_in,check_out,no_of_rooms,no_of_guests} = selected
-    hotelEntityDataRequest(10)
-     hotelBillingDataRequest({
-      hotel_id:hotelId,
-      room_id:id,
-      check_in,
-      check_out,
-      no_of_guests,
-      no_of_rooms,
-      membership: offer.membership
-    })
-  }
-  
-  render() {
     const {data,selected,entityData} = this.props
-    console.log(data,selected)
+    const {actual_price,discount_price,discount,type,size} = selected
     const {showFontIcon}  =this.state
-    const {handleChange} = this
     console.log(data,selected)
     console.log(entityData,"amenities")
     let amenities = []
@@ -79,80 +53,40 @@ import {connect} from "react-redux"
 
       })
     }
->>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
     return (
       <>
         
         <div className="px-4">
           <div className="card mb-3 w-100">
             <div className="d-flex" id={styles.header}>
-<<<<<<< HEAD
               <div className="m-0">
                 <span id={styles.off}>
                   <FontAwesomeIcon icon={faStar} color="yellow" size="sm" />
                 </span>
               </div>
-              {
-=======
-              {/* <div className="m-0">
-                <span id={styles.off}>
-                  <FontAwesomeIcon icon={faStar} color="yellow" size="sm" />
-                </span>
-              </div> */}
-              {/* {
->>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
-                selected.id === data.id?(
-                    
-              <div>
-                <span id={styles.selected}>SELECTED CATEGORY</span>
-              </div>
-                ):""
-<<<<<<< HEAD
-              }
-=======
-              } */}
->>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
+              <span id={styles.selected}>SELECTED CATEGORY</span>
+              
             </div>
             <div className="row no-gutters">
               <div className="col-md-8">
                 <div className="card-body p-4">
                   <span className="card-title m-0" id={styles.subHeading}>
-                    {data.type}
+                    {type}
                   </span>
-<<<<<<< HEAD
                   <span>
                     {" "}
                     <FontAwesomeIcon icon={faCheckCircle} color="lightgreen" size="lg" />
                   </span>
-                  <div id={styles.roomSize}>Room size: {data.size} sqft</div>
+                  <div id={styles.roomSize}>Room size: {size} sqft</div>
                   <div className="mt-5 ml-0">
-=======
-                  <div id={styles.roomSize}>Room size: {data.size} sqft</div>
-                  <div className="mt-5 ml-0">
-                  {
+                    
+                    {
                      !showFontIcon && amenities && amenities.map(ele=>(
->>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
+
                     <span>
                       <span>
                         <FontAwesomeIcon icon={faFan} color="#000" size="sm" />
                       </span>
-<<<<<<< HEAD
-                      <span>AC</span>
-                    </span>
-                    <span>
-                      <span>
-                        <FontAwesomeIcon icon={faTv} color="#000" size="sm" />
-                      </span>
-                      <span>AC</span>
-                    </span>
-                    <span>
-                      <span>
-                        <FontAwesomeIcon icon={faBed} color="#000" size="sm" />
-                      </span>
-                      <span>AC</span>
-                    </span>
-                    <span>+ 18 more</span>
-=======
                       <span>{ele.label}</span>
                     </span>
                       ))
@@ -168,8 +102,6 @@ import {connect} from "react-redux"
                       ))
                     }
                     <span onClick={()=>this.setState({showFontIcon:!showFontIcon})}> {!showFontIcon?amenities2.length - amenities.length+"more +":"-less"}</span>
-                 
->>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
                   </div>
                 </div>
               </div>
@@ -179,36 +111,17 @@ import {connect} from "react-redux"
               <div className="col-md-12 border-top ">
                 <div className="d-flex justify-content-between p-2">
                   <div className="d-flex justify-content-between  align-items-center">
-            <span id={styles.price}>₹{data.actual_price}</span>
-<<<<<<< HEAD
-                    <span id={styles.slashPrice}>₹6378</span>
-            <span id={styles.discPrice}>disc. {data.discount_percentage}%</span>
+            <span id={styles.price}>₹{discount_price}</span>
+                <span id={styles.slashPrice}> ₹{actual_price}</span>
+            {/* <span id={styles.discPrice}>disc. {discount}%</span> */}
                   </div>
                   <div>
                     <button id={styles.whiteBtn}>
                       <span className="m-0">
-                        <FontAwesomeIcon icon={faCheckCircle} color={selected.id === data.id?"lightgreen":""} size="sm" />
+                        <FontAwesomeIcon icon={faCheckCircle} color={"lightgreen"} size="sm" />
                       </span>
-                      {
-                          selected.id === data.id?(
-
-                              <span>Selected</span>
-                          ):(
-                            <span>Select</span>
-                          )
-                      }
-=======
-                    {/* <span id={styles.slashPrice}>₹6378</span> */}
-            <span id={styles.discPrice}>disc. {data.discount_percentage}%</span>
-                  </div>
-                  <div>
-                    <button onClick={()=>handleChange(data.id)} id={styles.whiteBtn}>
-                      <span className="m-0">
-                        <FontAwesomeIcon icon={faCheckCircle} size="sm" />
-                      </span>
-                     
-                          <span>Select</span>
->>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
+                      <span>Selected</span>
+                      
                     </button>
                   </div>
                 </div>
@@ -226,12 +139,7 @@ const mapStateToProps = (state) => ({
     user: state.auth.user,
     entityData: state.auth.entityData,
     review: state.auth.review,
-<<<<<<< HEAD
     billingData:state.auth.billingData
-=======
-    billingData:state.auth.billingData,
-    hotelId:state.auth.hotelId
->>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -240,4 +148,4 @@ const mapDispatchToProps = (dispatch) => ({
   hotelReviewDataRequest: (payload) => dispatch(hotelReviewDataRequest(payload)), 
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(DetailViewRoomCard);
+export default connect(mapStateToProps, mapDispatchToProps)(DetailViewRoomSelected);

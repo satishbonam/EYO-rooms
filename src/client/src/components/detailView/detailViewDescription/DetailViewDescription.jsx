@@ -2,16 +2,40 @@ import React, { Component } from "react";
 import styles from "./DetailViewDescription.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faStar } from "@fortawesome/free-solid-svg-icons";
+<<<<<<< HEAD
 import { faStar , faFan, faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking, faThermometerEmpty, faChair, faTv, faSoap} from "@fortawesome/free-solid-svg-icons"
 import {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} from "../../../redux/authentication/actions"
 import {connect} from "react-redux"
+=======
+import {
+  faStar,
+  faFan,
+  faToilet,
+  faPersonBooth,
+  faMusic,
+  faHandHoldingWater,
+  faMoneyBillWave,
+  faBreadSlice,
+  faWifi,
+  faFire,
+  faHotTub,
+  faBed,
+  faCheese,
+  faRestroom,
+  faParking,
+  faThermometerEmpty,
+  faChair,
+  faTv,
+  faSoap,
+} from "@fortawesome/free-solid-svg-icons";
+import { hotelEntityDataRequest, hotelBillingDataRequest, hotelReviewDataRequest } from "../../../redux/authentication/actions";
+import { connect } from "react-redux";
+>>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
 
- class DetailViewDescription extends Component {
+class DetailViewDescription extends Component {
+  componentDidMount = () => {
+    const { hotelEntityDataRequest, hotelBillingDataRequest, hotelReviewDataRequest } = this.props;
 
-
-  componentDidMount=()=>{
-    const {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} = this.props
-    hotelEntityDataRequest(10)
     //  hotelBillingDataRequest({
     //   hotel_id:"10",
     //   room_id:"1",
@@ -21,8 +45,9 @@ import {connect} from "react-redux"
     //   no_of_rooms:"2",
     //   membership: true
     // })
-    // hotelReviewDataRequest(10)
-  }
+    console.log(this.props.id, "data");
+    hotelEntityDataRequest(this.props.id);
+  };
   // shouldComponentUpdate=()=>{
   //   // const {hotelBillingDataRequest,entityData} = this.props
   //   const {entityData,billingData,review} = this.props
@@ -32,24 +57,29 @@ import {connect} from "react-redux"
   //   // },1000)
   // }
   render() {
+<<<<<<< HEAD
     const {entityData,billingData,review} = this.props
     console.log(entityData,billingData,review)
+=======
+    const { entityData, billingData, review } = this.props;
+    console.log(entityData, billingData, review);
+>>>>>>> c12255e6445dfba9cd4e53e7cf55eba92c43dd70
     return (
       <>
         <div className="col-12 px-3">
           <div className="d-flex justify-content-around " id={styles.headingContainer}>
             <h1 className="mx-4" id={styles.heading}>
-              {entityData?entityData.name:"loading.."}
+              {entityData ? entityData.name : "loading.."}
             </h1>
             <div className="mr-5 ">
               <div className="d-flex bg-success justify-content-around" id={styles.ratingIcons}>
-                <div>4.5</div>
+                <div>{entityData ? Number(entityData.rating).toFixed(1) : 0}</div>
                 <span>
                   <FontAwesomeIcon icon={faStar} color="#fff" size="sm" />
                 </span>
               </div>
               <div id={styles.rating}>
-                <span>176 Ratings</span>
+                <span>{entityData ? entityData.no_of_ratings : 0} Ratings</span>
               </div>
             </div>
           </div>
@@ -74,6 +104,7 @@ import {connect} from "react-redux"
             </div>
             <div>
               <span id={styles.DesDetail}>
+                {/* {entityData.description} */}
                 The COVID19 pandemic has made us all understand the importance of sanitization and not take it for granted. Rest assured, we have reached out to our partners to uphold the highest standards of sanitation and safety.
               </span>
             </div>
@@ -92,15 +123,15 @@ import {connect} from "react-redux"
 
 const mapStateToProps = (state) => ({
   token: state.auth.token,
-    user: state.auth.user,
-    entityData: state.auth.entityData,
-    review: state.auth.review
+  user: state.auth.user,
+  entityData: state.auth.entityData,
+  review: state.auth.review,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  hotelEntityDataRequest: (payload) => dispatch(hotelEntityDataRequest(payload)), 
-  hotelBillingDataRequest: (payload) => dispatch(hotelBillingDataRequest(payload)), 
-  hotelReviewDataRequest: (payload) => dispatch(hotelReviewDataRequest(payload)), 
+  hotelEntityDataRequest: (payload) => dispatch(hotelEntityDataRequest(payload)),
+  hotelBillingDataRequest: (payload) => dispatch(hotelBillingDataRequest(payload)),
+  hotelReviewDataRequest: (payload) => dispatch(hotelReviewDataRequest(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailViewDescription);
