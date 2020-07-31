@@ -3,6 +3,7 @@ import ContentHeader from "../contentSection/contentSectionHeader";
 import Card from "../../helperComponent/Card";
 import { hotelListingDataRequest } from "../../../redux/authentication/actions";
 import { connect } from "react-redux";
+import AutocompleteForm from "../../home/AutocompleteForm";
 
 class ContentSection extends Component {
   render() {
@@ -11,6 +12,7 @@ class ContentSection extends Component {
     return (
       <div className="col-9">
         <ContentHeader />
+        {/* <AutocompleteForm/> */}
         {hotelData && hotelData.status && hotelData.data.map((ele) => <Card data={ele} key={ele.name} />)}
       </div>
     );
