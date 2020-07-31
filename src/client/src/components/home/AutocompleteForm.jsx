@@ -1,4 +1,3 @@
-
 import React, { Component, useState} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar ,faLandmark, faFan, faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking, faThermometerEmpty, faChair, faTv, faSoap, faLocationArrow, faSearchLocation} from "@fortawesome/free-solid-svg-icons"
@@ -12,7 +11,7 @@ import PlacesAutocomplete,{
 
  const AutocompleteForm =()=> {
     const [address, setAddress] = useState("")
-    
+
   const handleChange = address => {
     setAddress(address);
 };
@@ -79,9 +78,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-//   hotelEntityDataRequest: (payload) => dispatch(hotelEntityDataRequest(payload)), 
-//   hotelBillingDataRequest: (payload) => dispatch(hotelBillingDataRequest(payload)), 
-//   hotelReviewDataRequest: (payload) => dispatch(hotelReviewDataRequest(payload)), 
+//   hotelEntityDataRequest: (payload) => dispatch(hotelEntityDataRequest(payload)),
+//   hotelBillingDataRequest: (payload) => dispatch(hotelBillingDataRequest(payload)),
+//   hotelReviewDataRequest: (payload) => dispatch(hotelReviewDataRequest(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AutocompleteForm);

@@ -4,10 +4,14 @@ import styles from "./contentSectionHeader.module.css";
 import { hotelListingDataRequest } from "../../../redux/authentication/actions";
 import { connect } from "react-redux";
 
+import Skelton from "../../helperComponent/SkeltonListing";
+
 class contentSectionHeader extends Component {
   render() {
-    if(this.props.hotelData){
-      const {total_results} = this.props.hotelData
+    console.log(this.props, "prosp in header");
+    let { handleToggle, hotelData } = this.props;
+    if (hotelData) {
+      let { total_results } = hotelData;
 
       return (
         <div className="container border-bottom p-3">
@@ -17,7 +21,7 @@ class contentSectionHeader extends Component {
             </div>
             <div className="col-3 d-flex justify-content-around align-items-center" id={styles.mapFilter}>
               <span>Map View</span>
-              <ToggleButton />
+              <ToggleButton handleToggle={handleToggle} />
             </div>
             <div className="col-3 d-flex  justify-content-around align-items-center p-0">
               <span>Sort By</span>
@@ -33,8 +37,9 @@ class contentSectionHeader extends Component {
           </div>
         </div>
       );
+    } else {
+      return <Skelton />;
     }
-    return "loading..."
   }
 }
 

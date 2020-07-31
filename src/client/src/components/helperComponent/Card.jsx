@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import styles from "./card.module.css";
+import nonMapViewCss from "./card.module.css";
+import MapViewCss from "./CardSmall.module.css";
 import { Link } from "react-router-dom";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faCheckCircle, faWifi, faCarBattery } from "@fortawesome/free-solid-svg-icons";
 import { hotelListingDataRequest, hotelEntityDataRequest, hotelBillingDataRequest, hotelReviewDataRequest } from "../../redux/authentication/actions";
@@ -27,42 +29,49 @@ class Card extends Component {
   };
 
   render() {
-    const { data } = this.props;
-    const { changeToEntityPage } = this;
-    console.log(data,"amenities")
-    let amenities = []
-    if(data){
+    let { data, mapView } = this.props;
 
-       data.amenities.map(ele=>{
-        if(ele.status){
-          if(amenities.length<3){
-            amenities.push(ele)
+    let increseCol = mapView ? "col-12" : "col-5";
+    let styles = mapView ? MapViewCss : nonMapViewCss;
+
+    console.log(mapView);
+
+    const { changeToEntityPage } = this;
+    console.log(data, "amenities");
+    let amenities = [];
+    if (data) {
+      data.amenities.map((ele) => {
+        if (ele.status) {
+          if (amenities.length < 3) {
+            amenities.push(ele);
           }
         }
-
-      })
+      });
     }
     return (
       <>
         <div class="card mt-5 border-0" id={styles.border}>
           <div class="row no-gutters" id={styles.imgContainer}>
             <div class="col-md-4  h-100">
+              {" "}
               <img src={data.images.large[0]} class="card-img" alt="..." id={styles.imageFit} />
             </div>
-            <div className="col-1 d-flex flex-column justify-content-center h-100">
-              <img src={data.images.thumb[0]} class="card-img p-1 h-25" alt="" />
-              <img src={data.images.thumb[1]} class="card-img p-1 h-25" alt="" />
-              <img src={data.images.thumb[2]} class="card-img p-1 h-25" alt="" />
-              <img src={data.images.thumb[3]} class="card-img p-1 h-25" alt="" />
+            <div className=" col-1 d-flex flex-column justify-content-center h-100" id={styles.hide}>
+              <>
+                <img src={data.images.thumb[0]} class="card-img p-1 h-25" alt="" />
+                <img src={data.images.thumb[1]} class="card-img p-1 h-25" alt="" />
+                <img src={data.images.thumb[2]} class="card-img p-1 h-25" alt="" />
+                <img src={data.images.thumb[3]} class="card-img p-1 h-25" alt="" />
+              </>
             </div>
             <div class="col-md-7">
               <div class="card-body" id={styles.cardBody}>
-                <h5 class="card-title m-0" id={styles.cardTitle}>
+                <h5 class="card-title m-0 text-truncate" id={styles.cardTitle}>
                   {data.name}
                 </h5>
                 <div id={styles.location}> kolkata , kolkata </div>
                 <div className="mt-3">
-                  <div className="col-5 p-0" id={styles.ratingContainer}>
+                  <div className="col-12 p-0" id={styles.ratingContainer}>
                     <span id={styles.rating}>
                       <span className="text-white">4.7</span>
                       <span>
@@ -74,18 +83,22 @@ class Card extends Component {
                   </div>
                 </div>
                 <div className="col-12 d-flex p-0 mt-2 " id={styles.amenity}>
-                  {
-                    amenities && amenities.map(ele=>(
+                  {amenities &&
+                    amenities.map((ele) => (
+                      <div id={styles.amenityWrapper}>
+                        <span>
+                          <FontAwesomeIcon icon={faCheckCircle} />
+                        </span>
+                        <a target="_blank" href={`/entity/${data.hotel_id}`}>
+                          {ele.label}
+                        </a>
+                      </div>
+                    ))}
                   <div id={styles.amenityWrapper}>
-                    <span>
-                      <FontAwesomeIcon icon={faCheckCircle} />
-                    </span>
-                    <a target="_blank" href={`/entity/${data.hotel_id}`}>{ele.label}</a>
+                    <a target="_blank" href={`/entity/${data.hotel_id}`}>
+                      + 11 more
+                    </a>
                   </div>
-                    ))
-                  }
-                  <div>
-                    <a target="_blank" href={`/entity/${data.hotel_id}`}>+ 11 more</a></div>
                 </div>
                 <div id={styles.facility}>
                   <span>Included BreakFast</span>
@@ -93,17 +106,17 @@ class Card extends Component {
                   <span>operated by Eyo</span>
                 </div>
                 <div className="d-flex mt-3 ">
-                  <div className="col-5 p-0">
+                  <div className={` ${increseCol} p-0`}>
                     <div>
-                      <span id={styles.price}>&#8377; {Math.floor(data.rooms[0].actual_price) - Math.floor((Number(data.rooms[0].actual_price)*Number(data.rooms[0].discount_percentage))/100)}</span>
+                      <span id={styles.price}>&#8377; {Math.floor(data.rooms[0].actual_price) - Math.floor((Number(data.rooms[0].actual_price) * Number(data.rooms[0].discount_percentage)) / 100)}</span>
                       <span id={styles.slashPrice}>&#8377; {Math.floor(data.rooms[0].actual_price)}</span>
                       <span id={styles.percentage}>{Math.floor(data.rooms[0].discount_percentage)} % off</span>
                     </div>
                     <div id={styles.pernight}>per room per night</div>
-                    <div id={styles.pernight}>Checking feature-{data.checkin_features}</div>
+                    {/* <div id={styles.pernight}>Checking feature-{data.checkin_features}</div> */}
                   </div>
                   <div className="col-7 d-flex align-items-center justify-content-around p-0">
-                    <span className="col-6" >
+                    <span className="col-6">
                       <a target="_blank" href={`/entity/${data.hotel_id}`} id={styles.whilteButton}>
                         View details
                       </a>
