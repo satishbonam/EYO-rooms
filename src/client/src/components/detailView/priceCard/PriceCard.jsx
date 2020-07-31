@@ -44,19 +44,48 @@ class PriceCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      inputStart: "01/01/2020",
-      inputFinish: "01/01/2018",
+      inputStart: "01/08/2020",
+      inputFinish: "02/08/2020",
+      checked: true,
     };
   }
 
   handleEvent = (event, picker) => {
     this.setState({
       inputStart: picker.startDate.format("DD/MM/YYYY"),
-      inputFinish: picker.endDate.format("DD//MM/YYYY"),
+      inputFinish: picker.endDate.format("DD/MM/YYYY"),
+    });
+    const { rooms, selected } = this.props.billingData;
+    const { offer, id, no_of_guests, no_of_rooms } = selected;
+    const { inputStart, inputFinish } = this.state;
+    const { hotelId, hotelBillingDataRequest } = this.props;
+    hotelBillingDataRequest({
+      hotel_id: hotelId,
+      room_id: id,
+      check_in: inputStart,
+      check_out: inputFinish,
+      no_of_guests,
+      no_of_rooms,
+      membership: offer.membership,
     });
     // console.log(picker.startDate, start, end, label);
   };
 
+  handleChange = () => {
+    const { rooms, selected } = this.props.billingData;
+    const { offer, id, no_of_guests, no_of_rooms } = selected;
+    const { inputStart, inputFinish } = this.state;
+    const { hotelId, hotelBillingDataRequest } = this.props;
+    hotelBillingDataRequest({
+      hotel_id: hotelId,
+      room_id: id,
+      check_in: inputStart,
+      check_out: inputFinish,
+      no_of_guests,
+      no_of_rooms,
+      membership: !offer.membership,
+    });
+  };
   render() {
     console.log(this.state);
     if (this.props.billingData) {
@@ -76,6 +105,7 @@ class PriceCard extends Component {
       } = selected;
       const { hotelId } = this.props;
       console.log(hotelId, "id");
+      const { handleChange } = this;
       return (
         <div className="col-5 mt-4 " id={styles.cardContainer}>
           <div className="row sticky-top">
@@ -110,9 +140,9 @@ class PriceCard extends Component {
                     autoApply={true}
                   >
                     <div>
-                      <span>Wed, 12 Aug</span>
+                      <span>{check_in}</span>
                       <span>-</span>
-                      <span>Thu, 10 Sep</span>
+                      <span>{check_out}</span>
                     </div>
                   </DateRangePicker>
                   <div id={styles.divide}></div>
@@ -155,7 +185,7 @@ class PriceCard extends Component {
                       <span id={styles.coupon}>Apply offers</span>
                     </div>
                   </div>
-                  <div>
+                  <div onClick={() => handleChange()}>
                     <input type="checkbox" checked={offer.membership} />
                     <span id={styles.moreOffer}>membership</span>
                   </div>

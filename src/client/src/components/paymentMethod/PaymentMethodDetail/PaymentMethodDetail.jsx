@@ -74,11 +74,11 @@ class PaymentMethodDetail extends Component {
                           />
                         </div>
                         <div class="col-6">
-                          <label for="inputAddress">Email</label>
+                          <label for="inputEmail">Email</label>
                           <input
                             type="email"
                             class="form-control"
-                            placeholder="Last name"
+                            placeholder="enter email"
                             required
                           />
                         </div>

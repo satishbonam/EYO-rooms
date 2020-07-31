@@ -49,8 +49,13 @@ import {
   HANDLE_FILTER_CHECKIN,
   HANDLE_FILTER_COLLECTIONS,
   HANDLE_PARAMS,
+  //razorpay request
+  RAZORPAY_REQUEST_FAILURE,
+  RAZORPAY_REQUEST_REQUEST,
+  RAZORPAY_REQUEST_SUCCESS,
 } from "./actionTypes";
 import { element } from "prop-types";
+import { saveData } from "../authentication/localStorage";
 
 const initState = {
   isAuth: false,
@@ -74,6 +79,9 @@ const initState = {
   billingData: undefined,
   review: undefined,
   recommendation: undefined,
+  razor: undefined,
+  payment: false,
+  isloading: false,
 };
 
 const reducer = (state = initState, { type, payload }) => {
@@ -227,6 +235,7 @@ const reducer = (state = initState, { type, payload }) => {
         isRequest: true,
       };
     case GET_HOTEL_LISTING_SUCCESS:
+      saveData("hotelListData", payload);
       return {
         ...state,
         isRequest: false,
@@ -456,7 +465,24 @@ const reducer = (state = initState, { type, payload }) => {
           ),
         },
       };
+    case RAZORPAY_REQUEST_REQUEST:
+      return {
+        ...state,
+        isloading: true,
+      };
 
+    case RAZORPAY_REQUEST_SUCCESS:
+      return {
+        ...state,
+        razor: payload.data,
+        isloading: false,
+      };
+
+    case RAZORPAY_REQUEST_FAILURE:
+      return {
+        ...state,
+        isloading: false,
+      };
     default:
       return state;
   }

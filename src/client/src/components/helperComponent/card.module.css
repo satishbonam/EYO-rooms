@@ -45,6 +45,10 @@
 #amenityWrapper > span {
   margin: 3px;
 }
+#amenityWrapper > a {
+  text-decoration: none;
+  color: #000;
+}
 #facility > span {
   margin: 3px;
   font-weight: 600;
@@ -71,6 +75,7 @@
   border-radius: 2px !important;
   border: 1px solid #222;
   padding: 9px;
+  text-decoration: none;
 }
 #greenButton {
   background-color: #1ab64f;

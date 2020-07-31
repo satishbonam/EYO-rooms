@@ -8,7 +8,8 @@ import { loginRequestWithOtp } from "../../redux/authentication/actions";
 
 class paymentMethod extends Component {
   render() {
-    const { isAuth, user, entityData, billingData } = this.props;
+    const { isAuth, user, entityData, billingData, history } = this.props;
+    console.log(billingData);
     return (
       <>
         <Navbar />
@@ -24,14 +25,15 @@ class paymentMethod extends Component {
                   username={user.name}
                   email={user.email}
                   mobile={user.mobile}
+                  history={history}
                 />
               )}
             </div>
             <div className="col-5  mt-5">
               <PaymentMethodCard
-                title={entityData.data.name}
-                rating={entityData.data.rating}
-                ratings={entityData.data.no_of_ratings}
+                title={entityData.name}
+                rating={entityData.rating}
+                ratings={entityData.no_of_ratings}
                 rooms={billingData.selected.no_of_rooms}
                 guests={billingData.selected.no_of_guests}
                 type={billingData.selected.type}

@@ -29,7 +29,7 @@ def add_resources(app):
     api.add_resource(BillData, '/bill_data')
     api.add_resource(Recommendations, '/recommendations')
     api.add_resource(Reviews, '/reviews')
-    api.add_resource(PaymentInitialize, '/payment')
+    api.add_resource(PaymentInitialize, '/payment_request')
 
 
 def register_blueprints(app):
