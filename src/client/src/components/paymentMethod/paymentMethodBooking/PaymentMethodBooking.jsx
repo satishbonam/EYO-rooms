@@ -121,7 +121,7 @@ const PaymentMethodBooking = (props) => {
                           },
                           {
                             headers: {
-                              auth_token: token,
+                              "x-amzn-oidc-data": token,
                             },
                           }
                         )

@@ -376,18 +376,20 @@ export const hotelBillingDataRequest = (payload) => (dispatch) => {
 };
 
 // hotel recommendation
-export const hotelRecommendationDataRequest = (payload) => (dispatch) => {
-  console.log("hotel recommendation calling...", payload);
+export const hotelRecommendationDataRequest = (payload,id) => (dispatch) => {
+  console.log("hotel recommendation calling...", payload,id);
   dispatch(hotelRecommendationRequest());
 
   return axios
-    .get("/recommendations?" + payload, {})
+    .post("/recommendations?" + payload, {
+      hotel_id:"40"
+    })
     .then((data) => {
       console.log(data);
       dispatch(hotelRecommendationSuccess(data));
     })
     .catch((error) => dispatch(hotelRecommendationFailure(error)));
-};
+}
 
 // hotel review
 export const hotelReviewDataRequest = (payload) => (dispatch) => {
