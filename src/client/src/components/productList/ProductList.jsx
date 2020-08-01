@@ -7,6 +7,8 @@ import { hotelListingDataRequest } from "../../redux/authentication/actions";
 import { connect } from "react-redux";
 import {loadData} from "../../redux/authentication/localStorage"
 
+
+
 class ProductList extends Component {
   constructor(props) {
     super(props);
@@ -19,10 +21,11 @@ class ProductList extends Component {
     let location =  loadData("location")
     let lat =  location.lat.toString()
     let lon =  location.lng.toString()
+    let data = loadData("hotelListData")
     console.log(typeof lat)
     console.log(typeof lon)
     console.log("listing calling")
-    hotelListingDataRequest({location:{lat,lon},path});
+    hotelListingDataRequest({location:{lat,lon,page:data.page},path});
   }
   // shouldComponentUpdate(prevProps) {
   //   const { hotelListingDataRequest, location } = this.props;
@@ -59,6 +62,7 @@ class ProductList extends Component {
 const mapStateToProps = (state) => ({
   token: state.auth.token,
   user: state.auth.user,
+  
 });
 
 const mapDispatchToProps = (dispatch) => ({
