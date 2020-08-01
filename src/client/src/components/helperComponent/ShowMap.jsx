@@ -12,8 +12,8 @@ import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
 import {connect} from "react-redux"
 import {loadData} from "../../redux/authentication/localStorage"
 
-  var hotelData = loadData("hotelListData")
-  var location = loadData("location")
+  let hotelData = loadData("hotelListData")
+  let location =  loadData("location")
   var points = [
     { lat: 19.155001, lng: 72.849998, name:"hotel cacajaca", key:1 },
     { lat: 15.2993, lng: 74.1240,name:"Juncus brachycarpus Engelm.",key:2},
@@ -28,14 +28,13 @@ class map extends React.Component{
         }
     }
     render(){
-        const {lat,lng} = location
         return(
             <>
                 <GoogleMap
                     defaultZoom={10}
-                    defaultCenter={{ lat:Number(lat), lng:Number(lng)  }}>
+                    defaultCenter={{ lat: location.lat, lng: location.lng }}>
                         {
-                           hotelData.data.map(ele=>(
+                            hotelData.data.map(ele=>(
                                 <Marker key={ele.hotel_id} position={{ lat: Number(ele.location.lat), lng: Number(ele.location.lon) }}
                                     onClick={()=>{
                                         this.setState({select:ele})
