@@ -1,29 +1,8 @@
 import React, { Component, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faStar,
-  faLandmark,
-  faFan,
-  faToilet,
-  faPersonBooth,
-  faMusic,
-  faHandHoldingWater,
-  faMoneyBillWave,
-  faBreadSlice,
-  faWifi,
-  faFire,
-  faHotTub,
-  faBed,
-  faCheese,
-  faRestroom,
-  faParking,
-  faThermometerEmpty,
-  faChair,
-  faTv,
-  faSoap,
-  faLocationArrow,
+ 
   faMapMarker,
-  faSearchLocation,
 } from "@fortawesome/free-solid-svg-icons";
 // import { hotelEntityDataRequest, hotelBillingDataRequest, hotelReviewDataRequest } from "../../../redux/authentication/actions";
 import { connect } from "react-redux";
@@ -71,11 +50,14 @@ const AutocompleteForm = () => {
                       style,
                     })}
                   >
-                    <span>
+                    <span className="w=100">
                       <span className="pr-2">
-                        <FontAwesomeIcon icon={faMapMarker} color="red" />
+                        <FontAwesomeIcon icon={faMapMarker} />
                       </span>
-                      {suggestion.description}
+                      <span>
+
+                         {suggestion.description}
+                      </span>
                     </span>
                   </div>
                 );
