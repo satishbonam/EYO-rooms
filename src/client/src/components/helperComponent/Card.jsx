@@ -175,8 +175,11 @@ class Card extends Component {
                     {data.name}
                   </a>
                 </h5>
-                <div id={styles.location}> {data.address} </div>
-                <div className="mt-3">
+                <div className="text-truncate" id={styles.location}>
+                  {" "}
+                  {data.address}{" "}
+                </div>
+                <div style={{ marginTop: ".2rem" }}>
                   <div className="col-12 p-0" id={styles.ratingContainer}>
                     <span id={styles.rating}>
                       <span className="text-white">4.7</span>

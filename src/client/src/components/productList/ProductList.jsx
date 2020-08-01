@@ -5,27 +5,26 @@ import Sidebar from "./sidebar/Sidebar";
 import Contentsection from "../productList/contentSection/ContentSection";
 import { hotelListingDataRequest } from "../../redux/authentication/actions";
 import { connect } from "react-redux";
-import {loadData} from "../../redux/authentication/localStorage"
-
-
+import { loadData } from "../../redux/authentication/localStorage";
+import Footer from "../helperComponent/Footer";
 
 class ProductList extends Component {
   constructor(props) {
     super(props);
   }
   componentDidMount() {
-    const {hotelListingDataRequest} =  this.props
-    
+    const { hotelListingDataRequest } = this.props;
+
     let x = document.location.pathname.split("/");
     let path = x.slice(2, x.length).join("");
-    let location =  loadData("location")
-    let lat =  location.lat.toString()
-    let lon =  location.lng.toString()
-    let data = loadData("hotelListData")
-    console.log(typeof lat)
-    console.log(typeof lon)
-    console.log("listing calling")
-    hotelListingDataRequest({location:{lat,lon,page:data.page},path});
+    let location = loadData("location");
+    let lat = location.lat.toString();
+    let lon = location.lng.toString();
+    let data = loadData("hotelListData");
+    console.log(typeof lat);
+    console.log(typeof lon);
+    console.log("listing calling");
+    hotelListingDataRequest({ location: { lat, lon, page: data.page }, path });
   }
   // shouldComponentUpdate(prevProps) {
   //   const { hotelListingDataRequest, location } = this.props;
@@ -53,6 +52,7 @@ class ProductList extends Component {
         <div className="row m-0">
           <Sidebar url={this.props} />
           <Contentsection history={this.props.history} />
+          <Footer />
         </div>
       </div>
     );
@@ -62,12 +62,10 @@ class ProductList extends Component {
 const mapStateToProps = (state) => ({
   token: state.auth.token,
   user: state.auth.user,
-  
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  hotelListingDataRequest: (payload) =>
-    dispatch(hotelListingDataRequest(payload)),
+  hotelListingDataRequest: (payload) => dispatch(hotelListingDataRequest(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

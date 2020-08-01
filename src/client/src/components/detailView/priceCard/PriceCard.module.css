@@ -129,6 +129,10 @@ button {
   width: 100%;
   outline: 0;
   cursor: pointer;
+  text-decoration: none;
+}
+#Btn {
+  text-decoration: none;
 }
 #policy {
   font-weight: 600;

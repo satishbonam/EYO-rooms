@@ -15,7 +15,7 @@ class paymentMethod extends Component {
         <Navbar />
         <div className="container-fluid">
           <div className="row m-0">
-            <div className="col-7 mt-4">
+            <div className="col-7 my-5">
               {!isAuth && <PaymentMethodDetail />}
               {isAuth && (
                 <PaymentMethodBooking
