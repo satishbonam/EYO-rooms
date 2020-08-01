@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import nonMapViewCss from "./card.module.css";
 import MapViewCss from "./CardSmall.module.css";
 import { Link } from "react-router-dom";
+import { loadData } from "../../redux/authentication/localStorage";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -137,6 +138,7 @@ class Card extends Component {
 
   render() {
     let { data, mapView } = this.props;
+    let address = loadData("address");
 
     let increseCol = mapView ? "col-12" : "col-5";
     let styles = mapView ? MapViewCss : nonMapViewCss;
@@ -162,9 +164,9 @@ class Card extends Component {
             </div>
             <div className=" col-1 d-flex flex-column justify-content-center h-100" id={styles.hide}>
               <>
-                <img src={data.images.thumb[0]} class="card-img p-1 h-25" alt="" />
+                <img src={data.images.random[0]} class="card-img p-1 h-25" alt="" />
                 <img src={data.images.thumb[1]} class="card-img p-1 h-25" alt="" />
-                <img src={data.images.thumb[2]} class="card-img p-1 h-25" alt="" />
+                <img src={data.images.random[2]} class="card-img p-1 h-25" alt="" />
                 <img src={data.images.thumb[3]} class="card-img p-1 h-25" alt="" />
               </>
             </div>
@@ -177,7 +179,7 @@ class Card extends Component {
                 </h5>
                 <div className="text-truncate" id={styles.location}>
                   {" "}
-                  {data.address}{" "}
+                  {address}{" "}
                 </div>
                 <div style={{ marginTop: ".2rem" }}>
                   <div className="col-12 p-0" id={styles.ratingContainer}>

@@ -5,6 +5,7 @@ import { hotelListingDataRequest } from "../../../redux/authentication/actions";
 import { connect } from "react-redux";
 
 import Skelton from "../../helperComponent/SkeltonListing";
+import { loadData } from "../../../redux/authentication/localStorage";
 
 class contentSectionHeader extends Component {
   render() {
@@ -12,12 +13,14 @@ class contentSectionHeader extends Component {
     let { handleToggle, hotelData } = this.props;
     if (hotelData) {
       let { total_results } = hotelData;
-
+      let address = loadData("address");
       return (
         <div className="container border-bottom p-3">
           <div className="row  align-items-center ">
             <div className="col-6">
-              <div id={styles.filterHeader}>{total_results} EYOs</div>
+              <div id={styles.filterHeader}>
+                {total_results} EYOs {address}{" "}
+              </div>
             </div>
             <div className="col-3 d-flex justify-content-around align-items-center" id={styles.mapFilter}>
               <span>Map View</span>

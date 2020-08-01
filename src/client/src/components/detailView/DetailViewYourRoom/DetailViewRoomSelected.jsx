@@ -1,84 +1,128 @@
-
-
-
 import React, { Component } from "react";
 import styles from "./DetailViewYourRoom.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faStar, faCheckCircle, faFan, faTv, faBed } from "@fortawesome/free-solid-svg-icons";
-import { faStar ,faCheckCircle, faFan,  faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking,faThermometerEmpty, faChair, faTv, faSoap, faBold, faBone, faDotCircle, faTags, faPen} from "@fortawesome/free-solid-svg-icons"
-import {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} from "../../../redux/authentication/actions"
-import {connect} from "react-redux"
+import {
+  faStar,
+  faCheckCircle,
+  faFan,
+  faToilet,
+  faPersonBooth,
+  faMusic,
+  faHandHoldingWater,
+  faMoneyBillWave,
+  faBreadSlice,
+  faWifi,
+  faFire,
+  faHotTub,
+  faBed,
+  faCheese,
+  faRestroom,
+  faParking,
+  faThermometerEmpty,
+  faChair,
+  faTv,
+  faSoap,
+  faBold,
+  faBone,
+  faDotCircle,
+  faTags,
+  faPen,
+} from "@fortawesome/free-solid-svg-icons";
+import { hotelEntityDataRequest, hotelBillingDataRequest, hotelReviewDataRequest } from "../../../redux/authentication/actions";
+import { connect } from "react-redux";
 
-
- class DetailViewRoomSelected extends Component {
-  constructor(props){
+class DetailViewRoomSelected extends Component {
+  constructor(props) {
     super(props);
-    this.state={
-      showFontIcon:false
-    }
+    this.state = {
+      showFontIcon: false,
+    };
   }
 
-  
-  findFontawesome=(ele)=>{
-    let fa = [faStar,faPen,faTags ,faCheckCircle, faFan,  faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking,faThermometerEmpty, faChair, faTv, faSoap]
-    switch(ele){
+  findFontawesome = (ele) => {
+    let fa = [
+      faStar,
+      faPen,
+      faTags,
+      faCheckCircle,
+      faFan,
+      faToilet,
+      faPersonBooth,
+      faMusic,
+      faHandHoldingWater,
+      faMoneyBillWave,
+      faBreadSlice,
+      faWifi,
+      faFire,
+      faHotTub,
+      faBed,
+      faCheese,
+      faRestroom,
+      faParking,
+      faThermometerEmpty,
+      faChair,
+      faTv,
+      faSoap,
+    ];
+    switch (ele) {
       case "faFan":
-        return faFan
+        return faFan;
       case "faWifi":
-        return faWifi
+        return faWifi;
       case "faFire":
-        return faFire
+        return faFire;
       case "faTv":
-        return faTv
+        return faTv;
       case "faBreadSlice":
-        return faBreadSlice
+        return faBreadSlice;
       case "faToilet":
-        return faToilet
+        return faToilet;
       case "faHotTub":
-        return faHotTub
+        return faHotTub;
       case "faParking":
-        return faParking
+        return faParking;
       case "faSoap":
-        return faSoap
+        return faSoap;
       case "faBed":
-        return faBed
+        return faBed;
       case "faCheese":
-        return faCheese
+        return faCheese;
       case "faHandHoldingWater":
-        return faHandHoldingWater
+        return faHandHoldingWater;
       case "faChair":
-        return faChair
+        return faChair;
       case "faThermometerEmpty":
-        return faThermometerEmpty
+        return faThermometerEmpty;
       case "faMoneyBillWave":
-        return faMoneyBillWave
+        return faMoneyBillWave;
       case "faMusic":
-        return faMusic
-    
+        return faMusic;
+
       case "faHandHoldingWater":
-        return faHandHoldingWater
+        return faHandHoldingWater;
       case "faBone":
-        return faBone
+        return faBone;
       case "faRestroom":
-        return faRestroom
+        return faRestroom;
       case "faStar":
-        return faStar
+        return faStar;
       case "faDoorClosed":
-        return this.faDoorClosed
+        return this.faDoorClosed;
       case "faPen":
-        return faPen
+        return faPen;
       case "faTags":
-        return faTags
+        return faTags;
       case "faCheckCircle":
-        return faCheckCircle
+        return faCheckCircle;
       case "faPersonBooth":
-        return faPersonBooth
+        return faPersonBooth;
       default:
-        return faDotCircle
+        return faDotCircle;
     }
-  }
-  componentDidMount=()=>{
-    const {hotelEntityDataRequest,hotelBillingDataRequest,hotelReviewDataRequest} = this.props
+  };
+  componentDidMount = () => {
+    const { hotelEntityDataRequest, hotelBillingDataRequest, hotelReviewDataRequest } = this.props;
     // hotelEntityDataRequest(10)
     //  hotelBillingDataRequest({
     //   hotel_id:"10",
@@ -90,32 +134,29 @@ import {connect} from "react-redux"
     //   membership: true
     // })
     // hotelReviewDataRequest(10)
-  }
-  
+  };
+
   render() {
-    const {data,selected,entityData} = this.props
-    const {actual_price,discount_price,discount,type,size} = selected
-    const {showFontIcon}  =this.state
-    const {findFontawesome}  =this
-    console.log(data,selected)
-    console.log(entityData,"amenities")
-    let amenities = []
-    let amenities2 = []
-    if(entityData){
-
-       entityData.amenities.map(ele=>{
-        if(ele.status){
-          amenities2.push(ele)
+    const { data, selected, entityData } = this.props;
+    const { actual_price, discount_price, discount, type, size } = selected;
+    const { showFontIcon } = this.state;
+    const { findFontawesome } = this;
+    console.log(data, selected);
+    console.log(entityData, "amenities");
+    let amenities = [];
+    let amenities2 = [];
+    if (entityData) {
+      entityData.amenities.map((ele) => {
+        if (ele.status) {
+          amenities2.push(ele);
         }
-        if(amenities.length<3){
-          amenities.push(ele)
+        if (amenities.length < 3) {
+          amenities.push(ele);
         }
-
-      })
+      });
     }
     return (
       <>
-        
         <div className="px-4">
           <div className="card mb-3 w-100">
             <div className="d-flex" id={styles.header}>
@@ -125,7 +166,6 @@ import {connect} from "react-redux"
                 </span>
               </div>
               <span id={styles.selected}>SELECTED CATEGORY</span>
-              
             </div>
             <div className="row no-gutters">
               <div className="col-md-8">
@@ -139,29 +179,30 @@ import {connect} from "react-redux"
                   </span>
                   <div id={styles.roomSize}>Room size: {size} sqft</div>
                   <div className="mt-5 ml-0">
-                    
-                    {
-                     !showFontIcon && amenities && amenities.map(ele=>(
-
-                    <span>
-                      <span>
-                        <FontAwesomeIcon icon={findFontawesome(ele.frot_awsome)} color="#000" size="sm" />
-                      </span>
-                      <span>{ele.label}</span>
+                    {!showFontIcon &&
+                      amenities &&
+                      amenities.map((ele) => (
+                        <span>
+                          <span>
+                            <FontAwesomeIcon icon={findFontawesome(ele.frot_awsome)} color="#000" size="sm" />
+                          </span>
+                          <span>{ele.label}</span>
+                        </span>
+                      ))}
+                    {showFontIcon &&
+                      amenities2 &&
+                      amenities2.map((ele) => (
+                        <span>
+                          <span>
+                            <FontAwesomeIcon icon={findFontawesome(ele.frot_awsome)} color="#000" size="sm" />
+                          </span>
+                          <span>{ele.label}</span>
+                        </span>
+                      ))}
+                    <span className="text-danger " onClick={() => this.setState({ showFontIcon: !showFontIcon })}>
+                      {" "}
+                      {!showFontIcon ? amenities2.length - amenities.length + "more +" : "-less"}
                     </span>
-                      ))
-                    }
-                    {
-                     showFontIcon && amenities2 && amenities2.map(ele=>(
-                    <span>
-                      <span>
-                        <FontAwesomeIcon icon={findFontawesome(ele.frot_awsome)} color="#000" size="sm" />
-                      </span>
-                      <span>{ele.label}</span>
-                    </span>
-                      ))
-                    }
-                    <span onClick={()=>this.setState({showFontIcon:!showFontIcon})}> {!showFontIcon?amenities2.length - amenities.length+"more +":"-less"}</span>
                   </div>
                 </div>
               </div>
@@ -171,9 +212,9 @@ import {connect} from "react-redux"
               <div className="col-md-12 border-top ">
                 <div className="d-flex justify-content-between p-2">
                   <div className="d-flex justify-content-between  align-items-center">
-            <span id={styles.price}>₹{discount_price}</span>
-                <span id={styles.slashPrice}> ₹{actual_price}</span>
-            {/* <span id={styles.discPrice}>disc. {discount}%</span> */}
+                    <span id={styles.price}>₹{discount_price}</span>
+                    <span id={styles.slashPrice}> ₹{actual_price}</span>
+                    {/* <span id={styles.discPrice}>disc. {discount}%</span> */}
                   </div>
                   <div>
                     <button id={styles.whiteBtn}>
@@ -181,7 +222,6 @@ import {connect} from "react-redux"
                         <FontAwesomeIcon icon={faCheckCircle} color={"lightgreen"} size="sm" />
                       </span>
                       <span>Selected</span>
-                      
                     </button>
                   </div>
                 </div>
@@ -196,16 +236,16 @@ import {connect} from "react-redux"
 
 const mapStateToProps = (state) => ({
   token: state.auth.token,
-    user: state.auth.user,
-    entityData: state.auth.entityData,
-    review: state.auth.review,
-    billingData:state.auth.billingData
+  user: state.auth.user,
+  entityData: state.auth.entityData,
+  review: state.auth.review,
+  billingData: state.auth.billingData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  hotelEntityDataRequest: (payload) => dispatch(hotelEntityDataRequest(payload)), 
-  hotelBillingDataRequest: (payload) => dispatch(hotelBillingDataRequest(payload)), 
-  hotelReviewDataRequest: (payload) => dispatch(hotelReviewDataRequest(payload)), 
+  hotelEntityDataRequest: (payload) => dispatch(hotelEntityDataRequest(payload)),
+  hotelBillingDataRequest: (payload) => dispatch(hotelBillingDataRequest(payload)),
+  hotelReviewDataRequest: (payload) => dispatch(hotelReviewDataRequest(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailViewRoomSelected);

@@ -3,10 +3,7 @@ import styles from "./PaymentMethodDetail.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
-import {
-  loginRequestWithOtp,
-  loginRequestWithOtpVerify,
-} from "../../../redux/authentication/actions";
+import { loginRequestWithOtp, loginRequestWithOtpVerify } from "../../../redux/authentication/actions";
 
 class PaymentMethodDetail extends Component {
   constructor(props) {
@@ -23,22 +20,14 @@ class PaymentMethodDetail extends Component {
     });
   };
   render() {
-    const {
-      otpGenerate,
-      loginRequestWithOtp,
-      loginRequestWithOtpVerify,
-    } = this.props;
+    const { otpGenerate, loginRequestWithOtp, loginRequestWithOtpVerify } = this.props;
     const { handleChange } = this;
     console.log(this.props);
     return (
       <>
         <div className="row ml-5">
           <span>
-            <FontAwesomeIcon
-              icon={faArrowLeft}
-              color="rgb(238, 42, 36)"
-              size="lg"
-            />
+            <FontAwesomeIcon icon={faArrowLeft} color="rgb(238, 42, 36)" size="lg" />
           </span>
           <span id={styles.backBtn}>Modify your booking</span>
         </div>
@@ -56,9 +45,7 @@ class PaymentMethodDetail extends Component {
                   </div>
                 </div>
                 <div className="row" id={styles.detailDes}>
-                  <span>
-                    We will use these details to share your booking information
-                  </span>
+                  <span>We will use these details to share your booking information</span>
                 </div>
                 <div className="row">
                   <div className="col-12">
@@ -66,32 +53,15 @@ class PaymentMethodDetail extends Component {
                       <div class="row">
                         <div class="col-6">
                           <label for="inputAddress">Name</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            placeholder="First name"
-                            required
-                          />
+                          <input type="text" class="form-control" placeholder="First name" required />
                         </div>
                         <div class="col-6">
                           <label for="inputEmail">Email</label>
-                          <input
-                            type="email"
-                            class="form-control"
-                            placeholder="enter email"
-                            required
-                          />
+                          <input type="email" class="form-control" placeholder="enter email" required />
                         </div>
                         <div class="col-6 mt-3">
                           <label for="inputAddress">Mobile Number</label>
-                          <input
-                            name="mobile"
-                            onChange={handleChange}
-                            type="text"
-                            class="form-control"
-                            placeholder="Enter 10 digits Mobile Number"
-                            required
-                          />
+                          <input name="mobile" onChange={handleChange} type="text" class="form-control" placeholder="Enter 10 digits Mobile Number" required />
                         </div>
                         {!otpGenerate && (
                           <div class="col-6 d-flex align-items-center">
@@ -112,20 +82,12 @@ class PaymentMethodDetail extends Component {
 
                         {otpGenerate && (
                           <div class="col-4 mt-3">
-                            <label for="inputAddress">
-                              Enter 4 digit passcode
-                            </label>
-                            <input
-                              name="otp"
-                              onChange={handleChange}
-                              type="text"
-                              class="form-control"
-                              placeholder="Last name"
-                            />
+                            <label for="inputAddress">Enter 4 digit passcode</label>
+                            <input name="otp" onChange={handleChange} type="text" class="form-control" placeholder="Last name" />
                           </div>
                         )}
                         {otpGenerate && (
-                          <div class="col-6 d-flex align-items-center">
+                          <div class="col-6 mt-4 d-flex align-items-center">
                             <button
                               type="submit"
                               class="btn btn-success"
@@ -165,11 +127,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   loginRequestWithOtp: (payload) => dispatch(loginRequestWithOtp(payload)),
-  loginRequestWithOtpVerify: (payload) =>
-    dispatch(loginRequestWithOtpVerify(payload)),
+  loginRequestWithOtpVerify: (payload) => dispatch(loginRequestWithOtpVerify(payload)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PaymentMethodDetail);
+export default connect(mapStateToProps, mapDispatchToProps)(PaymentMethodDetail);

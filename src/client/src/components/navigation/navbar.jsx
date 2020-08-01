@@ -59,17 +59,17 @@ class navbar extends Component {
             <ul className="navbar-nav ml-auto">
               <li role="presentation" className="nav-item d-none d-md-block d-lg-block d-xl-block">
                 {!user ? (
-                  <Link to="/" id={styles.button} className="nav-link btn  btn-sm font-weight-bold text-dark ">
+                  <Link to="/login" id={styles.button} className="nav-link btn  btn-sm font-weight-bold text-dark ">
                     <FontAwesomeIcon icon={faUserCircle} size="lg" />
                     <span className="pr-1"></span>
                     Login / Signup
                   </Link>
                 ) : (
                   <>
-                    <b>{user.name}</b>
-                    <Link onClick={() => handleLogout(token)} id={styles.button} className="nav-link btn  btn-sm font-weight-bold ">
-                      {/* <FontAwesomeIcon icon={faUserCircle} /> */}
-                      Logout
+                    <Link onClick={() => handleLogout(token)} id={styles.button} className="nav-link btn  btn-sm font-weight-bold text-dark">
+                      <FontAwesomeIcon icon={faUserCircle} size="lg" />
+                      <span className="px-1"> Logout</span>
+                      <span>{user.name}</span>
                     </Link>
                   </>
                 )}

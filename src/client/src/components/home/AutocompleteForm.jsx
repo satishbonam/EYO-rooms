@@ -16,7 +16,7 @@ const AutocompleteForm = () => {
 
   const handleSelect = (address) => {
     setAddress(address);
-
+    saveData("address", address);
     const data = geocodeByAddress(address)
       .then((results) => getLatLng(results[0]))
       .then((latLng) => {

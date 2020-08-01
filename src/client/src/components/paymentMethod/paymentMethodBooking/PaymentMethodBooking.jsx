@@ -5,9 +5,15 @@ import { faArrowLeft, faLock } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 import { razorpayRequest } from "../../../redux/authentication/actions";
 import axios from "../../../utils/axiosInterceptor";
+import { Link, useParams, useHistory } from "react-router-dom";
 
 const PaymentMethodBooking = (props) => {
   const { razorpayRequest, token, billingData, razor } = props;
+  const params = useParams();
+  const history = useHistory();
+  const id = params.id;
+
+  console.log(params);
   const displayRazorpay = (res) => {
     console.log(res);
     const options = {
@@ -18,8 +24,7 @@ const PaymentMethodBooking = (props) => {
       name: "Booking Transaction",
       description: "Thank You for Booking with EYO",
       handler: function (response) {
-        console.log(response);
-        alert("payment successfull");
+        history.push(`/entity/${id}/payment/confirmation`);
       },
       prefill: {
         name: res.name,
@@ -30,36 +35,24 @@ const PaymentMethodBooking = (props) => {
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
   };
-  const { price, discount, savings, username, email, mobile, history } = props;
+  const { price, discount, savings, username, email, mobile } = props;
 
   return (
     <>
       <div className="row ml-5">
         <span>
-          <FontAwesomeIcon
-            icon={faArrowLeft}
-            color="rgb(238, 42, 36)"
-            size="lg"
-          />
+          <FontAwesomeIcon icon={faArrowLeft} color="rgb(238, 42, 36)" size="lg" />
         </span>
         <span id={styles.backBtn}>Modify your booking</span>
       </div>
       <div className="col-11 mt-4 offset-1 " id={styles.cardContainer}>
         <div className="row ">
           <div className="col-12" id={styles.saveMoney}>
-            <span>
-              {" "}
-              {`Yay! you just saved ₹${
-                price - discount + savings
-              } on this booking!`}
-            </span>
+            <span> {`Yay! you just saved ₹${price - discount + savings} on this booking!`}</span>
           </div>
           <div class="card w-100 ">
             <div class="card-body pt-0 px-3">
-              <div
-                className="row justify-content-between align-items-center"
-                id={styles.heading}
-              >
+              <div className="row justify-content-between align-items-center" id={styles.heading}>
                 <div className="row align-items-center">
                   <div id={styles.first}>1</div>
                   <div id={styles.enterDetail}>
@@ -81,10 +74,7 @@ const PaymentMethodBooking = (props) => {
           </div>
           <div class="card w-100 mt-4 ">
             <div class="card-body pt-0 px-3">
-              <div
-                className="row justify-content-between align-items-center"
-                id={styles.anotherHeading}
-              >
+              <div className="row justify-content-between align-items-center" id={styles.anotherHeading}>
                 <div className="row align-items-center">
                   <div id={styles.sec}>2</div>
                   <div id={styles.enterDetail}>
@@ -99,9 +89,7 @@ const PaymentMethodBooking = (props) => {
                 </div>
               </div>
               <div className="row" id={styles.detailDes}>
-                <span>
-                  We will use these details to share your booking information
-                </span>
+                <span>We will use these details to share your booking information</span>
                 <div class="col-6 d-flex align-items-center">
                   <button
                     type="submit"
@@ -154,7 +142,4 @@ const mapDispatchToProps = (dispatch) => ({
   razorpayRequest: (payload) => dispatch(razorpayRequest(payload)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(PaymentMethodBooking);
+export default connect(mapStateToProps, mapDispatchToProps)(PaymentMethodBooking);

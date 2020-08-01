@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styles from "./DetailViewDescription.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { loadData } from "../../../redux/authentication/localStorage";
 // import { faStar } from "@fortawesome/free-solid-svg-icons";
 import {
   faStar,
@@ -53,13 +54,12 @@ class DetailViewDescription extends Component {
   render() {
     const { entityData, billingData, review } = this.props;
     console.log(entityData, billingData, review);
+    let address = loadData("address");
     return (
       <>
         <div className="col-12 px-3">
           <div className="d-flex justify-content-around " id={styles.headingContainer}>
-            <h1 className="mx-4" id={styles.heading}>
-              {entityData ? entityData.name : "loading.."}
-            </h1>
+            <h1 id={styles.heading}>{entityData ? entityData.name : "loading.."}</h1>
             <div className="mr-5 ">
               <div className="d-flex bg-success justify-content-around" id={styles.ratingIcons}>
                 <div>{entityData ? Number(entityData.rating).toFixed(1) : 0}</div>
@@ -73,8 +73,8 @@ class DetailViewDescription extends Component {
             </div>
           </div>
           <div>
-            <span className="m-4" id={styles.subHeading}>
-              81-1, Gulshan Hall, Near Bypass connector, Kolkata
+            <span className="m-4 pl-2" id={styles.subHeading}>
+              {address}
             </span>
           </div>
           <div className="d-flex justify-content-start ml-4" id={styles.badgeBox}>
