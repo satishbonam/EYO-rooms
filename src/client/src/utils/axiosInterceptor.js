@@ -8,7 +8,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const axiosInstance = axios.create({
-  baseURL: "https://0a677b067b86.ngrok.io",
+  baseURL: "http://eyo-server.satishbonam.tech",
 });
 
 axiosInstance.interceptors.request.use((request) => {
@@ -20,7 +20,6 @@ axiosInstance.interceptors.request.use((request) => {
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log(response, "axios instance");
     if (interceptorEnabled) {
       return response.data;
     }

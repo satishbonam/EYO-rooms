@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import styles from "./Form.module.css";
 import { connect } from "react-redux";
-import { loginRequestWithPassword, loginRequestWithOauth ,changeSignupValue} from "../../redux/authentication/actions";
+import { loginRequestWithPassword, loginRequestWithOauth, changeSignupValue } from "../../redux/authentication/actions";
 import GoogleLogin from "react-google-login";
-import {Redirect, Link} from "react-router-dom"
+import { Redirect, Link } from "react-router-dom";
 
 let pattern = {
   username: /^[a-z\d]{5,12}$/i,
@@ -26,27 +26,25 @@ class LoginWithPassword extends Component {
       messageText: "please enter all the fields",
     };
   }
+
   // for google oauth login
   googleResponse = (googleUser) => {
-
-    const {accessToken} = googleUser
-    const{name,email} = googleUser.profileObj
-    console.log(accessToken,name,email)
+    const { accessToken } = googleUser;
+    const { name, email } = googleUser.profileObj;
+    console.log(accessToken, name, email);
 
     const value = {
       name,
       email,
-      provider:"google",
-      access_token:accessToken
-    }
+      provider: "google",
+      access_token: accessToken,
+    };
 
-     if (value) {
-     //console.log(value)
-       this.props.loginRequestWithOauth(value);
-     }
+    if (value) {
+      this.props.loginRequestWithOauth(value);
+    }
   };
 
- 
   handleChange = (e) => {
     this.setState(
       {
@@ -92,16 +90,17 @@ class LoginWithPassword extends Component {
   };
 
   render() {
-    
+    console.log(this.props);
+
     const { password, isPasswordValid, mobile, isMobileValid, isMessage, messageText } = this.state;
-    const { token, showLoginWithOtp,user } = this.props;
-    
-    if (token) {
+    const { token, showLoginWithOtp, user, isAuth } = this.props;
+
+    if (isAuth) {
       //localStorage.setItem("jwt", token);
       //localStorage.setItem("data", JSON.stringify(user));
-      return <Redirect to="/" />
+      return <Redirect to="/" />;
     }
-  
+
     return (
       <form id={styles.signupform}>
         <div className="form-group">
@@ -127,17 +126,19 @@ class LoginWithPassword extends Component {
           Prefer to Proceed with OTP instead?{" "}
           <Link className="text-danger" to="/loginotp">
             Click here
-          </Link>{" "}
+          </Link>
+          <div className="border-bottom w-100 mt-4 text-center">Or sing in as</div>
+          <div className="text-center mt-4">
+            <GoogleLogin
+              clientId={"412804596146-clkr9mtigjj70d3atl49nctpai3q7bb7.apps.googleusercontent.com"}
+              onSuccess={this.googleResponse}
+              onFailure={this.googleResponse}
+              cookiePolicy="single_host_origin"
+              uxMode="popup"
+              isSignedIn={false}
+            ></GoogleLogin>
+          </div>
         </div>
-
-        <GoogleLogin
-          clientId={"412804596146-clkr9mtigjj70d3atl49nctpai3q7bb7.apps.googleusercontent.com"}
-          onSuccess={this.googleResponse}
-          onFailure={this.googleResponse}
-          cookiePolicy="single_host_origin"
-          // uxMode="popup"
-          // isSignedIn={false}
-        ></GoogleLogin>
       </form>
     );
   }
@@ -145,13 +146,14 @@ class LoginWithPassword extends Component {
 
 const mapStateToProps = (state) => ({
   token: state.auth.token,
-    user: state.auth.user,
+  user: state.auth.user,
+  isAuth: state.auth.isAuth,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   loginRequestWithPassword: (payload) => dispatch(loginRequestWithPassword(payload)),
-   loginRequestWithOauth: (payload) => dispatch(loginRequestWithOauth(payload)),
-    //changeSignupValue: (payload) => dispatch(changeSignupValue(payload)),
+  loginRequestWithOauth: (payload) => dispatch(loginRequestWithOauth(payload)),
+  //changeSignupValue: (payload) => dispatch(changeSignupValue(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginWithPassword);

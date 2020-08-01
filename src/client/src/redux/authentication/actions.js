@@ -31,6 +31,36 @@ import {
   GET_HOTEL_LISTING_FAILURE,
   GET_HOTEL_LISTING_SUCCESS,
   GET_HOTEL_LISTING_REQUEST,
+  HANDLE_FILTER_AMENITIES,
+  HANDLE_FILTER_ACCOMODATION,
+  HANDLE_FILTER_CATEGORY,
+  HANDLE_FILTER_CHECKIN,
+  HANDLE_FILTER_COLLECTIONS,
+  HANDLE_PARAMS,
+  // hotel entity
+  HOTEL_ENTITY_REQUEST,
+  HOTEL_ENTITY_SUCCESS,
+  HOTEL_ENTITY_FAILURE,
+  // hotel id
+  HOTEL_ID,
+  // page change
+  PAGE_CHANGE,
+  // hotel recommendation
+  HOTEL_RECOMMENDATION_REQUEST,
+  HOTEL_RECOMMENDATION_SUCCESS,
+  HOTEL_RECOMMENDATION_FAILURE,
+  // hotel review
+  HOTEL_REVIEW_REQUEST,
+  HOTEL_REVIEW_SUCCESS,
+  HOTEL_REVIEW_FAILURE,
+  // hotel bill data
+  HOTEL_BILLING_REQUEST,
+  HOTEL_BILLING_SUCCESS,
+  HOTEL_BILLING_FAILURE,
+  //razorpay request
+  RAZORPAY_REQUEST_FAILURE,
+  RAZORPAY_REQUEST_REQUEST,
+  RAZORPAY_REQUEST_SUCCESS,
 } from "./actionTypes";
 
 // import axiosInstance from "../../utils/axiosInterceptor";
@@ -52,7 +82,6 @@ export const changeSignupValue = (payload) => ({
   type: CHANGE_SIGNUP_VALUE,
   payload,
 });
-
 
 // login with password
 export const loginPassFailure = (payload) => ({
@@ -126,7 +155,7 @@ export const logoutUserFailure = () => ({
 
 export const changeLogoutValue = (payload) => ({
   type: CHANGE_LOGOUT_VALUE,
-  payload
+  payload,
 });
 
 // hotel listing
@@ -140,6 +169,71 @@ export const hotelListingSuccess = (payload) => ({
 });
 export const hotelListingFailure = () => ({
   type: GET_HOTEL_LISTING_FAILURE,
+});
+// hotel id
+export const hotelId = (payload) => ({
+  type: HOTEL_ID,
+  payload,
+});
+// hotel page change
+export const pageChange = (payload) => ({
+  type: PAGE_CHANGE,
+  payload,
+});
+
+// hotel enity
+export const hotelEntityRequest = (payload) => ({
+  type: HOTEL_ENTITY_REQUEST,
+  payload,
+});
+export const hotelEntitySuccess = (payload) => ({
+  type: HOTEL_ENTITY_SUCCESS,
+  payload,
+});
+export const hotelEntityFailure = (payload) => ({
+  type: HOTEL_ENTITY_FAILURE,
+  payload,
+});
+// hotel  bill data
+export const hotelBillingRequest = (payload) => ({
+  type: HOTEL_BILLING_REQUEST,
+  payload,
+});
+export const hotelBillingSuccess = (payload) => ({
+  type: HOTEL_BILLING_SUCCESS,
+  payload,
+});
+export const hotelBillingFailure = (payload) => ({
+  type: HOTEL_BILLING_FAILURE,
+  payload,
+});
+
+// hotel recommendations
+export const hotelRecommendationRequest = (payload) => ({
+  type: HOTEL_RECOMMENDATION_REQUEST,
+  payload,
+});
+export const hotelRecommendationSuccess = (payload) => ({
+  type: HOTEL_RECOMMENDATION_SUCCESS,
+  payload,
+});
+export const hotelRecommendationFailure = (payload) => ({
+  type: HOTEL_RECOMMENDATION_FAILURE,
+  payload,
+});
+
+// hotel reviews
+export const hotelReviewRequest = (payload) => ({
+  type: HOTEL_REVIEW_REQUEST,
+  payload,
+});
+export const hotelReviewSuccess = (payload) => ({
+  type: HOTEL_REVIEW_SUCCESS,
+  payload,
+});
+export const hotelReviewFailure = (payload) => ({
+  type: HOTEL_REVIEW_FAILURE,
+  payload,
 });
 
 // axios request thunk
@@ -171,9 +265,9 @@ export const loginRequestWithPassword = (payload) => (dispatch) => {
 export const loginRequestWithOtp = (payload) => (dispatch) => {
   dispatch(saveUserMobile(payload));
   dispatch(loginOtpRequest());
-  console.log(payload)
+  console.log(payload, "otp request");
   return axios
-    .post("login/otp_generate", {
+    .post("/login/otp_generate", {
       ...payload,
     })
     .then((data) => dispatch(loginOtpSuccess(data)))
@@ -183,10 +277,10 @@ export const loginRequestWithOtp = (payload) => (dispatch) => {
 // server request for otp verify
 export const loginRequestWithOtpVerify = (payload) => (dispatch) => {
   dispatch(loginOtpVerifyRequest());
-  console.log(payload)
+  console.log(payload);
   return axios
     .post("/login/otp_verify", {
-      ...payload
+      ...payload,
     })
     .then((data) => dispatch(loginOtpVerifySuccess(data)))
     .catch((error) => dispatch(loginOtpVerifyFailure(error)));
@@ -212,32 +306,147 @@ export const logoutRequest = (payload) => (dispatch) => {
       {},
       {
         headers: {
-          auth_token:payload
-        }
+          auth_token: payload,
+        },
       }
     )
     .then((data) => dispatch(logoutUserSuccess(data)))
     .catch((error) => dispatch(logoutUserFailure(error)));
-};
-
-// hotel listing data
-export const hotelListingDataRequest = (payload) => (dispatch) => {
-  console.log("hotel listing calling...")
+  };
+  
+  // hotel listing data
+  export const hotelListingDataRequest = (payload) => (dispatch) => {
+    console.log("hotel listing calling...", payload);
+    dispatch(pageChange(payload.page));
   dispatch(hotelListingRequest());
- 
+
   return axios
-    .get(
-      "/hotel_listing",
-      {},
-      {
-        params: {
-          collections:"Sanitised_Stays"
-        }
-      }
-    )
+    .post("/hotel_listing?" + payload.path, {
+      ...payload.location
+    })
     .then((data) => {
-      console.log(data)
-      dispatch(hotelListingSuccess(data))
+      console.log(data);
+      dispatch(hotelListingSuccess(data));
     })
     .catch((error) => dispatch(hotelListingFailure(error)));
+};
+
+export const handleFilterAmenities = (payload) => ({
+  type: HANDLE_FILTER_AMENITIES,
+  payload,
+});
+
+export const handleFilterCollection = (payload) => ({
+  type: HANDLE_FILTER_COLLECTIONS,
+  payload,
+});
+
+export const handleFilterCheckin = (payload) => ({
+  type: HANDLE_FILTER_CHECKIN,
+  payload,
+});
+
+export const handleFilterCategory = (payload) => ({
+  type: HANDLE_FILTER_CATEGORY,
+  payload,
+});
+
+export const handleFilterAccomodation = (payload) => ({
+  type: HANDLE_FILTER_ACCOMODATION,
+  payload,
+});
+
+export const handleParams = (payload) => ({
+  type: HANDLE_PARAMS,
+  payload,
+});
+
+// hotel entity data
+export const hotelEntityDataRequest = (payload) => (dispatch) => {
+  console.log("hotel entity calling...", payload);
+  dispatch(hotelEntityRequest());
+  dispatch(hotelId(payload));
+  return axios
+    .post("/entity", {
+      hotel_id: payload,
+    })
+    .then((data) => dispatch(hotelEntitySuccess(data)))
+    .catch((error) => dispatch(hotelEntityFailure(error)));
+};
+// hotel billing  data
+export const hotelBillingDataRequest = (payload) => (dispatch) => {
+  console.log("hotel billing calling...", payload);
+  dispatch(hotelBillingRequest());
+  return axios
+    .post("/bill_data", {
+      ...payload,
+    })
+    .then((data) => dispatch(hotelBillingSuccess(data)))
+    .catch((error) => dispatch(hotelBillingFailure(error)));
+};
+
+// hotel recommendation
+export const hotelRecommendationDataRequest = (id,payload) => (dispatch) => {
+  console.log("hotel recommendation calling...",id,payload);
+  dispatch(hotelRecommendationRequest());
+
+  return axios
+    .post("/recommendations?"+payload , {
+      hotel_id:id
+    })
+    .then((data) => {
+      console.log(data);
+      dispatch(hotelRecommendationSuccess(data));
+    })
+    .catch((error) => dispatch(hotelRecommendationFailure(error)));
+}
+
+// hotel review
+export const hotelReviewDataRequest = (payload) => (dispatch) => {
+  console.log("hotel review calling...", payload);
+  dispatch(hotelReviewRequest());
+
+  return axios
+    .post("/reviews", {
+      hotel_id: payload,
+    })
+    .then((data) => {
+      console.log(data);
+      dispatch(hotelReviewSuccess(data));
+    })
+    .catch((error) => dispatch(hotelReviewFailure(error)));
+};
+
+//razor pay request
+export const razorpayRequestRequest = (payload) => ({
+  type: RAZORPAY_REQUEST_REQUEST,
+  payload,
+});
+
+export const razorpayRequestSuccess = (payload) => ({
+  type: RAZORPAY_REQUEST_SUCCESS,
+  payload,
+});
+
+export const razorpayRequestFailure = (payload) => ({
+  type: RAZORPAY_REQUEST_FAILURE,
+  payload,
+});
+
+export const razorpayRequest = (payload) => (dispatch) => {
+  dispatch(razorpayRequestRequest());
+  return axios
+    .post(
+      "/payment_request",
+      {
+        ...payload.data,
+      },
+      {
+        headers: {
+          auth_token: payload.token,
+        },
+      }
+    )
+    .then((res) => dispatch(razorpayRequestSuccess(res)))
+    .catch((err) => dispatch(razorpayRequestFailure(err)));
 };

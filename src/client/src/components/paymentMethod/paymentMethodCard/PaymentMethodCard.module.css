@@ -1,0 +1,99 @@
+#heading {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+#ratingContainer {
+  border-radius: 2px;
+  padding: 0px 4px 2px 1px;
+  background-color: #52b520;
+  font-size: 12px;
+  font-weight: 600;
+  color: #fff;
+}
+#ratingCount {
+  font-size: 12px;
+  line-height: 1.2;
+  margin-left: 10px;
+}
+#days {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 2;
+  color: rgb(12, 10, 21);
+  margin-top: 8px;
+}
+#img {
+  box-shadow: rgba(125, 125, 125, 0.1) 0px 2px 6px 0px;
+  width: 79px;
+  height: 62px;
+  opacity: 1.2;
+  border-radius: 4px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(151, 151, 151);
+}
+#SecduleContainer {
+  margin-top: 16px;
+  cursor: pointer;
+  border: solid 1px #f0f0f0;
+  border: 0;
+  width: 100%;
+  padding: 14px 12px;
+  border-bottom: 1px solid rgb(240, 240, 240);
+}
+#SecduleContainer span {
+  font-size: 14px;
+  color: #0c0a15;
+  line-height: 1.71;
+  font-weight: 600;
+}
+#divide {
+  border-right: solid 1px #f0f0f0;
+}
+#quality {
+  cursor: pointer;
+  width: 100%;
+  padding: 14px 12px;
+}
+#quality span {
+  font-size: 14px;
+  color: #0c0a15;
+  line-height: 1.71;
+  font-weight: 600;
+}
+#priceDes {
+  font-size: 14px;
+  line-height: 2;
+  color: rgb(34, 34, 34);
+}
+#price {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 2;
+  color: rgb(34, 34, 34);
+}
+#divider {
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(240, 240, 240);
+  margin: 24px 0px;
+}
+#payable {
+  color: rgb(34, 34, 34);
+  font-size: 16px;
+  line-height: 1.56;
+}
+#inc {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.67;
+  opacity: 0.54;
+}
+#total {
+  color: rgb(34, 34, 34);
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 1.33;
+}

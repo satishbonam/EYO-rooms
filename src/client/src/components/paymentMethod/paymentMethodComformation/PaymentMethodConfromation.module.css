@@ -1,0 +1,56 @@
+#heading {
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.71;
+  color: #1ab64f;
+}
+#subHeading {
+  font-size: 16px;
+  line-height: 1.56;
+  color: #222;
+  margin: 0px;
+  font-weight: 600;
+}
+#idTitle {
+  font-size: 24px;
+  font-weight: bolder;
+  margin-bottom: 12px;
+}
+#id {
+  font-size: 20px;
+  margin-left: 8px;
+}
+#divide {
+  border: 1px solid #d6d6d6;
+  margin: 24px 0;
+}
+#table {
+  font-size: 14px;
+  table-layout: fixed;
+  margin-top: 24px;
+  color: #222;
+  width: 100%;
+  border-collapse: collapse;
+}
+#priceHeading {
+  font-size: 18px;
+  font-weight: bolder;
+}
+#center {
+  text-align: center;
+}
+#right {
+  text-align: right;
+  font-size: 14px;
+  font-weight: bold;
+}
+#total {
+  font-weight: bolder;
+  font-size: 16px;
+  line-height: 2;
+}
+#cash {
+  text-align: right;
+  font-weight: bolder;
+  font-size: 32px;
+}
