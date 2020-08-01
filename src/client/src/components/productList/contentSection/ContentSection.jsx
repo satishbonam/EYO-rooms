@@ -57,7 +57,10 @@ class ContentSection extends Component {
             {hotelData && hotelData.status && hotelData.data.map((ele, index) => <Card data={ele} key={index} mapView={mapView} />)}
           </div>
           <div className={mapClass}>
-            <GoogleMap hotelData={hotelData}/>
+            {
+              hotelData && hotelData.status &&
+              <GoogleMap hotelData={hotelData}/>
+            }
           </div>
         
         </div>
