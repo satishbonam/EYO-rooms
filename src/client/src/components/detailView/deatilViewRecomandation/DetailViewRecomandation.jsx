@@ -74,8 +74,8 @@ class DetailViewRecomandation extends Component {
         }
       });
     let params = build(para);
-    console.log(params);
-    hotelRecommendationDataRequest(params);
+    console.log(this.props.id,"id ");
+    hotelRecommendationDataRequest(this.props.id,params);
   };
 
   render() {
@@ -115,12 +115,12 @@ class DetailViewRecomandation extends Component {
                         </p>
                         <div>
                           <span id={styles.icon}>
-                            {elem.rating}
+                            {elem.rating|| "4.6"}
                             <span>
-                              <FontAwesomeIcon icon={elem.icon} color="#fff" size="sm" />
+                              <FontAwesomeIcon icon={elem.icon|| faStar} color="#fff" size="sm" />
                             </span>
                           </span>
-                          <span id={styles.review}>({elem.no_of_ratings} • reviews) Very Good</span>
+                          <span id={styles.review}>({elem.no_of_ratings|| "240"} reviews) Very Good</span>
                         </div>
                         <div>
                           <span id={styles.price}>₹ {Math.floor(elem.rooms[0].actual_price) - Math.floor((Number(elem.rooms[0].actual_price) * Number(elem.rooms[0].discount_percentage)) / 100)}</span>

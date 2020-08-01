@@ -43,6 +43,8 @@ import {
   HOTEL_ENTITY_FAILURE,
   // hotel id
   HOTEL_ID,
+  // page change
+  PAGE_CHANGE,
   // hotel recommendation
   HOTEL_RECOMMENDATION_REQUEST,
   HOTEL_RECOMMENDATION_SUCCESS,
@@ -171,6 +173,11 @@ export const hotelListingFailure = () => ({
 // hotel id
 export const hotelId = (payload) => ({
   type: HOTEL_ID,
+  payload,
+});
+// hotel page change
+export const pageChange = (payload) => ({
+  type: PAGE_CHANGE,
   payload,
 });
 
@@ -305,15 +312,18 @@ export const logoutRequest = (payload) => (dispatch) => {
     )
     .then((data) => dispatch(logoutUserSuccess(data)))
     .catch((error) => dispatch(logoutUserFailure(error)));
-};
-
-// hotel listing data
-export const hotelListingDataRequest = (payload) => (dispatch) => {
-  console.log("hotel listing calling...", payload);
+  };
+  
+  // hotel listing data
+  export const hotelListingDataRequest = (payload) => (dispatch) => {
+    console.log("hotel listing calling...", payload);
+    // dispatch(pageChange(payload.page));
   dispatch(hotelListingRequest());
 
   return axios
-    .get("/hotel_listing?" + payload, {})
+    .post("/hotel_listing?" + payload.path, {
+      ...payload.location
+    })
     .then((data) => {
       console.log(data);
       dispatch(hotelListingSuccess(data));
@@ -376,13 +386,13 @@ export const hotelBillingDataRequest = (payload) => (dispatch) => {
 };
 
 // hotel recommendation
-export const hotelRecommendationDataRequest = (payload,id) => (dispatch) => {
-  console.log("hotel recommendation calling...", payload,id);
+export const hotelRecommendationDataRequest = (id,payload) => (dispatch) => {
+  console.log("hotel recommendation calling...",id,payload);
   dispatch(hotelRecommendationRequest());
 
   return axios
-    .post("/recommendations?" + payload, {
-      hotel_id:"40"
+    .post("/recommendations?"+payload , {
+      hotel_id:id
     })
     .then((data) => {
       console.log(data);

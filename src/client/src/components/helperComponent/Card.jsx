@@ -117,11 +117,11 @@ class Card extends Component {
     return (
       <>
         <div class="card mt-5 border-0" id={styles.border}>
+        
           <div class="row no-gutters" id={styles.imgContainer}>
             <div class="col-md-4  h-100">
-              {" "}
               <img
-                src={data.images.large[0]}
+                src={data.images.random[0]}
                 class="card-img"
                 alt="..."
                 id={styles.imageFit}
@@ -159,7 +159,7 @@ class Card extends Component {
                 <h5 class="card-title m-0 text-truncate" id={styles.cardTitle}>
                   <a target="_blank" href={`/entity/${data.hotel_id}`}>{data.name}</a>
                 </h5>
-                <div id={styles.location}> kolkata , kolkata </div>
+                <div id={styles.location}> {data.address} </div>
                 <div className="mt-3">
                   <div className="col-12 p-0" id={styles.ratingContainer}>
                     <span id={styles.rating}>
@@ -236,6 +236,7 @@ class Card extends Component {
             </div>
           </div>
         </div>
+        
       </>
     );
   }

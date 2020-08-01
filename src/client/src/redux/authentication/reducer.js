@@ -29,6 +29,8 @@ import {
   HOTEL_ENTITY_FAILURE,
   // hotel id
   HOTEL_ID,
+  // pagr change
+  PAGE_CHANGE,
 
   // hotel recommendation
   HOTEL_RECOMMENDATION_REQUEST,
@@ -82,6 +84,7 @@ const initState = {
   razor: undefined,
   payment: false,
   isloading: false,
+  page:1
 };
 
 const reducer = (state = initState, { type, payload }) => {
@@ -271,6 +274,12 @@ const reducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         hotelId: payload,
+      };
+    // page change
+    case PAGE_CHANGE:
+      return {
+      ...state,
+      page: payload,
       };
     // hotel bill data
     case HOTEL_BILLING_REQUEST:

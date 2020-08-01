@@ -11,9 +11,10 @@ class ProductList extends Component {
     super(props);
   }
   componentDidMount() {
-    let x = document.location.pathname.split("");
-    let path = x.slice(1, x.length).join("");
-    this.props.hotelListingDataRequest(path);
+    
+    let x = document.location.pathname.split("/");
+    let path = x.slice(2, x.length).join("");
+    this.props.hotelListingDataRequest({location:{lat:"12.9716",lon:"77.5946",page:1},path});
   }
   // shouldComponentUpdate(prevProps) {
   //   const { hotelListingDataRequest, location } = this.props;

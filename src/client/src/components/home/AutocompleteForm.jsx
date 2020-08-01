@@ -50,11 +50,11 @@ const AutocompleteForm = () => {
                       style,
                     })}
                   >
-                    <span className="w=100">
+                    <span>
                       <span className="pr-2">
                         <FontAwesomeIcon icon={faMapMarker} />
                       </span>
-                      <span>
+                      <span className="p-2">
 
                          {suggestion.description}
                       </span>

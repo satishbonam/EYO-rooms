@@ -4,6 +4,7 @@ import DetailViewAmenities from "../detailView/detailViewAmenities/DetailViewAme
 import DetailViewYourRoom from "./DetailViewYourRoom/DetailViewYourRoom";
 import DetailViewMeal from "./DetailViewMeal/DetailViewMeal";
 import DetailViewRating from "./detailViewRating/DetailViewRating";
+import DetailViewRecomandation from "./deatilViewRecomandation/DetailViewRecomandation";
 
 export default class DetailViewContent extends Component {
   render() {

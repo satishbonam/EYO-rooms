@@ -26,6 +26,7 @@ export default class HomeBanner extends Component {
       inputStart: picker.startDate.format("DD/MM/YYYY"),
       inputFinish: picker.endDate.format("DD/MM/YYYY"),
     });
+    console.log(this.state)
   };
 
   showRoomsHandler = () => {
@@ -78,7 +79,7 @@ export default class HomeBanner extends Component {
     
   }
   render() {
-    let { showrooms,roomCount,guestCount } = this.state;
+    let { showrooms,roomCount,guestCount ,inputStart,inputFinish} = this.state;
     let { handleRoomAndGuest,handleAddRoom,handleDeleteRoom } = this
     let showRoomsDrop = showrooms ? "" : "d-none";
     return (
@@ -102,9 +103,9 @@ export default class HomeBanner extends Component {
                 <div id={styles.homeCalender}>
                   <DateRangePicker autoUpdateInput={false} startDate={this.state.inputStart} endDate={this.state.inputFinish} locale={{ format: "DD/MM/YYYY" }} onApply={this.handleEvent} autoApply={true}>
                     <div>
-                      <span>Thu, 17 Sep </span>
+                      <span>{inputStart} </span>
                       <span>-</span>
-                      <span>Sun, 20 Sep</span>
+                      <span>{inputFinish}</span>
                     </div>
                   </DateRangePicker>
                 </div>

@@ -5,8 +5,8 @@ import {
   logoutRequest,
   changeLogoutValue,
 } from "../../redux/authentication/actions";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
 
 class navbar extends Component {
@@ -80,9 +80,10 @@ class navbar extends Component {
                   <Link
                     to="/"
                     id={styles.button}
-                    className="nav-link btn  btn-sm font-weight-bold "
+                    className="nav-link btn  btn-sm font-weight-bold text-dark "
                   >
-                    {/* <FontAwesomeIcon icon={faUserCircle} /> */}
+                    <FontAwesomeIcon icon={faUserCircle} size="lg" />
+                    <span className="pr-1"></span>
                     Login / Signup
                   </Link>
                 ) : (
