@@ -52,8 +52,13 @@ class SidebarFacilitiesItems extends React.Component {
         }
       });
     if (prevProps.value !== this.props.value) {
-      this.props.url.history.push(build(para));
-      hotelListingDataRequest(build(para));
+      let x = build(para);
+      x && this.props.url.history.push(`/listing/${x}`);
+      x &&
+        hotelListingDataRequest(x, {
+          lat: "12.9715",
+          lon: "77.5945627",
+        });
     }
   }
   render() {

@@ -313,7 +313,9 @@ export const hotelListingDataRequest = (payload) => (dispatch) => {
   dispatch(hotelListingRequest());
 
   return axios
-    .get("/hotel_listing?" + payload, {})
+    .post("/hotel_listing?" + payload.params, {
+      ...payload.body,
+    })
     .then((data) => {
       console.log(data);
       dispatch(hotelListingSuccess(data));
