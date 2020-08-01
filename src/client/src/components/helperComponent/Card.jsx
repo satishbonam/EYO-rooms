@@ -4,23 +4,40 @@ import MapViewCss from "./CardSmall.module.css";
 import { Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar ,faCheckCircle, faFan,  faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking,faThermometerEmpty, faChair, faTv, faSoap, faBold, faBone, faDotCircle, faTags, faPen} from "@fortawesome/free-solid-svg-icons"
 import {
-  hotelListingDataRequest,
-  hotelEntityDataRequest,
-  hotelBillingDataRequest,
-  hotelReviewDataRequest,
-} from "../../redux/authentication/actions";
+  faStar,
+  faCheckCircle,
+  faFan,
+  faToilet,
+  faPersonBooth,
+  faMusic,
+  faHandHoldingWater,
+  faMoneyBillWave,
+  faBreadSlice,
+  faWifi,
+  faFire,
+  faHotTub,
+  faBed,
+  faCheese,
+  faRestroom,
+  faParking,
+  faThermometerEmpty,
+  faChair,
+  faTv,
+  faSoap,
+  faBold,
+  faBone,
+  faDotCircle,
+  faTags,
+  faPen,
+} from "@fortawesome/free-solid-svg-icons";
+import { hotelListingDataRequest, hotelEntityDataRequest, hotelBillingDataRequest, hotelReviewDataRequest } from "../../redux/authentication/actions";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 class Card extends Component {
   changeToEntityPage = (id) => {
     console.log("calling entity page", id);
-    const {
-      hotelEntityDataRequest,
-      hotelBillingDataRequest,
-      history,
-    } = this.props;
+    const { hotelEntityDataRequest, hotelBillingDataRequest, history } = this.props;
 
     // hotelEntityDataRequest(id)
 
@@ -37,72 +54,94 @@ class Card extends Component {
     // <Redirect to={`/entity/${id}`}/>
   };
 
-  
-  findFontawesome=(ele)=>{
-    let fa = [faStar,faPen,faTags ,faCheckCircle, faFan,  faToilet, faPersonBooth, faMusic,faHandHoldingWater,faMoneyBillWave,faBreadSlice,faWifi,faFire, faHotTub, faBed,faCheese, faRestroom,faParking,faThermometerEmpty, faChair, faTv, faSoap]
-    switch(ele){
+  findFontawesome = (ele) => {
+    let fa = [
+      faStar,
+      faPen,
+      faTags,
+      faCheckCircle,
+      faFan,
+      faToilet,
+      faPersonBooth,
+      faMusic,
+      faHandHoldingWater,
+      faMoneyBillWave,
+      faBreadSlice,
+      faWifi,
+      faFire,
+      faHotTub,
+      faBed,
+      faCheese,
+      faRestroom,
+      faParking,
+      faThermometerEmpty,
+      faChair,
+      faTv,
+      faSoap,
+    ];
+    switch (ele) {
       case "faFan":
-        return faFan
+        return faFan;
       case "faWifi":
-        return faWifi
+        return faWifi;
       case "faFire":
-        return faFire
+        return faFire;
       case "faTv":
-        return faTv
+        return faTv;
       case "faBreadSlice":
-        return faBreadSlice
+        return faBreadSlice;
       case "faToilet":
-        return faToilet
+        return faToilet;
       case "faHotTub":
-        return faHotTub
+        return faHotTub;
       case "faParking":
-        return faParking
+        return faParking;
       case "faSoap":
-        return faSoap
+        return faSoap;
       case "faBed":
-        return faBed
+        return faBed;
       case "faCheese":
-        return faCheese
+        return faCheese;
       case "faHandHoldingWater":
-        return faHandHoldingWater
+        return faHandHoldingWater;
       case "faChair":
-        return faChair
+        return faChair;
       case "faThermometerEmpty":
-        return faThermometerEmpty
+        return faThermometerEmpty;
       case "faMoneyBillWave":
-        return faMoneyBillWave
+        return faMoneyBillWave;
       case "faMusic":
-        return faMusic
+        return faMusic;
       case "faHandHoldingWater":
-        return faHandHoldingWater
+        return faHandHoldingWater;
       case "faBone":
-        return faBone
+        return faBone;
       case "faRestroom":
-        return faRestroom
+        return faRestroom;
       case "faStar":
-        return faStar
+        return faStar;
       case "faDoorClosed":
-        return this.faDoorClosed
+        return this.faDoorClosed;
       case "faPen":
-        return faPen
+        return faPen;
       case "faTags":
-        return faTags
+        return faTags;
       case "faCheckCircle":
-        return faCheckCircle
+        return faCheckCircle;
       case "faPersonBooth":
-        return faPersonBooth
+        return faPersonBooth;
       default:
-        return faDotCircle
+        return faDotCircle;
     }
-  }
-  
+  };
+
   render() {
     let { data, mapView } = this.props;
 
     let increseCol = mapView ? "col-12" : "col-5";
     let styles = mapView ? MapViewCss : nonMapViewCss;
 
-    const { changeToEntityPage,findFontawesome } = this;
+    const { changeToEntityPage, findFontawesome } = this;
     console.log(data, "amenities");
     let amenities = [];
     if (data) {
@@ -120,44 +159,22 @@ class Card extends Component {
           <div class="row no-gutters" id={styles.imgContainer}>
             <div class="col-md-4  h-100">
               {" "}
-              <img
-                src={data.images.large[0]}
-                class="card-img"
-                alt="..."
-                id={styles.imageFit}
-              />
+              <img src={data.images.large[0]} class="card-img" alt="..." id={styles.imageFit} />
             </div>
-            <div
-              className=" col-1 d-flex flex-column justify-content-center h-100"
-              id={styles.hide}
-            >
+            <div className=" col-1 d-flex flex-column justify-content-center h-100" id={styles.hide}>
               <>
-                <img
-                  src={data.images.thumb[0]}
-                  class="card-img p-1 h-25"
-                  alt=""
-                />
-                <img
-                  src={data.images.thumb[1]}
-                  class="card-img p-1 h-25"
-                  alt=""
-                />
-                <img
-                  src={data.images.thumb[2]}
-                  class="card-img p-1 h-25"
-                  alt=""
-                />
-                <img
-                  src={data.images.thumb[3]}
-                  class="card-img p-1 h-25"
-                  alt=""
-                />
+                <img src={data.images.thumb[0]} class="card-img p-1 h-25" alt="" />
+                <img src={data.images.thumb[1]} class="card-img p-1 h-25" alt="" />
+                <img src={data.images.thumb[2]} class="card-img p-1 h-25" alt="" />
+                <img src={data.images.thumb[3]} class="card-img p-1 h-25" alt="" />
               </>
             </div>
             <div class="col-md-7">
               <div class="card-body" id={styles.cardBody}>
                 <h5 class="card-title m-0 text-truncate" id={styles.cardTitle}>
-                  <a target="_blank" href={`/entity/${data.hotel_id}`}>{data.name}</a>
+                  <a target="_blank" href={`/entity/${data.hotel_id}`}>
+                    {data.name}
+                  </a>
                 </h5>
                 <div id={styles.location}> kolkata , kolkata </div>
                 <div className="mt-3">
@@ -198,32 +215,16 @@ class Card extends Component {
                 <div className="d-flex mt-3 ">
                   <div className={` ${increseCol} p-0`}>
                     <div>
-                      <span id={styles.price}>
-                        &#8377;{" "}
-                        {Math.floor(data.rooms[0].actual_price) -
-                          Math.floor(
-                            (Number(data.rooms[0].actual_price) *
-                              Number(data.rooms[0].discount_percentage)) /
-                              100
-                          )}
-                      </span>
-                      <span id={styles.slashPrice}>
-                        &#8377; {Math.floor(data.rooms[0].actual_price)}
-                      </span>
-                      <span id={styles.percentage}>
-                        {Math.floor(data.rooms[0].discount_percentage)} % off
-                      </span>
+                      <span id={styles.price}>&#8377; {Math.floor(data.rooms[0].actual_price) - Math.floor((Number(data.rooms[0].actual_price) * Number(data.rooms[0].discount_percentage)) / 100)}</span>
+                      <span id={styles.slashPrice}>&#8377; {Math.floor(data.rooms[0].actual_price)}</span>
+                      <span id={styles.percentage}>{Math.floor(data.rooms[0].discount_percentage)} % off</span>
                     </div>
                     <div id={styles.pernight}>per room per night</div>
                     {/* <div id={styles.pernight}>Checking feature-{data.checkin_features}</div> */}
                   </div>
                   <div className="col-7 d-flex align-items-center justify-content-around p-0">
                     <span className="col-6">
-                      <a
-                        target="_blank"
-                        href={`/entity/${data.hotel_id}`}
-                        id={styles.whilteButton}
-                      >
+                      <a target="_blank" href={`/entity/${data.hotel_id}`} id={styles.whilteButton}>
                         View details
                       </a>
                     </span>
@@ -249,12 +250,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  hotelEntityDataRequest: (payload) =>
-    dispatch(hotelEntityDataRequest(payload)),
-  hotelBillingDataRequest: (payload) =>
-    dispatch(hotelBillingDataRequest(payload)),
-  hotelReviewDataRequest: (payload) =>
-    dispatch(hotelReviewDataRequest(payload)),
+  hotelEntityDataRequest: (payload) => dispatch(hotelEntityDataRequest(payload)),
+  hotelBillingDataRequest: (payload) => dispatch(hotelBillingDataRequest(payload)),
+  hotelReviewDataRequest: (payload) => dispatch(hotelReviewDataRequest(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Card);
