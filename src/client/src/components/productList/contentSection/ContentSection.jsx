@@ -4,7 +4,7 @@ import Card from "../../helperComponent/Card";
 import GoogleMap from "../../helperComponent/ShowMap";
 import { hotelListingDataRequest } from "../../../redux/authentication/actions";
 import { connect } from "react-redux";
-import {loadData} from "../../../redux/authentication/localStorage"
+import { loadData } from "../../../redux/authentication/localStorage";
 // import AutocompleteForm from "../../home/AutocompleteForm";
 import { build } from "search-params";
 
@@ -30,8 +30,8 @@ class ContentSection extends Component {
     });
   };
 
-  handleMoreResults=()=>{
-    const { hotelListingDataRequest, hotelData,page,history } = this.props;
+  handleMoreResults = () => {
+    const { hotelListingDataRequest, hotelData, page, history } = this.props;
     var para = {};
     hotelData &&
       hotelData.filters.category.forEach((item) => {
@@ -74,46 +74,45 @@ class ContentSection extends Component {
         }
       });
 
-    history.push("/listing/"+build(para));
-    let location  = loadData("location")
-    let lat =  location.lat.toString()
-    let lon =  location.lng.toString()
-    console.log("page data")
-    hotelListingDataRequest({location:{lat,lon,page:Number(hotelData.page)+1},path:build(para)});
-  }
+    history.push("/listing/" + build(para));
+    let location = loadData("location");
+    let lat = location.lat.toString();
+    let lon = location.lng.toString();
+    console.log("page data");
+    hotelListingDataRequest({ location: { lat, lon, page: Number(hotelData.page) + 1 }, path: build(para) });
+  };
   render() {
     let maxHeight;
     let { mapView } = this.state;
-    let mapCardClass = mapView ? "col-5" : "col-12";
+    let mapCardClass = mapView ? "col-5 p-0" : "col-12";
     let mapClass = mapView ? "col-7" : "d-none";
     let scroll = mapView && this.state.cardOverflow;
+    let heightscrollCard = mapView && this.state.divStyle;
     let { hotelData } = this.props;
-    const {handleMoreResults} = this
+    const { handleMoreResults } = this;
 
     return (
       <>
-      <div className="col-9">
-      <div>
-          <button onClick={()=>{
-            handleMoreResults()
-          }}>
-            View more results
-          </button>
-      </div>
-        <ContentHeader handleToggle={this.handleMapView} />
-        <div className="col-12 d-flex" style={{ ...this.state.divStyle }}>
-          <div className={mapCardClass} style={{ ...scroll }}>
-            {hotelData && hotelData.status && hotelData.data.map((ele, index) => <Card data={ele} key={index} mapView={mapView} />)}
+        <div className="col-9">
+          <ContentHeader handleToggle={this.handleMapView} />
+          <div className="col-12 d-flex flex-column ">
+            <div className="col-12 d-flex p-0" style={{ ...heightscrollCard }}>
+              <div className={mapCardClass} style={{ ...scroll }}>
+                {hotelData && hotelData.status && hotelData.data.map((ele, index) => <Card data={ele} key={index} mapView={mapView} />)}
+              </div>
+              <div className={mapClass}>{hotelData && hotelData.status && <GoogleMap hotelData={hotelData} />}</div>
+            </div>
+            <div className="col-3 d-flex align-items-center m-3">
+              <button
+                onClick={() => {
+                  handleMoreResults();
+                }}
+              >
+                View more results
+              </button>
+            </div>
           </div>
-          <div className={mapClass}>
-            {
-              hotelData && hotelData.status &&
-              <GoogleMap hotelData={hotelData}/>
-            }
-          </div>
-        
         </div>
-      </div>
       </>
     );
   }
@@ -121,7 +120,7 @@ class ContentSection extends Component {
 
 const mapStateToProps = (state) => ({
   hotelData: state.auth.hotelListData,
-  page:state.auth.page
+  page: state.auth.page,
 });
 
 const mapDispatchToProps = (dispatch) => ({
