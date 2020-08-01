@@ -15,7 +15,7 @@ export default class DetailView extends Component {
           <div className="row m-0 ">
             <DetailViewContent id={this.props.match.params.id}/>
             <PriceCard />
-            <DetailViewRecomandation/>
+            <DetailViewRecomandation id={this.props.match.params.id}/>
           </div>
         </div>
       </>

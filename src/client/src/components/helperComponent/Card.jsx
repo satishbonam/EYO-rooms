@@ -158,8 +158,7 @@ class Card extends Component {
         <div class="card mt-5 border-0" id={styles.border}>
           <div class="row no-gutters" id={styles.imgContainer}>
             <div class="col-md-4  h-100">
-              {" "}
-              <img src={data.images.large[0]} class="card-img" alt="..." id={styles.imageFit} />
+              <img src={data.images.random[0]} class="card-img" alt="..." id={styles.imageFit} />
             </div>
             <div className=" col-1 d-flex flex-column justify-content-center h-100" id={styles.hide}>
               <>
@@ -176,7 +175,7 @@ class Card extends Component {
                     {data.name}
                   </a>
                 </h5>
-                <div id={styles.location}> kolkata , kolkata </div>
+                <div id={styles.location}> {data.address} </div>
                 <div className="mt-3">
                   <div className="col-12 p-0" id={styles.ratingContainer}>
                     <span id={styles.rating}>

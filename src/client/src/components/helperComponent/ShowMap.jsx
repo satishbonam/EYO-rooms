@@ -8,7 +8,12 @@ import {
     Marker,
     InfoWindow
   } from "react-google-maps";
+import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
+import {connect} from "react-redux"
+import {loadData} from "../../redux/authentication/localStorage"
 
+  let hotelData = loadData("hotelListData")
+  let location =  loadData("location")
   var points = [
     { lat: 19.155001, lng: 72.849998, name:"hotel cacajaca", key:1 },
     { lat: 15.2993, lng: 74.1240,name:"Juncus brachycarpus Engelm.",key:2},
@@ -23,20 +28,19 @@ class map extends React.Component{
         }
     }
     render(){
-
         return(
             <>
                 <GoogleMap
-                    defaultZoom={5}
-                    defaultCenter={{ lat: 20.5937, lng: 78.9629 }}>
+                    defaultZoom={10}
+                    defaultCenter={{ lat: location.lat, lng: location.lng }}>
                         {
-                            points.map(ele=>(
-                                <Marker key={ele.key} position={{ lat: ele.lat, lng: ele.lng }}
+                            hotelData.data.map(ele=>(
+                                <Marker key={ele.hotel_id} position={{ lat: Number(ele.location.lat), lng: Number(ele.location.lon) }}
                                     onClick={()=>{
                                         this.setState({select:ele})
                                     }}
                                     icon={{
-                                        url:"https://i.pinimg.com/600x315/5e/51/0c/5e510c69169756774ee36eea82da3a1a.jpg",
+                                        url:ele.images.random[0],
                                         scaledSize:new window.google.maps.Size(40,40),
                                     }}
                                     // label="2000"
@@ -46,12 +50,12 @@ class map extends React.Component{
                         {
                             this.state.select && (
                                 <InfoWindow
-                                 position={{ lat: this.state.select.lat, lng: this.state.select.lng }}
+                                 position={{ lat: Number(this.state.select.location.lat), lng: Number(this.state.select.location.lon) }}
                                   onCloseClick={()=>this.setState({select:null})}>
                                       <div>
 
                                       <h2>{this.state.select.name}</h2>
-                                      <h6>{this.state.select.name}</h6>
+                                      <h6>Rooms price Rs.{this.state.select.rooms[0].actual_price}</h6>
                                       </div>
                                 </InfoWindow>
                             )
@@ -63,8 +67,7 @@ class map extends React.Component{
     
 }
 const WrappedMap = withScriptjs(withGoogleMap(map))
-
-export default function Map(){
+ function Map(){
     return(
         <>
             <WrappedMap googleMapURL={"https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyCcS0j7hDpSs-F4xDi2q6AkTD_sWqECR9M"}
@@ -75,3 +78,11 @@ export default function Map(){
         </>
     )
 }
+
+const mapStateToProps = (state) => ({
+    hotelData: state.auth.hotelListData
+  });
+  
+  
+  export default connect(mapStateToProps, null)(Map);
+  

@@ -1,34 +1,14 @@
 import React, { Component, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faStar,
-  faLandmark,
-  faFan,
-  faToilet,
-  faPersonBooth,
-  faMusic,
-  faHandHoldingWater,
-  faMoneyBillWave,
-  faBreadSlice,
-  faWifi,
-  faFire,
-  faHotTub,
-  faBed,
-  faCheese,
-  faRestroom,
-  faParking,
-  faThermometerEmpty,
-  faChair,
-  faTv,
-  faSoap,
-  faLocationArrow,
+ 
   faMapMarker,
-  faSearchLocation,
 } from "@fortawesome/free-solid-svg-icons";
 // import { hotelEntityDataRequest, hotelBillingDataRequest, hotelReviewDataRequest } from "../../../redux/authentication/actions";
 import { connect } from "react-redux";
 import PlacesAutocomplete, { geocodeByAddress, geocodeByPlaceId, getLatLng } from "react-places-autocomplete";
 import styles from "./homeBanner/HomeBanner.module.css";
+import {saveData} from "../../redux/authentication/localStorage"
 
 const AutocompleteForm = () => {
   const [address, setAddress] = useState("");
@@ -42,7 +22,11 @@ const AutocompleteForm = () => {
 
     const data = geocodeByAddress(address)
       .then((results) => getLatLng(results[0]))
-      .then((latLng) => console.log("Success", latLng))
+      .then((latLng) => {
+        console.log("Success", latLng)
+        saveData("location",latLng)
+        
+      })
       .catch((error) => console.error("Error", error));
     console.log(data);
   };
@@ -73,9 +57,12 @@ const AutocompleteForm = () => {
                   >
                     <span>
                       <span className="pr-2">
-                        <FontAwesomeIcon icon={faMapMarker} color="red" />
+                        <FontAwesomeIcon icon={faMapMarker} />
                       </span>
-                      {suggestion.description}
+                      <span className="p-2">
+
+                         {suggestion.description}
+                      </span>
                     </span>
                   </div>
                 );

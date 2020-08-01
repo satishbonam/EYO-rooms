@@ -5,15 +5,27 @@ import Sidebar from "./sidebar/Sidebar";
 import Contentsection from "../productList/contentSection/ContentSection";
 import { hotelListingDataRequest } from "../../redux/authentication/actions";
 import { connect } from "react-redux";
+import {loadData} from "../../redux/authentication/localStorage"
+
+
 
 class ProductList extends Component {
   constructor(props) {
     super(props);
   }
   componentDidMount() {
-    let x = document.location.pathname.split("");
-    let path = x.slice(1, x.length).join("");
-    this.props.hotelListingDataRequest(path);
+    const {hotelListingDataRequest} =  this.props
+    
+    let x = document.location.pathname.split("/");
+    let path = x.slice(2, x.length).join("");
+    let location =  loadData("location")
+    let lat =  location.lat.toString()
+    let lon =  location.lng.toString()
+    let data = loadData("hotelListData")
+    console.log(typeof lat)
+    console.log(typeof lon)
+    console.log("listing calling")
+    hotelListingDataRequest({location:{lat,lon,page:data.page},path});
   }
   // shouldComponentUpdate(prevProps) {
   //   const { hotelListingDataRequest, location } = this.props;
@@ -40,7 +52,7 @@ class ProductList extends Component {
         <Navbar />
         <div className="row m-0">
           <Sidebar url={this.props} />
-          <Contentsection />
+          <Contentsection history={this.props.history} />
         </div>
       </div>
     );
@@ -50,6 +62,7 @@ class ProductList extends Component {
 const mapStateToProps = (state) => ({
   token: state.auth.token,
   user: state.auth.user,
+  
 });
 
 const mapDispatchToProps = (dispatch) => ({

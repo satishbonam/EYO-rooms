@@ -28,7 +28,7 @@ export default class Routes extends Component {
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/listing" exact component={ProductList} />
-          <Route path="/:filter" exact component={ProductList} />
+          <Route path="/listing/:filter" exact component={ProductList} />
           <Route path="/login" component={AuthBannerLogin} />
           <Route path="/loginotp" component={AuthBannerLoginOtp} />
           <Route path="/otpverify" component={AuthBannerOtpVerify} />

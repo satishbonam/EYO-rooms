@@ -9,7 +9,7 @@ export default class Home extends Component {
     return (
       <>
         <Navbar />
-        <HomeBanner />
+        <HomeBanner history= {this.props.history}/>
         <HomeContent />
         <Footer />
       </>

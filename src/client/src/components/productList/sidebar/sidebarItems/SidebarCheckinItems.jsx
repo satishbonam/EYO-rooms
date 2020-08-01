@@ -6,6 +6,7 @@ import {
 } from "../../../../redux/authentication/actions";
 import { connect } from "react-redux";
 import { build } from "search-params";
+import {loadData} from "../../../../redux/authentication/localStorage"
 
 class SidebarCheckinItems extends React.Component {
   componentDidUpdate(prevProps) {
@@ -52,8 +53,11 @@ class SidebarCheckinItems extends React.Component {
         }
       });
     if (prevProps.value !== this.props.value) {
-      this.props.url.history.push(build(para));
-      hotelListingDataRequest(build(para));
+      this.props.url.history.push("/listing/"+build(para));
+      let location  = loadData("location")
+      let lat =  location.lat.toString()
+      let lon =  location.lng.toString()
+      hotelListingDataRequest({location:{lat,lon},path:build(para)});
     }
   }
   render() {
