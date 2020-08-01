@@ -4,13 +4,11 @@ import DateRangePicker from "react-bootstrap-daterangepicker";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-daterangepicker/daterangepicker.css";
 import AutocompleteForm from "../AutocompleteForm";
-import {hotelListingDataRequest} from "../../../redux/authentication/actions"
-import {connect} from "react-redux"
-import {loadData} from "../../../redux/authentication/localStorage"
+import { hotelListingDataRequest } from "../../../redux/authentication/actions";
+import { connect } from "react-redux";
+import { loadData } from "../../../redux/authentication/localStorage";
 
-
-
- class HomeBanner extends Component {
+class HomeBanner extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,32 +16,31 @@ import {loadData} from "../../../redux/authentication/localStorage"
       inputFinish: "02/08/2020",
       checked: true,
       showrooms: false,
-      roomCount:1,
-      guestCount:1,
-      roomContainer:[<div></div>]
+      roomCount: 1,
+      guestCount: 1,
+      roomContainer: [<div></div>],
     };
   }
 
-  handleSearchHotel=()=>{
-      const {hotelListingDataRequest,history} =  this.props
-      console.log(this.props)
-      let location = loadData("location")
-      let lat =  location.lat.toString()
-      let lon =  location.lng.toString()
-      console.log(typeof lat)
-      console.log(typeof lon)
-      console.log("listing calling")
-      hotelListingDataRequest({location:{lat,lon},path:""});
-      history.push("/listing")
-      
-  }
+  handleSearchHotel = () => {
+    const { hotelListingDataRequest, history } = this.props;
+    console.log(this.props);
+    let location = loadData("location");
+    let lat = location.lat.toString();
+    let lon = location.lng.toString();
+    console.log(typeof lat);
+    console.log(typeof lon);
+    console.log("listing calling");
+    hotelListingDataRequest({ location: { lat, lon }, path: "" });
+    history.push("/listing");
+  };
 
   handleEvent = (event, picker) => {
     this.setState({
       inputStart: picker.startDate.format("DD/MM/YYYY"),
       inputFinish: picker.endDate.format("DD/MM/YYYY"),
     });
-    console.log(this.state)
+    console.log(this.state);
   };
 
   showRoomsHandler = () => {
@@ -52,52 +49,60 @@ import {loadData} from "../../../redux/authentication/localStorage"
     });
   };
 
-  handleRoomAndGuest= ()=>{
-    const { roomCount,guestCount,roomContainer} = this.state
-    
-    let ele  = [
+  handleRoomAndGuest = () => {
+    const { roomCount, guestCount, roomContainer } = this.state;
+
+    let ele = [
       ...roomContainer,
       <div className="row m-0 p-3 justify-content-around align-items-center" id={styles.dropDownHead}>
-    <div>Room {roomCount}</div>
-    <div>
-      <span id={styles.operator} onClick={()=>this.setState({guestCount:guestCount-1})}>–</span>
-      <span>{guestCount}</span>
-      <span id={styles.operator} onClick={()=>this.setState({guestCount:guestCount+1})}>+</span>
-    </div>
-  </div>
+        <div>Room {roomCount}</div>
+        <div>
+          <span id={styles.operator} onClick={() => this.setState({ guestCount: guestCount - 1 })}>
+            –
+          </span>
+          <span>{guestCount}</span>
+          <span id={styles.operator} onClick={() => this.setState({ guestCount: guestCount + 1 })}>
+            +
+          </span>
+        </div>
+      </div>,
+    ];
 
-    ]
-      
-    return ele
-  }
-  handleAddRoom= ()=>{
-    const { roomCount,guestCount,roomContainer} = this.state
-    console.log(roomContainer.length)
-    let ele = <div className="row m-0 p-3 justify-content-around align-items-center" id={styles.dropDownHead}>
-    <div>Room {roomCount}</div>
-    <div>
-      <span id={styles.operator} onClick={()=>this.setState({guestCount:guestCount-1})}>–</span>
-      <span>{1}</span>
-      <span id={styles.operator} onClick={()=>this.setState({guestCount:guestCount+1})}>+</span>
-    </div>
-  </div>
-    this.setState({roomContainer:[...roomContainer,ele],roomCount:roomCount+1})
-    return roomContainer
-  }
-  handleDeleteRoom= ()=>{
-    const { roomCount,guestCount,roomContainer} = this.state
-    console.log(roomContainer.length)
-    let elem = roomContainer.map(ele=>{
-      if(ele.length< roomContainer.length-2){
-        return ele
+    return ele;
+  };
+  handleAddRoom = () => {
+    const { roomCount, guestCount, roomContainer } = this.state;
+    console.log(roomContainer.length);
+    let ele = (
+      <div className="row m-0 p-3 justify-content-around align-items-center" id={styles.dropDownHead}>
+        <div>Room {roomCount}</div>
+        <div>
+          <span id={styles.operator} onClick={() => this.setState({ guestCount: guestCount - 1 })}>
+            –
+          </span>
+          <span>{1}</span>
+          <span id={styles.operator} onClick={() => this.setState({ guestCount: guestCount + 1 })}>
+            +
+          </span>
+        </div>
+      </div>
+    );
+    this.setState({ roomContainer: [...roomContainer, ele], roomCount: roomCount + 1 });
+    return roomContainer;
+  };
+  handleDeleteRoom = () => {
+    const { roomCount, guestCount, roomContainer } = this.state;
+    console.log(roomContainer.length);
+    let elem = roomContainer.map((ele) => {
+      if (ele.length < roomContainer.length - 2) {
+        return ele;
       }
-    })
-    console.log(elem)
-    
-  }
+    });
+    console.log(elem);
+  };
   render() {
-    let { showrooms,roomCount,guestCount ,inputStart,inputFinish} = this.state;
-    let { handleRoomAndGuest,handleAddRoom,handleDeleteRoom, handleSearchHotel} = this
+    let { showrooms, roomCount, guestCount, inputStart, inputFinish } = this.state;
+    let { handleRoomAndGuest, handleAddRoom, handleDeleteRoom, handleSearchHotel } = this;
     let showRoomsDrop = showrooms ? "" : "d-none";
     return (
       <div className="container-fluid" style={{ position: "relative", zIndex: "1" }}>
@@ -145,14 +150,16 @@ import {loadData} from "../../../redux/authentication/localStorage"
                     </div> */}
                     {handleRoomAndGuest()}
                     <div className="row justify-content-around" id={styles.dropDownHead}>
-                      <div onClick={()=>handleAddRoom()}>Add Room</div>
-                      <div onClick={()=>handleDeleteRoom()}>Delete Room</div>
+                      <div onClick={() => handleAddRoom()}>Add Room</div>
+                      <div onClick={() => handleDeleteRoom()}>Delete Room</div>
                     </div>
                   </div>
                 </div>
 
                 <div id={styles.homebutton} style={{ height: "67px" }}>
-                  <button onClick={handleSearchHotel}>Search</button>
+                  <button id={styles.homebutton} onClick={handleSearchHotel}>
+                    Search
+                  </button>
                 </div>
               </div>
               <div className="row px-5 py-4 align-items-cene w-100" id={styles.items}>
@@ -183,8 +190,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  hotelListingDataRequest: (payload) =>
-    dispatch(hotelListingDataRequest(payload)),
+  hotelListingDataRequest: (payload) => dispatch(hotelListingDataRequest(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeBanner);
