@@ -291,7 +291,7 @@ const reducer = (state = initState, { type, payload }) => {
         isRequest: false,
         isError: true,
       };
-    // hotel recoomedation
+    // hotel recommendation
     case HOTEL_RECOMMENDATION_REQUEST:
       return {
         ...state,
@@ -302,7 +302,7 @@ const reducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         isRequest: false,
-        recommendation: payload,
+        recommendation: payload.data,
       };
     case HOTEL_RECOMMENDATION_FAILURE:
       return {

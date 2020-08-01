@@ -19,14 +19,13 @@ import PaymentMethodBooking from "../paymentMethod/paymentMethodBooking/PaymentM
 
 import DetailView from "../detailView/DetailView";
 // import AutocompleteForm from "../home/AutocompleteForm";
-import map from "../helperComponent/map"
 export default class Routes extends Component {
   render() {
     return (
       <>
         <Route path="/" exact component={ProductList} />
         {/* <Route path="/" exact component={map} /> */}
-        {/* <Route path="/:filter" exact component={ProductList} /> */}
+        <Route path="/:filter" exact component={ProductList} />
         <Route path="/login" component={AuthBannerLogin} />
         <Route path="/loginotp" component={AuthBannerLoginOtp} />
         <Route path="/otpverify" component={AuthBannerOtpVerify} />

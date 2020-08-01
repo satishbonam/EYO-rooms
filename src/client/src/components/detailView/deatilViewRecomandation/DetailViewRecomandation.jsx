@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faStar } from "@fortawesome/free-solid-svg-icons";
@@ -30,7 +31,7 @@ import { loadData } from "../../../redux/authentication/localStorage";
 
 class DetailViewRecomandation extends Component {
   componentDidMount = () => {
-    const { hotelRecommendationDataRequest, hotelId} = this.props;
+    const { hotelRecommendationDataRequest } = this.props;
     const hotelData = loadData("hotelListData");
     var para = {};
     hotelData &&
@@ -74,11 +75,24 @@ class DetailViewRecomandation extends Component {
         }
       });
     let params = build(para);
-    hotelRecommendationDataRequest(params,hotelId);
+    hotelRecommendationDataRequest(params);
   };
 
   render() {
     console.log(this.props.recommendation);
+
+    const {recommendation} =  this.props
+    let recommend = []
+    if(recommendation){
+      recommendation.map(ele=>{
+       
+        if(recommend.length<4){
+          recommend.push(ele)
+        }
+
+      })
+    }
+    
     return (
       <div className="container-fluid my-5">
         <div className=" col-12 ">
@@ -88,51 +102,22 @@ class DetailViewRecomandation extends Component {
             </div>
           </div>
           <div className="row">
-            {[
-              {
-                heading: "OYO 29781 Radhika Ex",
-                subHeading: "Some quick example text to build o",
-                rating: "4",
-                icon: faStar,
-                review: "134",
-                val: "Very Good",
-                price: "1389",
-                off: "46%",
-              },
-              {
-                heading: "OYO 29781 Radhika Ex",
-                subHeading: "Some quick example text to build o",
-                rating: "4",
-                icon: faStar,
-                review: "134",
-                val: "Very Good",
-                price: "1389",
-                off: "46%",
-              },
-              {
-                heading: "OYO 29781 Radhika Ex",
-                subHeading: "Some quick example text to build o",
-                rating: "4",
-                icon: faStar,
-                review: "134",
-                val: "Very Good",
-                price: "1389",
-                off: "46%",
-              },
-            ].map((elem) => {
+            {recommend && recommend.map((elem) =>
+             {
+               
               return (
                 <div className="col-3 ">
                   <div className="card w-100">
                     <img className="card-img-top" src="/images/bed.webp" />
                     <div className="card-body">
                       <h2 className="text-truncate" id={styles.heading}>
-                        {elem.heading}
+                        {elem.name}
                       </h2>
                       <p
                         className="card-text text-truncate"
                         id={styles.subHeading}
                       >
-                        {elem.subHeading}
+                        {/* {elem.subHeading} */}
                       </p>
                       <div>
                         <span id={styles.icon}>
@@ -146,13 +131,19 @@ class DetailViewRecomandation extends Component {
                           </span>
                         </span>
                         <span id={styles.review}>
-                          ({elem.review} • reviews) Very Good
+                          ({elem.no_of_ratings} • reviews) Very Good
                         </span>
                       </div>
                       <div>
-                        <span id={styles.price}>₹ {elem.price}</span>
-                        <span id={styles.slashed}>₹ {elem.price}</span>
-                        <span id={styles.off}>{elem.off} off</span>
+                        <span id={styles.price}>₹ {Math.floor(elem.rooms[0].actual_price) -
+                          Math.floor(
+                            (Number(elem.rooms[0].actual_price) *
+                              Number(elem.rooms[0].discount_percentage)) /
+                              100
+                          )}
+                        </span>
+                        <span id={styles.slashed}>₹ {elem.rooms[0].actual_price}</span>
+                        <span id={styles.off}>{elem.rooms[0].discount_percentage} off</span>
                       </div>
                       <div id={styles.perNight}>
                         <span>per room per night</span>{" "}
@@ -177,7 +168,6 @@ const mapStateToProps = (state) => ({
   billingData: state.auth.billingData,
   recommendation: state.auth.recommendation,
   hotelData: state.auth.hotelData,
-  hotelId:state.auth.hotelId
 });
 
 const mapDispatchToProps = (dispatch) => ({
