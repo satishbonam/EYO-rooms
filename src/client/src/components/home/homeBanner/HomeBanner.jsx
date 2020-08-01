@@ -17,7 +17,7 @@ export default class HomeBanner extends Component {
       showrooms: false,
       roomCount:1,
       guestCount:1,
-      roomContainer:[]
+      roomContainer:[<div></div>]
     };
   }
 
@@ -48,10 +48,9 @@ export default class HomeBanner extends Component {
     </div>
   </div>
 
-]
-  // this.setState({roomContainer:ele})
+    ]
       
-    return roomContainer
+    return ele
   }
   handleAddRoom= ()=>{
     const { roomCount,guestCount,roomContainer} = this.state
