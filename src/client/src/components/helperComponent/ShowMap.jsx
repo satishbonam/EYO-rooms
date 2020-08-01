@@ -13,6 +13,7 @@ import {connect} from "react-redux"
 import {loadData} from "../../redux/authentication/localStorage"
 
   var hotelData = loadData("hotelListData")
+  var location = loadData("location")
   var points = [
     { lat: 19.155001, lng: 72.849998, name:"hotel cacajaca", key:1 },
     { lat: 15.2993, lng: 74.1240,name:"Juncus brachycarpus Engelm.",key:2},
@@ -27,14 +28,15 @@ class map extends React.Component{
         }
     }
     render(){
+        const {lat,lng} = location
         return(
             <>
                 <GoogleMap
                     defaultZoom={10}
-                    defaultCenter={{ lat: 12.9715987, lng: 77.5945627 }}>
+                    defaultCenter={{ lat:Number(lat), lng:Number(lng)  }}>
                         {
-                          hotelData && hotelData.status &&  hotelData.data.map(ele=>(
-                                <Marker key={ele.hotel_id} position={{ lat: ele.location.lat, lng: ele.location.lon }}
+                           hotelData.data.map(ele=>(
+                                <Marker key={ele.hotel_id} position={{ lat: Number(ele.location.lat), lng: Number(ele.location.lon) }}
                                     onClick={()=>{
                                         this.setState({select:ele})
                                     }}
@@ -49,7 +51,7 @@ class map extends React.Component{
                         {
                             this.state.select && (
                                 <InfoWindow
-                                 position={{ lat: this.state.select.location.lat, lng: this.state.select.location.lon }}
+                                 position={{ lat: Number(this.state.select.location.lat), lng: Number(this.state.select.location.lon) }}
                                   onCloseClick={()=>this.setState({select:null})}>
                                       <div>
 

@@ -317,7 +317,7 @@ export const logoutRequest = (payload) => (dispatch) => {
   // hotel listing data
   export const hotelListingDataRequest = (payload) => (dispatch) => {
     console.log("hotel listing calling...", payload);
-    // dispatch(pageChange(payload.page));
+    dispatch(pageChange(payload.page));
   dispatch(hotelListingRequest());
 
   return axios

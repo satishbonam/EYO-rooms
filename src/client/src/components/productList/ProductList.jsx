@@ -12,6 +12,7 @@ class ProductList extends Component {
     super(props);
   }
   componentDidMount() {
+    const {hotelListingDataRequest} =  this.props
     
     let x = document.location.pathname.split("/");
     let path = x.slice(2, x.length).join("");
@@ -48,7 +49,7 @@ class ProductList extends Component {
         <Navbar />
         <div className="row m-0">
           <Sidebar url={this.props} />
-          <Contentsection />
+          <Contentsection history={this.props.history} />
         </div>
       </div>
     );
