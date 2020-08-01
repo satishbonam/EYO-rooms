@@ -44,7 +44,7 @@ const AutocompleteForm = () => {
               {suggestions.map((suggestion) => {
                 const className = suggestion.active ? "suggestion-item--active" : "suggestion-item";
                 const style = suggestion.active
-                  ? { backgroundColor: "#fafafa", cursor: "pointer" }
+                  ? { backgroundColor: "#fafbfc", cursor: "pointer", borderRadius: "4px", padding: "14px 8px", fontSize: "16px; ", overflow: "hidden", textOverflow: "ellipsis" }
                   : { backgroundColor: "#ffffff", cursor: "pointer", borderRadius: "4px", padding: "14px 8px", fontSize: "16px; ", overflow: "hidden", textOverflow: "ellipsis" };
                 return (
                   <div

@@ -17,7 +17,7 @@ class contentSectionHeader extends Component {
         <div className="container border-bottom p-3">
           <div className="row  align-items-center ">
             <div className="col-6">
-              <div id={styles.filterHeader}>{total_results} EYOs in Dharmatala</div>
+              <div id={styles.filterHeader}>{total_results} EYOs</div>
             </div>
             <div className="col-3 d-flex justify-content-around align-items-center" id={styles.mapFilter}>
               <span>Map View</span>
