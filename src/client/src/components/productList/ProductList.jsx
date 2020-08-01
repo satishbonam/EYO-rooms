@@ -11,6 +11,9 @@ import Footer from "../helperComponent/Footer";
 class ProductList extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      mapView: false,
+    };
   }
   componentDidMount() {
     const { hotelListingDataRequest } = this.props;
@@ -26,6 +29,13 @@ class ProductList extends Component {
     console.log("listing calling");
     hotelListingDataRequest({ location: { lat, lon, page: data.page }, path });
   }
+
+  handleMapView = () => {
+    let { mapView } = this.state;
+    this.setState({
+      mapView: !mapView,
+    });
+  };
   // shouldComponentUpdate(prevProps) {
   //   const { hotelListingDataRequest, location } = this.props;
   //   hotelListingDataRequest(location.pathname);
@@ -41,17 +51,13 @@ class ProductList extends Component {
   render() {
     console.log(this.props, "history checkings");
     const { hotelData, token } = this.props;
-    // console.log(hotelData);
-
-    // if (!token) {
-    //   return <Redirect to="/login" />;
-    // }
+    let { mapView } = this.state;
     return (
       <div className="container-fluid p-0">
         <Navbar />
         <div className="row m-0">
-          <Sidebar url={this.props} />
-          <Contentsection history={this.props.history} />
+          <Sidebar url={this.props} mapView={mapView} />
+          <Contentsection history={this.props.history} mapView={mapView} handleMapView={this.handleMapView} />
           <Footer />
         </div>
       </div>

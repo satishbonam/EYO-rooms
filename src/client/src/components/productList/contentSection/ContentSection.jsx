@@ -12,7 +12,7 @@ class ContentSection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      mapView: false,
+      // mapView: false,
       divStyle: {
         maxHeight: "100vh",
       },
@@ -22,13 +22,6 @@ class ContentSection extends Component {
       },
     };
   }
-
-  handleMapView = () => {
-    let { mapView } = this.state;
-    this.setState({
-      mapView: !mapView,
-    });
-  };
 
   handleMoreResults = () => {
     const { hotelListingDataRequest, hotelData, page, history } = this.props;
@@ -83,7 +76,7 @@ class ContentSection extends Component {
   };
   render() {
     let maxHeight;
-    let { mapView } = this.state;
+    let { mapView } = this.props;
     let mapCardClass = mapView ? "col-5 p-0" : "col-12";
     let mapClass = mapView ? "col-7" : "d-none";
     let scroll = mapView && this.state.cardOverflow;
@@ -94,7 +87,7 @@ class ContentSection extends Component {
     return (
       <>
         <div className="col-9">
-          <ContentHeader handleToggle={this.handleMapView} />
+          <ContentHeader handleToggle={this.props.handleMapView} />
           <div className="col-12 d-flex flex-column ">
             <div className="col-12 d-flex p-0" style={{ ...heightscrollCard }}>
               <div className={mapCardClass} style={{ ...scroll }}>

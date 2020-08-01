@@ -14,15 +14,24 @@ import { connect } from "react-redux";
 class Sidebar extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      styleSidebar: {
+        maxHeight: "120vh",
+        overflow: "hidden auto",
+      },
+    };
   }
 
   render() {
     let collections, amenities, category, accomodation;
     const { hotelData, handleFilterAmenities, url, handleFilterAccomodation, handleFilterCategory, handleFilterCheckin, handleFilterCollection } = this.props;
     const { handleRoute } = this;
+    const { mapView } = this.props;
+    let sideBarOverFlow = mapView && this.state.styleSidebar;
+    console.log(mapView, "mapView");
 
     return (
-      <div className="col-3 border-right " id={styles.sidebar}>
+      <div className="col-3 border-right " id={styles.sidebar} style={{ ...sideBarOverFlow }}>
         <div className="col-12 border-bottom " id={styles.filter}>
           <div id={styles.filterHeading}>Filters</div>
           <h4>Popular locations in Kolkata, West Bengal, India</h4>

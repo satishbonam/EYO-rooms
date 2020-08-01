@@ -16,10 +16,9 @@ export default class HomeContent extends Component {
             { heading: "OYO 29781 Radhika Ex", subHeading: "Some quick example text to build o", rating: "4", icon: faStar, review: "134", val: "Very Good", price: "1389", off: "46%" },
             { heading: "OYO 29781 Radhika Ex", subHeading: "Some quick example text to build o", rating: "4", icon: faStar, review: "134", val: "Very Good", price: "1389", off: "46%" },
             { heading: "OYO 29781 Radhika Ex", subHeading: "Some quick example text to build o", rating: "4", icon: faStar, review: "134", val: "Very Good", price: "1389", off: "46%" },
-            { heading: "OYO 29781 Radhika Ex", subHeading: "Some quick example text to build o", rating: "4", icon: faStar, review: "134", val: "Very Good", price: "1389", off: "46%" },
           ].map((elem) => {
             return (
-              <div className="col-3 p-0 " style={{ paddingLeft: "5px" }}>
+              <div className="col-4 p-1 " style={{ paddingLeft: "10px" }}>
                 <div className="card w-100">
                   <img className="card-img-top" src="/images/bed.webp" />
                   <div className="card-body">
