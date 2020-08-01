@@ -4,10 +4,13 @@ import DateRangePicker from "react-bootstrap-daterangepicker";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-daterangepicker/daterangepicker.css";
 import AutocompleteForm from "../AutocompleteForm";
+import {hotelListingDataRequest} from "../../../redux/authentication/actions"
+import {connect} from "react-redux"
+import {loadData} from "../../../redux/authentication/localStorage"
 
 
 
-export default class HomeBanner extends Component {
+ class HomeBanner extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,6 +22,20 @@ export default class HomeBanner extends Component {
       guestCount:1,
       roomContainer:[<div></div>]
     };
+  }
+
+  handleSearchHotel=()=>{
+      const {hotelListingDataRequest,history} =  this.props
+      console.log(this.props)
+      let location = loadData("location")
+      let lat =  location.lat.toString()
+      let lon =  location.lng.toString()
+      console.log(typeof lat)
+      console.log(typeof lon)
+      console.log("listing calling")
+      hotelListingDataRequest({location:{lat,lon},path:""});
+      history.push("/listing")
+      
   }
 
   handleEvent = (event, picker) => {
@@ -80,7 +97,7 @@ export default class HomeBanner extends Component {
   }
   render() {
     let { showrooms,roomCount,guestCount ,inputStart,inputFinish} = this.state;
-    let { handleRoomAndGuest,handleAddRoom,handleDeleteRoom } = this
+    let { handleRoomAndGuest,handleAddRoom,handleDeleteRoom, handleSearchHotel} = this
     let showRoomsDrop = showrooms ? "" : "d-none";
     return (
       <div className="container-fluid" style={{ position: "relative", zIndex: "1" }}>
@@ -135,7 +152,7 @@ export default class HomeBanner extends Component {
                 </div>
 
                 <div id={styles.homebutton} style={{ height: "67px" }}>
-                  <button>Search</button>
+                  <button onClick={handleSearchHotel}>Search</button>
                 </div>
               </div>
               <div className="row px-5 py-4 align-items-cene w-100" id={styles.items}>
@@ -159,3 +176,15 @@ export default class HomeBanner extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  token: state.auth.token,
+  user: state.auth.user,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  hotelListingDataRequest: (payload) =>
+    dispatch(hotelListingDataRequest(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeBanner);

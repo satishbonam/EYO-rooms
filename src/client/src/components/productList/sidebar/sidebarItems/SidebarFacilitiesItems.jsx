@@ -6,6 +6,7 @@ import {
 } from "../../../../redux/authentication/actions";
 import { connect } from "react-redux";
 import { build } from "search-params";
+import {loadData} from "../../../../redux/authentication/localStorage"
 
 class SidebarFacilitiesItems extends React.Component {
   componentDidUpdate(prevProps) {
@@ -53,7 +54,10 @@ class SidebarFacilitiesItems extends React.Component {
       });
     if (prevProps.value !== this.props.value) {
       this.props.url.history.push("/listing/"+build(para));
-      hotelListingDataRequest({location:{lat:"12.9716",lon:"77.5946",page:1},path:build(para)});
+      let location  = loadData("location")
+      let lat =  location.lat.toString()
+      let lon =  location.lng.toString()
+      hotelListingDataRequest({location:{lat,lon},path:build(para)});
     }
   }
   render() {

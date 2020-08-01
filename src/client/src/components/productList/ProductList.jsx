@@ -5,6 +5,7 @@ import Sidebar from "./sidebar/Sidebar";
 import Contentsection from "../productList/contentSection/ContentSection";
 import { hotelListingDataRequest } from "../../redux/authentication/actions";
 import { connect } from "react-redux";
+import {loadData} from "../../redux/authentication/localStorage"
 
 class ProductList extends Component {
   constructor(props) {
@@ -14,7 +15,13 @@ class ProductList extends Component {
     
     let x = document.location.pathname.split("/");
     let path = x.slice(2, x.length).join("");
-    this.props.hotelListingDataRequest({location:{lat:"12.9716",lon:"77.5946",page:1},path});
+    let location =  loadData("location")
+    let lat =  location.lat.toString()
+    let lon =  location.lng.toString()
+    console.log(typeof lat)
+    console.log(typeof lon)
+    console.log("listing calling")
+    hotelListingDataRequest({location:{lat,lon},path});
   }
   // shouldComponentUpdate(prevProps) {
   //   const { hotelListingDataRequest, location } = this.props;

@@ -12,7 +12,7 @@ import { faMapMarkedAlt } from '@fortawesome/free-solid-svg-icons';
 import {connect} from "react-redux"
 import {loadData} from "../../redux/authentication/localStorage"
 
-  let hotelData = loadData("hotelListData")
+  var hotelData = loadData("hotelListData")
   var points = [
     { lat: 19.155001, lng: 72.849998, name:"hotel cacajaca", key:1 },
     { lat: 15.2993, lng: 74.1240,name:"Juncus brachycarpus Engelm.",key:2},
@@ -33,7 +33,7 @@ class map extends React.Component{
                     defaultZoom={10}
                     defaultCenter={{ lat: 12.9715987, lng: 77.5945627 }}>
                         {
-                            hotelData.data.map(ele=>(
+                          hotelData && hotelData.status &&  hotelData.data.map(ele=>(
                                 <Marker key={ele.hotel_id} position={{ lat: ele.location.lat, lng: ele.location.lon }}
                                     onClick={()=>{
                                         this.setState({select:ele})

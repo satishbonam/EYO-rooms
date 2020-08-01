@@ -8,6 +8,7 @@ import {
 import { connect } from "react-redux";
 import PlacesAutocomplete, { geocodeByAddress, geocodeByPlaceId, getLatLng } from "react-places-autocomplete";
 import styles from "./homeBanner/HomeBanner.module.css";
+import {saveData} from "../../redux/authentication/localStorage"
 
 const AutocompleteForm = () => {
   const [address, setAddress] = useState("");
@@ -21,7 +22,11 @@ const AutocompleteForm = () => {
 
     const data = geocodeByAddress(address)
       .then((results) => getLatLng(results[0]))
-      .then((latLng) => console.log("Success", latLng))
+      .then((latLng) => {
+        console.log("Success", latLng)
+        saveData("location",latLng)
+        
+      })
       .catch((error) => console.error("Error", error));
     console.log(data);
   };
