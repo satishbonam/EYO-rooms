@@ -27,7 +27,14 @@ class ProductList extends Component {
     console.log(typeof lat);
     console.log(typeof lon);
     console.log("listing calling");
-    hotelListingDataRequest({ location: { lat, lon, page: data.page || 1 }, path });
+    if (data) {
+      hotelListingDataRequest({
+        location: { lat, lon, page: data.page },
+        path,
+      });
+    } else {
+      hotelListingDataRequest({ location: { lat, lon, page: 1 }, path });
+    }
   }
 
   handleMapView = () => {
@@ -57,7 +64,11 @@ class ProductList extends Component {
         <Navbar />
         <div className="row m-0">
           <Sidebar url={this.props} mapView={mapView} />
-          <Contentsection history={this.props.history} mapView={mapView} handleMapView={this.handleMapView} />
+          <Contentsection
+            history={this.props.history}
+            mapView={mapView}
+            handleMapView={this.handleMapView}
+          />
           <Footer />
         </div>
       </div>
@@ -71,7 +82,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  hotelListingDataRequest: (payload) => dispatch(hotelListingDataRequest(payload)),
+  hotelListingDataRequest: (payload) =>
+    dispatch(hotelListingDataRequest(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductList);

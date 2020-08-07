@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import axios from "axios";
 
-let interceptorEnabled = false;
+let interceptorEnabled = true;
 
 if (process.env.NODE_ENV !== "production") {
   interceptorEnabled = true;
@@ -20,6 +20,7 @@ axiosInstance.interceptors.request.use((request) => {
 
 axiosInstance.interceptors.response.use(
   (response) => {
+    console.log(response);
     if (interceptorEnabled) {
       return response.data;
     }
