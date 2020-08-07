@@ -27,7 +27,7 @@ class ProductList extends Component {
     console.log(typeof lat);
     console.log(typeof lon);
     console.log("listing calling");
-    hotelListingDataRequest({ location: { lat, lon, page: data.page or 1 }, path });
+    hotelListingDataRequest({ location: { lat, lon, page: data.page || 1 }, path });
   }
 
   handleMapView = () => {
