@@ -34,19 +34,22 @@
 
 3. Listing Page
 
-   ![N|Solid](https://i.imgur.com/HGxpCOF.png)
+   ![N|Solid](https://i.imgur.com/x06Focr.png)
 
 4. Entity Page
 
-   ![N|Solid](https://i.imgur.com/HGxpCOF.png)
+   ![N|Solid](https://i.imgur.com/zqzWlzV.png)
+   ![N|Solid](https://i.imgur.com/tVY6rNb.png)
+   ![N|Solid](https://i.imgur.com/ZarIAmM.png)
 
-5. Payment Page
+5) Payment Page
 
-   ![N|Solid](https://i.imgur.com/HGxpCOF.png)
+   ![N|Solid](https://i.imgur.com/mRsXX0c.png)
+   ![N|Solid](https://i.imgur.com/cJcSbsj.png)
 
 6. Booking confirmation Page
 
-   ![N|Solid](https://i.imgur.com/HGxpCOF.png)
+   ![N|Solid](https://i.imgur.com/O3mE2rl.png)
 
 ## Table of Contents
 
