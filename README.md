@@ -22,7 +22,7 @@
 - [x] Integrate Payment Gateway
 - [ ] send emails to user on booking confirmation.
 
-## Overview of POS Application:
+## Overview of Application:
 
 1. Home Page
 
